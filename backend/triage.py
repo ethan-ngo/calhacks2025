@@ -66,7 +66,7 @@ ESI Decision Points:
 You must respond ONLY with a valid JSON object in this exact format:
 {
   "triage_score": <integer 1-5>,
-  "reasoning": "<brief explanation referencing ESI criteria: vital stability, resource needs, acuity level>",
+  "reasoning": "<Extremely Detailed explanation referencing ESI criteria and paitent history: vital stability, resource needs, acuity level>",
   "worsened": <boolean true/false>
 }
 
