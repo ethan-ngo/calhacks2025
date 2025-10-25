@@ -47,4 +47,7 @@ async def handle_nurse_score(ctx: Context, sender: str, data: PatientData):
         ctx.logger.error(f"No documents found for user {data.userID}")
         return
     score = calculate_triage_detailed(data.current_symptoms, documents, data.current_vitals, "")
-    return
+    return score
+
+if __name__ == "__main__":
+    agent.run()
