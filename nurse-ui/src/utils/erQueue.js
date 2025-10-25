@@ -69,4 +69,10 @@ export class ERQueue {
         }
         return list;
     }
+
+    changePatientInfo(id, triageChange=null) {
+        if (triageChange) {
+            this.patientMap.get(id).triageLevel = triageChange;
+        }
+    }
 }
