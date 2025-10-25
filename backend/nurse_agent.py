@@ -1,9 +1,13 @@
 from uagents import Agent, Context, Model
 from dotenv import load_dotenv
 import os
-
+import chromadb
+from triage import calculate_triage_detailed, format_triage_response
 class PatientData(Model):
-    age: int
+    userID: str
+    current_vitals: list[str]
+    current_symptoms: list[str]
+
 # Load environment variables
 load_dotenv()
 
@@ -32,4 +36,15 @@ async def startup(ctx: Context):
 # Handle requests from the wrapper agent
 @agent.on_message(model=PatientData)
 async def handle_nurse_score(ctx: Context, sender: str, data: PatientData):
+    client = chromadb.CloudClient(
+        api_key=os.getenv('CHROMADB_API_KEY'),
+        tenant=os.getenv('CHROMADB_TENANT'),
+        database=os.getenv('CHROMADB_DATABASE')
+    )
+    collection = client.get_collection(data.userID)
+    documents = collection.list_documents()
+    if not documents:
+        ctx.logger.error(f"No documents found for user {data.userID}")
+        return
+    score = calculate_triage_detailed(data.current_symptoms, documents, data.current_vitals, "")
     return
