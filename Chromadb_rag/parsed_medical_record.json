@@ -1,0 +1,4157 @@
+{
+  "demographics": {
+    "id": "073290f9-73e6-8842-bddc-b568bfcb84b0",
+    "resource_type": "Patient",
+    "prefix": "Mrs.",
+    "given_names": "Allen322 Leighann368",
+    "family_name": "Stoltenberg489",
+    "full_name": "Mrs. Allen322 Leighann368 Stoltenberg489",
+    "gender": "female",
+    "birth_date": "1971-12-27",
+    "age": 54,
+    "address_lines": [
+      "138 Stokes Ferry Unit 37"
+    ],
+    "city": "Dracut",
+    "state": "MA",
+    "postal_code": "00000",
+    "country": "US",
+    "full_address": "138 Stokes Ferry Unit 37, Dracut, MA 00000",
+    "phone": "555-631-6068",
+    "marital_status": "Married",
+    "race": "White",
+    "ethnicity": "Not Hispanic or Latino"
+  },
+  "conditions": {
+    "active": [
+      {
+        "id": "073290f9-73e6-8842-4784-0a75ea78894a",
+        "clinical_status": "active",
+        "name": "Received higher education (finding)",
+        "onset_date": "1990-02-19T04:29:21+00:00",
+        "recorded_date": "1990-02-19T04:29:21+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-f185-3c3eef0e40ac",
+        "clinical_status": "active",
+        "name": "Past pregnancy history of miscarriage (situation)",
+        "onset_date": "1999-07-04T07:57:36+00:00",
+        "recorded_date": "1999-07-04T07:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-1714-b38efc6b7a8c",
+        "clinical_status": "active",
+        "name": "Chronic pain (finding)",
+        "onset_date": "2014-02-05T03:57:36+00:00",
+        "recorded_date": "2014-02-05T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-8215-88cf930c521a",
+        "clinical_status": "active",
+        "name": "Chronic low back pain (finding)",
+        "onset_date": "2014-02-05T03:57:36+00:00",
+        "recorded_date": "2014-02-05T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-0062-76c57848f0b3",
+        "clinical_status": "active",
+        "name": "Full-time employment (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-9123-c2e54c850c51",
+        "clinical_status": "active",
+        "name": "Medication review due (situation)",
+        "onset_date": "2024-03-04T03:57:36+00:00",
+        "recorded_date": "2024-03-04T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-31c7-018535ef4678",
+        "clinical_status": "active",
+        "name": "Victim of intimate partner abuse (finding)",
+        "onset_date": "2025-03-10T04:54:38+00:00",
+        "recorded_date": "2025-03-10T04:54:38+00:00"
+      }
+    ],
+    "resolved": [
+      {
+        "id": "073290f9-73e6-8842-da3f-616026823926",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2000-03-06T04:29:14+00:00",
+        "recorded_date": "2000-03-06T04:29:14+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-818d-3eb98a7c0521",
+        "clinical_status": "resolved",
+        "name": "Full-time employment (finding)",
+        "onset_date": "2015-01-12T04:43:20+00:00",
+        "recorded_date": "2015-01-12T04:43:20+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-8d8f-afb657315275",
+        "clinical_status": "resolved",
+        "name": "Unhealthy alcohol drinking behavior (finding)",
+        "onset_date": "2015-01-12T06:37:41+00:00",
+        "recorded_date": "2015-01-12T06:37:41+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-0cf5-0a909166ab79",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2016-01-18T03:57:36+00:00",
+        "recorded_date": "2016-01-18T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-3833-6ac802158f09",
+        "clinical_status": "resolved",
+        "name": "Gingivitis (disorder)",
+        "onset_date": "2016-01-18T06:13:07+00:00",
+        "recorded_date": "2016-01-18T06:13:07+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-9395-c17edef6a45a",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2017-01-23T03:57:36+00:00",
+        "recorded_date": "2017-01-23T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-26ad-b3fd7e8cfc50",
+        "clinical_status": "resolved",
+        "name": "Normal pregnancy (finding)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-cacd-d3eb0d2d684a",
+        "clinical_status": "resolved",
+        "name": "Miscarriage in first trimester (disorder)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-f843-bcfb4f2efd57",
+        "clinical_status": "resolved",
+        "name": "Complete miscarriage (disorder)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-fa5a-c2dbde025b5b",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2018-01-29T03:57:36+00:00",
+        "recorded_date": "2018-01-29T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-7578-637e3900bce1",
+        "clinical_status": "resolved",
+        "name": "Limited social contact (finding)",
+        "onset_date": "2018-01-29T04:36:42+00:00",
+        "recorded_date": "2018-01-29T04:36:42+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-a7d9-5ffa91516542",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2019-02-04T03:57:36+00:00",
+        "recorded_date": "2019-02-04T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-e602-01275e2db6ff",
+        "clinical_status": "resolved",
+        "name": "Viral sinusitis (disorder)",
+        "onset_date": "2019-02-11T03:57:36+00:00",
+        "recorded_date": "2019-02-11T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-4bd7-128b33afb289",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2020-02-10T03:57:36+00:00",
+        "recorded_date": "2020-02-10T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-1dd6-590e7aa1758f",
+        "clinical_status": "resolved",
+        "name": "Not in labor force (finding)",
+        "onset_date": "2020-02-10T04:30:36+00:00",
+        "recorded_date": "2020-02-10T04:30:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-34e6-f20e8aeb41aa",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2021-02-15T03:57:36+00:00",
+        "recorded_date": "2021-02-15T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-400f-a38d63bb76cf",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-903f-59b472e272c8",
+        "clinical_status": "resolved",
+        "name": "Victim of intimate partner abuse (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-005d-4d25f2efe500",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2024-03-04T04:53:19+00:00",
+        "recorded_date": "2024-03-04T04:53:19+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-c0cd-d4f6bb21a914",
+        "clinical_status": "resolved",
+        "name": "Gingivitis (disorder)",
+        "onset_date": "2024-03-04T05:46:04+00:00",
+        "recorded_date": "2024-03-04T05:46:04+00:00"
+      }
+    ],
+    "all": [
+      {
+        "id": "073290f9-73e6-8842-4784-0a75ea78894a",
+        "clinical_status": "active",
+        "name": "Received higher education (finding)",
+        "onset_date": "1990-02-19T04:29:21+00:00",
+        "recorded_date": "1990-02-19T04:29:21+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-f185-3c3eef0e40ac",
+        "clinical_status": "active",
+        "name": "Past pregnancy history of miscarriage (situation)",
+        "onset_date": "1999-07-04T07:57:36+00:00",
+        "recorded_date": "1999-07-04T07:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-da3f-616026823926",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2000-03-06T04:29:14+00:00",
+        "recorded_date": "2000-03-06T04:29:14+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-1714-b38efc6b7a8c",
+        "clinical_status": "active",
+        "name": "Chronic pain (finding)",
+        "onset_date": "2014-02-05T03:57:36+00:00",
+        "recorded_date": "2014-02-05T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-8215-88cf930c521a",
+        "clinical_status": "active",
+        "name": "Chronic low back pain (finding)",
+        "onset_date": "2014-02-05T03:57:36+00:00",
+        "recorded_date": "2014-02-05T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-818d-3eb98a7c0521",
+        "clinical_status": "resolved",
+        "name": "Full-time employment (finding)",
+        "onset_date": "2015-01-12T04:43:20+00:00",
+        "recorded_date": "2015-01-12T04:43:20+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-8d8f-afb657315275",
+        "clinical_status": "resolved",
+        "name": "Unhealthy alcohol drinking behavior (finding)",
+        "onset_date": "2015-01-12T06:37:41+00:00",
+        "recorded_date": "2015-01-12T06:37:41+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-0cf5-0a909166ab79",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2016-01-18T03:57:36+00:00",
+        "recorded_date": "2016-01-18T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-3833-6ac802158f09",
+        "clinical_status": "resolved",
+        "name": "Gingivitis (disorder)",
+        "onset_date": "2016-01-18T06:13:07+00:00",
+        "recorded_date": "2016-01-18T06:13:07+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-9395-c17edef6a45a",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2017-01-23T03:57:36+00:00",
+        "recorded_date": "2017-01-23T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-26ad-b3fd7e8cfc50",
+        "clinical_status": "resolved",
+        "name": "Normal pregnancy (finding)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-cacd-d3eb0d2d684a",
+        "clinical_status": "resolved",
+        "name": "Miscarriage in first trimester (disorder)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-f843-bcfb4f2efd57",
+        "clinical_status": "resolved",
+        "name": "Complete miscarriage (disorder)",
+        "onset_date": "2017-05-08T03:57:36+00:00",
+        "recorded_date": "2017-05-08T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-fa5a-c2dbde025b5b",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2018-01-29T03:57:36+00:00",
+        "recorded_date": "2018-01-29T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-7578-637e3900bce1",
+        "clinical_status": "resolved",
+        "name": "Limited social contact (finding)",
+        "onset_date": "2018-01-29T04:36:42+00:00",
+        "recorded_date": "2018-01-29T04:36:42+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-a7d9-5ffa91516542",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2019-02-04T03:57:36+00:00",
+        "recorded_date": "2019-02-04T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-e602-01275e2db6ff",
+        "clinical_status": "resolved",
+        "name": "Viral sinusitis (disorder)",
+        "onset_date": "2019-02-11T03:57:36+00:00",
+        "recorded_date": "2019-02-11T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-4bd7-128b33afb289",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2020-02-10T03:57:36+00:00",
+        "recorded_date": "2020-02-10T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-1dd6-590e7aa1758f",
+        "clinical_status": "resolved",
+        "name": "Not in labor force (finding)",
+        "onset_date": "2020-02-10T04:30:36+00:00",
+        "recorded_date": "2020-02-10T04:30:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-34e6-f20e8aeb41aa",
+        "clinical_status": "resolved",
+        "name": "Medication review due (situation)",
+        "onset_date": "2021-02-15T03:57:36+00:00",
+        "recorded_date": "2021-02-15T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-0062-76c57848f0b3",
+        "clinical_status": "active",
+        "name": "Full-time employment (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-400f-a38d63bb76cf",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-903f-59b472e272c8",
+        "clinical_status": "resolved",
+        "name": "Victim of intimate partner abuse (finding)",
+        "onset_date": "2021-02-15T04:38:11+00:00",
+        "recorded_date": "2021-02-15T04:38:11+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-9123-c2e54c850c51",
+        "clinical_status": "active",
+        "name": "Medication review due (situation)",
+        "onset_date": "2024-03-04T03:57:36+00:00",
+        "recorded_date": "2024-03-04T03:57:36+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-005d-4d25f2efe500",
+        "clinical_status": "resolved",
+        "name": "Stress (finding)",
+        "onset_date": "2024-03-04T04:53:19+00:00",
+        "recorded_date": "2024-03-04T04:53:19+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-c0cd-d4f6bb21a914",
+        "clinical_status": "resolved",
+        "name": "Gingivitis (disorder)",
+        "onset_date": "2024-03-04T05:46:04+00:00",
+        "recorded_date": "2024-03-04T05:46:04+00:00"
+      },
+      {
+        "id": "073290f9-73e6-8842-31c7-018535ef4678",
+        "clinical_status": "active",
+        "name": "Victim of intimate partner abuse (finding)",
+        "onset_date": "2025-03-10T04:54:38+00:00",
+        "recorded_date": "2025-03-10T04:54:38+00:00"
+      }
+    ]
+  },
+  "medications": {
+    "current_medications": [
+      {
+        "id": "1b5b14f7-734d-a9e7-9c34-ad73da05d4d9",
+        "name": "1 ML medroxyprogesterone acetate 150 MG/ML Injection",
+        "code": "1000126"
+      },
+      {
+        "id": "3c3216ff-eb21-8841-774b-0fcd5b85e92f",
+        "name": "Mirena 52 MG Intrauterine System",
+        "code": "807283"
+      },
+      {
+        "id": "8c861694-ef0c-2661-3369-d7ba36d291e6",
+        "name": "sodium fluoride 0.0272 MG/MG Oral Gel",
+        "code": "1535362"
+      }
+    ],
+    "prescriptions": [
+      {
+        "id": "073290f9-73e6-8842-21d3-b91f2aa3d88a",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2015-01-12",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-e843-522387086056",
+        "status": "completed",
+        "intent": "order",
+        "name": "",
+        "code": "",
+        "authored_date": "2015-08-23"
+      },
+      {
+        "id": "073290f9-73e6-8842-ffb4-0fee12627e32",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2016-01-18",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-6cca-49e6ff8b5824",
+        "status": "completed",
+        "intent": "order",
+        "name": "Levora 0.15/30 28 Day Pack",
+        "code": "748879",
+        "authored_date": "2016-08-17"
+      },
+      {
+        "id": "073290f9-73e6-8842-72b9-7d0a2b86cf74",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2017-01-23",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-26f6-9747f93b1229",
+        "status": "completed",
+        "intent": "order",
+        "name": "",
+        "code": "",
+        "authored_date": "2017-08-12"
+      },
+      {
+        "id": "073290f9-73e6-8842-1c93-e481af0286c4",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2018-01-29",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-a642-d67c3adb72dd",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2019-02-04",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-b2f4-effe782c7fde",
+        "status": "completed",
+        "intent": "order",
+        "name": "NuvaRing 0.12/0.015 MG per 24HR 21 Day Vaginal System",
+        "code": "1367439",
+        "authored_date": "2019-08-05"
+      },
+      {
+        "id": "073290f9-73e6-8842-1b37-0257c16f35da",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2020-02-10",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-5ec6-4c53cf6b9391",
+        "status": "completed",
+        "intent": "order",
+        "name": "Natazia 28 Day Pack",
+        "code": "978950",
+        "authored_date": "2020-07-30"
+      },
+      {
+        "id": "073290f9-73e6-8842-cc10-b4e91655bbcf",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2021-02-15",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-4f8a-518924fbd26f",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2022-02-21",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-1ab1-e888ca2e5606",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2023-02-27",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-0683-99cd280ba234",
+        "status": "completed",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2024-03-04",
+        "dosage_text": "Take as needed."
+      },
+      {
+        "id": "073290f9-73e6-8842-70bf-f1918f4ae75d",
+        "status": "completed",
+        "intent": "order",
+        "name": "",
+        "code": "",
+        "authored_date": "2024-03-18"
+      },
+      {
+        "id": "073290f9-73e6-8842-3afd-b39d16d3f47d",
+        "status": "active",
+        "intent": "order",
+        "name": "tramadol hydrochloride 50 MG Oral Tablet",
+        "code": "835603",
+        "authored_date": "2025-03-10",
+        "dosage_text": "Take as needed."
+      }
+    ],
+    "administrations": [
+      {
+        "id": "f7491281-5783-b7e5-593a-ad62034dbb4c",
+        "status": "completed",
+        "name": "1 ML medroxyprogesterone acetate 150 MG/ML Injection",
+        "effective_date": "2015-08-23"
+      },
+      {
+        "id": "290a4365-ef99-e411-0c40-04f77352d075",
+        "status": "completed",
+        "name": "Mirena 52 MG Intrauterine System",
+        "effective_date": "2017-08-12"
+      },
+      {
+        "id": "01edf782-8240-308d-0683-169c3052cc1c",
+        "status": "completed",
+        "name": "sodium fluoride 0.0272 MG/MG Oral Gel",
+        "effective_date": "2024-03-18"
+      }
+    ]
+  },
+  "procedures": [
+    {
+      "id": "073290f9-73e6-8842-39aa-58d61f4e2d23",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-723a-152af516d57e",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-b0b9-1077b0771f42",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-6415-971522c9ffae",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-f262-8deaf7e4ecde",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-0812-e83c0f28f86a",
+      "status": "completed",
+      "name": "Screening for drug abuse (procedure)",
+      "code": "713106006",
+      "performed_date": "2025-03-10",
+      "end_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-6516-2ca3a514643d",
+      "status": "completed",
+      "name": "Dental consultation and report (procedure)",
+      "code": "34043003",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-4c79-c9396db072bd",
+      "status": "completed",
+      "name": "Dental care (regime/therapy)",
+      "code": "225362009",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-708b-511d4f62d899",
+      "status": "completed",
+      "name": "Removal of supragingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260009003",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-5dec-4ade16b0bc10",
+      "status": "completed",
+      "name": "Removal of subgingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260010008",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-303d-d4575709f37d",
+      "status": "completed",
+      "name": "Examination of gingivae (procedure)",
+      "code": "274788003",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-0d4b-9804110a2aea",
+      "status": "completed",
+      "name": "Dental fluoride treatment (procedure)",
+      "code": "68071007",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-a9a6-3b668fef031f",
+      "status": "completed",
+      "name": "Oral health education (procedure)",
+      "code": "243085009",
+      "performed_date": "2024-03-18",
+      "end_date": "2024-03-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-9095-d97d66035b78",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2024-03-04",
+      "end_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-623e-03e55ab052a6",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2024-03-04",
+      "end_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-220e-486942cc18fb",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2024-03-04",
+      "end_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-20fb-4bdb37f3b9fb",
+      "status": "completed",
+      "name": "Screening for drug abuse (procedure)",
+      "code": "713106006",
+      "performed_date": "2024-03-04",
+      "end_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-5cf4-bfc9e1806b10",
+      "status": "completed",
+      "name": "Patient referral for dental care (procedure)",
+      "code": "103697008",
+      "performed_date": "2024-03-04",
+      "end_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-8841-d9b6b244cef9",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2023-02-27",
+      "end_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-49ed-8de0563679d8",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2023-02-27",
+      "end_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-14d1-3e521ae3842d",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2023-02-27",
+      "end_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-059d-45e8427f74b9",
+      "status": "completed",
+      "name": "Removal of intrauterine contraceptive device (procedure)",
+      "code": "1263416007",
+      "performed_date": "2022-08-01",
+      "end_date": "2022-08-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-87a3-a0efcf96621f",
+      "status": "completed",
+      "name": "Dental consultation and report (procedure)",
+      "code": "34043003",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-3907-baf99fcc4d77",
+      "status": "completed",
+      "name": "Dental care (regime/therapy)",
+      "code": "225362009",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-db29-1dc249ecd294",
+      "status": "completed",
+      "name": "Removal of supragingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260009003",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-e1ca-93f59aed1c3f",
+      "status": "completed",
+      "name": "Removal of subgingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260010008",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-e55c-e7d31347aa09",
+      "status": "completed",
+      "name": "Examination of gingivae (procedure)",
+      "code": "274788003",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-452a-d18ed57bc70e",
+      "status": "completed",
+      "name": "Oral health education (procedure)",
+      "code": "243085009",
+      "performed_date": "2022-03-07",
+      "end_date": "2022-03-07"
+    },
+    {
+      "id": "073290f9-73e6-8842-21d0-df070375759c",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2022-02-21",
+      "end_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-9a5c-8f34c0a6f51e",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2022-02-21",
+      "end_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-52e6-760168ed1214",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2022-02-21",
+      "end_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-518a-7028ed926962",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2022-02-21",
+      "end_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-dd1f-a055c589b8f1",
+      "status": "completed",
+      "name": "Patient referral for dental care (procedure)",
+      "code": "103697008",
+      "performed_date": "2022-02-21",
+      "end_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-5b43-974f0787ab1b",
+      "status": "completed",
+      "name": "Colonoscopy (procedure)",
+      "code": "73761001",
+      "performed_date": "2021-12-27",
+      "end_date": "2021-12-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-b993-1b99212b966d",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2021-02-15",
+      "end_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-ec97-fe477c71d41f",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2021-02-15",
+      "end_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-d49e-43477661af4d",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2021-02-15",
+      "end_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-d98c-25b66063babd",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2021-02-15",
+      "end_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-a4b0-1aceb63d2387",
+      "status": "completed",
+      "name": "Assessment using Alcohol Use Disorders Identification Test - Consumption (procedure)",
+      "code": "763302001",
+      "performed_date": "2021-02-15",
+      "end_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-bf28-26986ab9f730",
+      "status": "completed",
+      "name": "Dental consultation and report (procedure)",
+      "code": "34043003",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-cf04-f98a656e8c0d",
+      "status": "completed",
+      "name": "Dental care (regime/therapy)",
+      "code": "225362009",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-1bc6-abb6ffa82ad6",
+      "status": "completed",
+      "name": "Removal of supragingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260009003",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-add7-246146a615e9",
+      "status": "completed",
+      "name": "Removal of subgingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260010008",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-f3a2-33cbaab65338",
+      "status": "completed",
+      "name": "Examination of gingivae (procedure)",
+      "code": "274788003",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-de31-29707ea86491",
+      "status": "completed",
+      "name": "Oral health education (procedure)",
+      "code": "243085009",
+      "performed_date": "2020-02-24",
+      "end_date": "2020-02-24"
+    },
+    {
+      "id": "073290f9-73e6-8842-817f-dbf6484fedd8",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2020-02-10",
+      "end_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-ef5b-05a26c31e050",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2020-02-10",
+      "end_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-3b2a-6004b99b8d07",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2020-02-10",
+      "end_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-2bb6-ee4f1eca5aa9",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2020-02-10",
+      "end_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-10cb-1ab623642687",
+      "status": "completed",
+      "name": "Patient referral for dental care (procedure)",
+      "code": "103697008",
+      "performed_date": "2020-02-10",
+      "end_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-9bac-a2fcc24d5faf",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-c009-9f498d0709d6",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-e1bf-3d8b364a7677",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-1408-4be78705751f",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-303d-56217b7ab646",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-bba3-43dc98ce044c",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-33be-f20a428bca50",
+      "status": "completed",
+      "name": "Screening for drug abuse (procedure)",
+      "code": "713106006",
+      "performed_date": "2019-02-04",
+      "end_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-43e2-1556f24c9af3",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-4991-db9436ecfc48",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-587a-ed9e0235b1d4",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-9e40-da6563808081",
+      "status": "completed",
+      "name": "Screening for domestic abuse (procedure)",
+      "code": "866148006",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-3c0a-426bc52d05ef",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-c042-9b082c0a58b2",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-2c92-f8d72a8773f8",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-a2eb-def2dd19213e",
+      "status": "completed",
+      "name": "Screening for drug abuse (procedure)",
+      "code": "713106006",
+      "performed_date": "2018-01-29",
+      "end_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-eff3-85d10fd29331",
+      "status": "completed",
+      "name": "Insertion of intrauterine contraceptive device (procedure)",
+      "code": "65200003",
+      "performed_date": "2017-08-15",
+      "end_date": "2017-08-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-d583-7333f30527bc",
+      "status": "completed",
+      "name": "Passive immunization (procedure)",
+      "code": "51116004",
+      "performed_date": "2017-05-23",
+      "end_date": "2017-05-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-2745-c14aebb46c91",
+      "status": "completed",
+      "name": "Physical examination procedure (procedure)",
+      "code": "5880005",
+      "performed_date": "2017-05-23",
+      "end_date": "2017-05-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-3b74-842f3e70575a",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2017-05-23",
+      "end_date": "2017-05-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-390b-3e1553bdd65a",
+      "status": "completed",
+      "name": "Standard pregnancy test (procedure)",
+      "code": "252160004",
+      "performed_date": "2017-05-08",
+      "end_date": "2017-05-08"
+    },
+    {
+      "id": "073290f9-73e6-8842-22a2-3f6b5458e7c4",
+      "status": "completed",
+      "name": "Ultrasound scan for fetal viability (procedure)",
+      "code": "169230002",
+      "performed_date": "2017-05-08",
+      "end_date": "2017-05-08"
+    },
+    {
+      "id": "073290f9-73e6-8842-a92e-e12f08a37892",
+      "status": "completed",
+      "name": "Removal of subcutaneous contraceptive (procedure)",
+      "code": "301807007",
+      "performed_date": "2017-03-20",
+      "end_date": "2017-03-20"
+    },
+    {
+      "id": "073290f9-73e6-8842-c38d-f9707edd69be",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-b95b-9c47082cb9b7",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-01b3-e73ddcc735bb",
+      "status": "completed",
+      "name": "Assessment of anxiety (procedure)",
+      "code": "710841007",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-c099-5abd23f359a1",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-9d0c-c2b9e4c5987e",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-ec0e-6a40925c2f2d",
+      "status": "completed",
+      "name": "Assessment of substance use (procedure)",
+      "code": "428211000124100",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-b7e8-f7f022abf113",
+      "status": "completed",
+      "name": "Assessment using Alcohol Use Disorders Identification Test - Consumption (procedure)",
+      "code": "763302001",
+      "performed_date": "2017-01-23",
+      "end_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-4ae3-c2df97e5ccdf",
+      "status": "completed",
+      "name": "Dental consultation and report (procedure)",
+      "code": "34043003",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-0217-4d5f11522cac",
+      "status": "completed",
+      "name": "Dental care (regime/therapy)",
+      "code": "225362009",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-a535-d3e9ba41c4c0",
+      "status": "completed",
+      "name": "Removal of supragingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260009003",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-9a34-a9a2b82a311a",
+      "status": "completed",
+      "name": "Removal of subgingival plaque and calculus from all teeth using dental instrument (procedure)",
+      "code": "1260010008",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-eb53-32c1aac27cff",
+      "status": "completed",
+      "name": "Dental plain X-ray bitewing (procedure)",
+      "code": "241046008",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-df4c-77f825f5a50e",
+      "status": "completed",
+      "name": "Examination of gingivae (procedure)",
+      "code": "274788003",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-b654-0ce9205ff310",
+      "status": "completed",
+      "name": "Oral health education (procedure)",
+      "code": "243085009",
+      "performed_date": "2016-02-01",
+      "end_date": "2016-02-01"
+    },
+    {
+      "id": "073290f9-73e6-8842-0b43-e7f7fcf5e7f3",
+      "status": "completed",
+      "name": "Medication reconciliation (procedure)",
+      "code": "430193006",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-a111-a8a7c819c476",
+      "status": "completed",
+      "name": "Assessment of health and social care needs (procedure)",
+      "code": "710824005",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-172d-fe581e6d2f5c",
+      "status": "completed",
+      "name": "Screening for domestic abuse (procedure)",
+      "code": "866148006",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-3839-69fd8c7c8c3e",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-0fe9-eef9aee10bbc",
+      "status": "completed",
+      "name": "Depression screening (procedure)",
+      "code": "171207006",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-aafc-f6f911808129",
+      "status": "completed",
+      "name": "Patient referral for dental care (procedure)",
+      "code": "103697008",
+      "performed_date": "2016-01-18",
+      "end_date": "2016-01-18"
+    }
+  ],
+  "immunizations": [
+    {
+      "id": "073290f9-73e6-8842-faad-8a4c336a8932",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-4ad4-7a46cf198bf9",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-fb68-b6e3b933d6db",
+      "status": "completed",
+      "vaccine_name": "zoster vaccine, live",
+      "vaccine_code": "121",
+      "occurrence_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-a11a-c6f50f056382",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-5613-65396948a2d0",
+      "status": "completed",
+      "vaccine_name": "Td (adult), 5 Lf tetanus toxoid, preservative free, adsorbed",
+      "vaccine_code": "113",
+      "occurrence_date": "2023-02-27"
+    },
+    {
+      "id": "073290f9-73e6-8842-ce29-71d8cae88b39",
+      "status": "completed",
+      "vaccine_name": "zoster vaccine, live",
+      "vaccine_code": "121",
+      "occurrence_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-f32a-3204f44aaaf0",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-6a25-458f4d668138",
+      "status": "completed",
+      "vaccine_name": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose",
+      "vaccine_code": "207",
+      "occurrence_date": "2021-10-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-ecca-43b4a47bd8f0",
+      "status": "completed",
+      "vaccine_name": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5mL dose or 50 mcg/0.25mL dose",
+      "vaccine_code": "207",
+      "occurrence_date": "2021-09-06"
+    },
+    {
+      "id": "073290f9-73e6-8842-4624-7b1677ed34a9",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-209d-d6c5ce5efe81",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2020-02-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-bb7a-ce89ce9ba66d",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-1c4b-b4748f451760",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-b20c-e01ef0fb609b",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-5d0d-7d707606e085",
+      "status": "completed",
+      "vaccine_name": "Influenza, seasonal, injectable, preservative free",
+      "vaccine_code": "140",
+      "occurrence_date": "2016-01-18"
+    }
+  ],
+  "observations": {
+    "vital_signs": [
+      {
+        "id": "073290f9-73e6-8842-1daf-0bd76b3d0bc7",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2016-01-18",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-2227-2000130b370f",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2016-01-18",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-529a-83429f56c9bc",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2016-01-18",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-e010-71f295bb1401",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2016-01-18",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-e531-dd939d0971b1",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2016-01-18"
+      },
+      {
+        "id": "073290f9-73e6-8842-3269-0eca695a1b25",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2016-01-18",
+        "value": 65,
+        "unit": "/min",
+        "value_string": "65 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-7970-4d82f10b1da9",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2016-01-18",
+        "value": 15,
+        "unit": "/min",
+        "value_string": "15 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-c00d-afdcd527c412",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2017-01-23",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-7661-df13a5239667",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2017-01-23",
+        "value": 3,
+        "unit": "{score}",
+        "value_string": "3 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-3dc1-d5f594d544dc",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2017-01-23",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-8793-9a2ad1145225",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2017-01-23",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-00de-e202d0281ad1",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2017-01-23"
+      },
+      {
+        "id": "073290f9-73e6-8842-9b71-598dd9656243",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2017-01-23",
+        "value": 65,
+        "unit": "/min",
+        "value_string": "65 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-6eaa-571af3718276",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2017-01-23",
+        "value": 14,
+        "unit": "/min",
+        "value_string": "14 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-49bd-7bc1db15c15c",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2018-01-29",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-4ac8-cd41469c65bf",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2018-01-29",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-174a-7addd790e422",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2018-01-29",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-5e68-a27fb055211c",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2018-01-29",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-6863-9a3e3be19939",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2018-01-29"
+      },
+      {
+        "id": "073290f9-73e6-8842-695b-b6c2fac7ae33",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2018-01-29",
+        "value": 65,
+        "unit": "/min",
+        "value_string": "65 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-de15-83e0109b8bbe",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2018-01-29",
+        "value": 14,
+        "unit": "/min",
+        "value_string": "14 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-64a5-059637efd708",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2019-02-04",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-41d0-c0612e9aef17",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2019-02-04",
+        "value": 3,
+        "unit": "{score}",
+        "value_string": "3 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1d2f-9a2914ac8b73",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2019-02-04",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-925c-3a4bc01ebc7e",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2019-02-04",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-e39e-d40bb9b0b358",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2019-02-04"
+      },
+      {
+        "id": "073290f9-73e6-8842-a4a7-1d6b6cff425d",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2019-02-04",
+        "value": 76,
+        "unit": "/min",
+        "value_string": "76 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-8d38-ee98315c2349",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2019-02-04",
+        "value": 15,
+        "unit": "/min",
+        "value_string": "15 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-2885-8827a31f7aaa",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2020-02-10",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-720b-c529d94aeabb",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2020-02-10",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-3306-69b6a81c3d0a",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2020-02-10",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-b91f-8ed6a2485dff",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2020-02-10",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-88ec-07d6e49b07ae",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2020-02-10"
+      },
+      {
+        "id": "073290f9-73e6-8842-68de-d2019848ca3d",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2020-02-10",
+        "value": 94,
+        "unit": "/min",
+        "value_string": "94 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-cab6-7c37f364847c",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2020-02-10",
+        "value": 15,
+        "unit": "/min",
+        "value_string": "15 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-3ff2-25ece94b1992",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2021-02-15",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-ac6e-1c79c5e4c8eb",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2021-02-15",
+        "value": 3,
+        "unit": "{score}",
+        "value_string": "3 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-65b6-1014bc57d217",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2021-02-15",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-35ae-aa30eb30440e",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2021-02-15",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-5040-a6b07abf6fb0",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2021-02-15"
+      },
+      {
+        "id": "073290f9-73e6-8842-6766-24caf5221b15",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2021-02-15",
+        "value": 62,
+        "unit": "/min",
+        "value_string": "62 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-3375-447d7d6d7d0d",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2021-02-15",
+        "value": 14,
+        "unit": "/min",
+        "value_string": "14 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-2980-005c5a6b7fe1",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2022-02-21",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-b3c0-eeb4c9218e6b",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2022-02-21",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1c99-b6ec066741d1",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2022-02-21",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-ec17-65af5a0fa46b",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2022-02-21",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-36dc-189d6bc6e340",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2022-02-21"
+      },
+      {
+        "id": "073290f9-73e6-8842-cbf9-4219006e2370",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2022-02-21",
+        "value": 74,
+        "unit": "/min",
+        "value_string": "74 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-54af-8777c6e94677",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2022-02-21",
+        "value": 14,
+        "unit": "/min",
+        "value_string": "14 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-219f-d15e5b2e922a",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2023-02-27",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-6927-ab99931a07eb",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2023-02-27",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-2af2-6d736ff2b463",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2023-02-27",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-8e69-8e6acec165ee",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2023-02-27",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-b2c1-5dfe85128eff",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2023-02-27"
+      },
+      {
+        "id": "073290f9-73e6-8842-3bd7-d1612fe50d96",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2023-02-27",
+        "value": 83,
+        "unit": "/min",
+        "value_string": "83 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-2548-5f3835ab5e10",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2023-02-27",
+        "value": 16,
+        "unit": "/min",
+        "value_string": "16 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-6903-57c8848883e9",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2024-03-04",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-20ad-0dfd89222cba",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2024-03-04",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-42f1-36c3d51da6e6",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2024-03-04",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-6fc3-65450f817b55",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2024-03-04",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-88d3-e7903db680d7",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2024-03-04"
+      },
+      {
+        "id": "073290f9-73e6-8842-8b99-d490188074c7",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2024-03-04",
+        "value": 75,
+        "unit": "/min",
+        "value_string": "75 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-ded1-1bedb3e596f2",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2024-03-04",
+        "value": 15,
+        "unit": "/min",
+        "value_string": "15 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-2900-ebbf92b1da27",
+        "status": "final",
+        "name": "Body Height",
+        "code": "8302-2",
+        "effective_date": "2025-03-10",
+        "value": 168.3,
+        "unit": "cm",
+        "value_string": "168.3 cm"
+      },
+      {
+        "id": "073290f9-73e6-8842-980a-0783540016f0",
+        "status": "final",
+        "name": "Pain severity - 0-10 verbal numeric rating [Score] - Reported",
+        "code": "72514-3",
+        "effective_date": "2025-03-10",
+        "value": 4,
+        "unit": "{score}",
+        "value_string": "4 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-4249-a7333c3993b0",
+        "status": "final",
+        "name": "Body Weight",
+        "code": "29463-7",
+        "effective_date": "2025-03-10",
+        "value": 73,
+        "unit": "kg",
+        "value_string": "73 kg"
+      },
+      {
+        "id": "073290f9-73e6-8842-a536-036e1971a546",
+        "status": "final",
+        "name": "Body mass index (BMI) [Ratio]",
+        "code": "39156-5",
+        "effective_date": "2025-03-10",
+        "value": 25.77,
+        "unit": "kg/m2",
+        "value_string": "25.77 kg/m2"
+      },
+      {
+        "id": "073290f9-73e6-8842-a394-36302c639b82",
+        "status": "final",
+        "name": "Blood pressure panel with all children optional",
+        "code": "85354-9",
+        "effective_date": "2025-03-10"
+      },
+      {
+        "id": "073290f9-73e6-8842-6667-8113829e9bf6",
+        "status": "final",
+        "name": "Heart rate",
+        "code": "8867-4",
+        "effective_date": "2025-03-10",
+        "value": 97,
+        "unit": "/min",
+        "value_string": "97 /min"
+      },
+      {
+        "id": "073290f9-73e6-8842-ac8d-d4e480dfa027",
+        "status": "final",
+        "name": "Respiratory rate",
+        "code": "9279-1",
+        "effective_date": "2025-03-10",
+        "value": 14,
+        "unit": "/min",
+        "value_string": "14 /min"
+      }
+    ],
+    "lab_results": [
+      {
+        "id": "073290f9-73e6-8842-5ff7-676ea499a9c6",
+        "status": "final",
+        "name": "Cholesterol [Mass/volume] in Serum or Plasma",
+        "code": "2093-3",
+        "effective_date": "2017-01-23",
+        "value": 210.09,
+        "unit": "mg/dL",
+        "value_string": "210.09 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-7a85-c0a1bc06a214",
+        "status": "final",
+        "name": "Triglycerides",
+        "code": "2571-8",
+        "effective_date": "2017-01-23",
+        "value": 148.1,
+        "unit": "mg/dL",
+        "value_string": "148.1 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-8771-a34cbebcf863",
+        "status": "final",
+        "name": "Low Density Lipoprotein Cholesterol",
+        "code": "18262-6",
+        "effective_date": "2017-01-23",
+        "value": 128.48,
+        "unit": "mg/dL",
+        "value_string": "128.48 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-3e9f-7fc73fddd52d",
+        "status": "final",
+        "name": "Cholesterol in HDL [Mass/volume] in Serum or Plasma",
+        "code": "2085-9",
+        "effective_date": "2017-01-23",
+        "value": 51.99,
+        "unit": "mg/dL",
+        "value_string": "51.99 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-1b63-f3c461170c4a",
+        "status": "final",
+        "name": "Leukocytes [#/volume] in Blood by Automated count",
+        "code": "6690-2",
+        "effective_date": "2017-01-23",
+        "value": 4.2157,
+        "unit": "10*3/uL",
+        "value_string": "4.2157 10*3/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-bbb5-6ae89a5adcd0",
+        "status": "final",
+        "name": "Erythrocytes [#/volume] in Blood by Automated count",
+        "code": "789-8",
+        "effective_date": "2017-01-23",
+        "value": 5.2841,
+        "unit": "10*6/uL",
+        "value_string": "5.2841 10*6/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-7dc7-457ffdcd1cb3",
+        "status": "final",
+        "name": "Hemoglobin [Mass/volume] in Blood",
+        "code": "718-7",
+        "effective_date": "2017-01-23",
+        "value": 15.281,
+        "unit": "g/dL",
+        "value_string": "15.281 g/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-c8e2-52190f1c6fab",
+        "status": "final",
+        "name": "Hematocrit [Volume Fraction] of Blood by Automated count",
+        "code": "4544-3",
+        "effective_date": "2017-01-23",
+        "value": 43.929,
+        "unit": "%",
+        "value_string": "43.929 %"
+      },
+      {
+        "id": "073290f9-73e6-8842-0b05-f5a2d3312d0e",
+        "status": "final",
+        "name": "MCV [Entitic volume] by Automated count",
+        "code": "787-2",
+        "effective_date": "2017-01-23",
+        "value": 85.669,
+        "unit": "fL",
+        "value_string": "85.669 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-4e11-8b0de1e870ac",
+        "status": "final",
+        "name": "MCH [Entitic mass] by Automated count",
+        "code": "785-6",
+        "effective_date": "2017-01-23",
+        "value": 27.028,
+        "unit": "pg",
+        "value_string": "27.028 pg"
+      },
+      {
+        "id": "073290f9-73e6-8842-2631-99306f2ee4db",
+        "status": "final",
+        "name": "MCHC [Mass/volume] by Automated count",
+        "code": "786-4",
+        "effective_date": "2017-01-23",
+        "value": 33.158,
+        "unit": "g/dL",
+        "value_string": "33.158 g/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-4d50-02ebde3599d0",
+        "status": "final",
+        "name": "Erythrocyte distribution width [Entitic volume] by Automated count",
+        "code": "21000-5",
+        "effective_date": "2017-01-23",
+        "value": 40.367,
+        "unit": "fL",
+        "value_string": "40.367 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-9994-9591324c7e30",
+        "status": "final",
+        "name": "Platelets [#/volume] in Blood by Automated count",
+        "code": "777-3",
+        "effective_date": "2017-01-23",
+        "value": 361.27,
+        "unit": "10*3/uL",
+        "value_string": "361.27 10*3/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-05f5-997f25934ce6",
+        "status": "final",
+        "name": "Platelet distribution width [Entitic volume] in Blood by Automated count",
+        "code": "32207-3",
+        "effective_date": "2017-01-23",
+        "value": 255.2,
+        "unit": "fL",
+        "value_string": "255.2 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-01ae-490fbf6b0436",
+        "status": "final",
+        "name": "Platelet mean volume [Entitic volume] in Blood by Automated count",
+        "code": "32623-1",
+        "effective_date": "2017-01-23",
+        "value": 11.68,
+        "unit": "fL",
+        "value_string": "11.68 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-9719-da595af7c8b4",
+        "status": "final",
+        "name": "Cholesterol [Mass/volume] in Serum or Plasma",
+        "code": "2093-3",
+        "effective_date": "2020-02-10",
+        "value": 172.71,
+        "unit": "mg/dL",
+        "value_string": "172.71 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-c6b0-c641303e28ff",
+        "status": "final",
+        "name": "Triglycerides",
+        "code": "2571-8",
+        "effective_date": "2020-02-10",
+        "value": 134.84,
+        "unit": "mg/dL",
+        "value_string": "134.84 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-5ada-94091cc0b9cf",
+        "status": "final",
+        "name": "Low Density Lipoprotein Cholesterol",
+        "code": "18262-6",
+        "effective_date": "2020-02-10",
+        "value": 97.64,
+        "unit": "mg/dL",
+        "value_string": "97.64 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-a08b-17107411fb3f",
+        "status": "final",
+        "name": "Cholesterol in HDL [Mass/volume] in Serum or Plasma",
+        "code": "2085-9",
+        "effective_date": "2020-02-10",
+        "value": 48.11,
+        "unit": "mg/dL",
+        "value_string": "48.11 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-e51e-fb14b2c204cc",
+        "status": "final",
+        "name": "Leukocytes [#/volume] in Blood by Automated count",
+        "code": "6690-2",
+        "effective_date": "2022-02-21",
+        "value": 9.3851,
+        "unit": "10*3/uL",
+        "value_string": "9.3851 10*3/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-98a4-f3ee7a1d7b2a",
+        "status": "final",
+        "name": "Erythrocytes [#/volume] in Blood by Automated count",
+        "code": "789-8",
+        "effective_date": "2022-02-21",
+        "value": 5.3971,
+        "unit": "10*6/uL",
+        "value_string": "5.3971 10*6/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-9c93-949e7411933a",
+        "status": "final",
+        "name": "Hemoglobin [Mass/volume] in Blood",
+        "code": "718-7",
+        "effective_date": "2022-02-21",
+        "value": 13.363,
+        "unit": "g/dL",
+        "value_string": "13.363 g/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-3068-6fe3713e0771",
+        "status": "final",
+        "name": "Hematocrit [Volume Fraction] of Blood by Automated count",
+        "code": "4544-3",
+        "effective_date": "2022-02-21",
+        "value": 43.815,
+        "unit": "%",
+        "value_string": "43.815 %"
+      },
+      {
+        "id": "073290f9-73e6-8842-733e-234afc18f9b7",
+        "status": "final",
+        "name": "MCV [Entitic volume] by Automated count",
+        "code": "787-2",
+        "effective_date": "2022-02-21",
+        "value": 94.008,
+        "unit": "fL",
+        "value_string": "94.008 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-73b0-692f2a1bd049",
+        "status": "final",
+        "name": "MCH [Entitic mass] by Automated count",
+        "code": "785-6",
+        "effective_date": "2022-02-21",
+        "value": 31.262,
+        "unit": "pg",
+        "value_string": "31.262 pg"
+      },
+      {
+        "id": "073290f9-73e6-8842-629a-d5e018e67cdf",
+        "status": "final",
+        "name": "MCHC [Mass/volume] by Automated count",
+        "code": "786-4",
+        "effective_date": "2022-02-21",
+        "value": 34.524,
+        "unit": "g/dL",
+        "value_string": "34.524 g/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-6ae9-b4204b2d9210",
+        "status": "final",
+        "name": "Erythrocyte distribution width [Entitic volume] by Automated count",
+        "code": "21000-5",
+        "effective_date": "2022-02-21",
+        "value": 45.041,
+        "unit": "fL",
+        "value_string": "45.041 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-5837-b4d457a9caf5",
+        "status": "final",
+        "name": "Platelets [#/volume] in Blood by Automated count",
+        "code": "777-3",
+        "effective_date": "2022-02-21",
+        "value": 199.75,
+        "unit": "10*3/uL",
+        "value_string": "199.75 10*3/uL"
+      },
+      {
+        "id": "073290f9-73e6-8842-0a6a-65f5f685e90d",
+        "status": "final",
+        "name": "Platelet distribution width [Entitic volume] in Blood by Automated count",
+        "code": "32207-3",
+        "effective_date": "2022-02-21",
+        "value": 375.91,
+        "unit": "fL",
+        "value_string": "375.91 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-112a-a4cfca320c60",
+        "status": "final",
+        "name": "Platelet mean volume [Entitic volume] in Blood by Automated count",
+        "code": "32623-1",
+        "effective_date": "2022-02-21",
+        "value": 11.997,
+        "unit": "fL",
+        "value_string": "11.997 fL"
+      },
+      {
+        "id": "073290f9-73e6-8842-6733-162a1648c429",
+        "status": "final",
+        "name": "Cholesterol [Mass/volume] in Serum or Plasma",
+        "code": "2093-3",
+        "effective_date": "2023-02-27",
+        "value": 197.25,
+        "unit": "mg/dL",
+        "value_string": "197.25 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-9953-e1b180816353",
+        "status": "final",
+        "name": "Triglycerides",
+        "code": "2571-8",
+        "effective_date": "2023-02-27",
+        "value": 104.13,
+        "unit": "mg/dL",
+        "value_string": "104.13 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-0775-3c85f154d94d",
+        "status": "final",
+        "name": "Low Density Lipoprotein Cholesterol",
+        "code": "18262-6",
+        "effective_date": "2023-02-27",
+        "value": 116.07,
+        "unit": "mg/dL",
+        "value_string": "116.07 mg/dL"
+      },
+      {
+        "id": "073290f9-73e6-8842-44e7-0b7755ac1089",
+        "status": "final",
+        "name": "Cholesterol in HDL [Mass/volume] in Serum or Plasma",
+        "code": "2085-9",
+        "effective_date": "2023-02-27",
+        "value": 60.34,
+        "unit": "mg/dL",
+        "value_string": "60.34 mg/dL"
+      }
+    ],
+    "surveys": [
+      {
+        "id": "073290f9-73e6-8842-fbbe-d2bdf24be007",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2016-01-18"
+      },
+      {
+        "id": "073290f9-73e6-8842-078a-7c5beb1dc9fe",
+        "status": "final",
+        "name": "Total score [HARK]",
+        "code": "76504-0",
+        "effective_date": "2016-01-18",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-b463-98bd93dd1e6f",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2016-01-18",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1a29-14ec7b739f45",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2017-01-23"
+      },
+      {
+        "id": "073290f9-73e6-8842-93a1-e2a6e3297b97",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2017-01-23",
+        "value": 3,
+        "unit": "{score}",
+        "value_string": "3 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-8ad0-0504e5271457",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2017-01-23",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-a86b-b89fa94e4d67",
+        "status": "final",
+        "name": "Total score [AUDIT-C]",
+        "code": "75626-2",
+        "effective_date": "2017-01-23",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-06f8-8e4bbb2fafbf",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2018-01-29"
+      },
+      {
+        "id": "073290f9-73e6-8842-95e4-c70635d08fff",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2018-01-29",
+        "value": 8,
+        "unit": "{score}",
+        "value_string": "8 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-084b-27b8ba9979ba",
+        "status": "final",
+        "name": "Total score [HARK]",
+        "code": "76504-0",
+        "effective_date": "2018-01-29",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1ace-755e9390a382",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2018-01-29",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-5cec-bb322ac815a9",
+        "status": "final",
+        "name": "Total score [DAST-10]",
+        "code": "82667-7",
+        "effective_date": "2018-01-29",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-2e72-638231382112",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2019-02-04"
+      },
+      {
+        "id": "073290f9-73e6-8842-a528-ab09213567c1",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2019-02-04",
+        "value": 6,
+        "unit": "{score}",
+        "value_string": "6 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-3926-aac588f21094",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2019-02-04",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-f9cd-5a1ee4418d27",
+        "status": "final",
+        "name": "Total score [DAST-10]",
+        "code": "82667-7",
+        "effective_date": "2019-02-04",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-2f60-ea9cd70f751c",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2020-02-10"
+      },
+      {
+        "id": "073290f9-73e6-8842-17fd-b59ab21ac297",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2020-02-10",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-843d-26303b6f591e",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2021-02-15"
+      },
+      {
+        "id": "073290f9-73e6-8842-8f40-5655ecbc7f35",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2021-02-15",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-c102-65831b69d322",
+        "status": "final",
+        "name": "Total score [AUDIT-C]",
+        "code": "75626-2",
+        "effective_date": "2021-02-15",
+        "value": 2,
+        "unit": "{score}",
+        "value_string": "2 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-cfff-e3fa49ac9871",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2022-02-21"
+      },
+      {
+        "id": "073290f9-73e6-8842-714b-d743fbe27f27",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2022-02-21",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-0be1-eaa7e6269731",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2022-02-21",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1bf6-571b8fc5a2e4",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2023-02-27"
+      },
+      {
+        "id": "073290f9-73e6-8842-3fd9-d6707f01a32e",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2023-02-27",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-1cd3-79ff09498d85",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2024-03-04"
+      },
+      {
+        "id": "073290f9-73e6-8842-8ddf-6fb1c732d485",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2024-03-04",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-f947-b0394ab60a80",
+        "status": "final",
+        "name": "Total score [DAST-10]",
+        "code": "82667-7",
+        "effective_date": "2024-03-04",
+        "value": 0,
+        "unit": "{score}",
+        "value_string": "0 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-dcb5-0b89ed75489f",
+        "status": "final",
+        "name": "Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences [PRAPARE]",
+        "code": "93025-5",
+        "effective_date": "2025-03-10"
+      },
+      {
+        "id": "073290f9-73e6-8842-1eae-e05571a54f70",
+        "status": "final",
+        "name": "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+        "code": "70274-6",
+        "effective_date": "2025-03-10",
+        "value": 3,
+        "unit": "{score}",
+        "value_string": "3 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-aea1-f52fc079fdae",
+        "status": "final",
+        "name": "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+        "code": "55758-7",
+        "effective_date": "2025-03-10",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      },
+      {
+        "id": "073290f9-73e6-8842-0a3d-7fd38284e8b1",
+        "status": "final",
+        "name": "Total score [DAST-10]",
+        "code": "82667-7",
+        "effective_date": "2025-03-10",
+        "value": 1,
+        "unit": "{score}",
+        "value_string": "1 {score}"
+      }
+    ],
+    "other": [
+      {
+        "id": "073290f9-73e6-8842-effb-a3801e1b4fe9",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2016-01-18",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-186b-51b4309f3a12",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2017-01-23",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-84b4-be8c1677936d",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2018-01-29",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-0390-9c27cb992fcd",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2019-02-04",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-a0af-2da6d381beaa",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2020-02-10",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-d743-33e273d33c43",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2021-02-15",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-7e35-7f660551e9e6",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2022-02-21",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-2cb3-f4e9cefc7d76",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2023-02-27",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-8b3b-8a20401d0e6e",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2024-03-04",
+        "value_string": "Never smoked tobacco (finding)"
+      },
+      {
+        "id": "073290f9-73e6-8842-df02-d7595e06a6ce",
+        "status": "final",
+        "name": "Tobacco smoking status",
+        "code": "72166-2",
+        "effective_date": "2025-03-10",
+        "value_string": "Never smoked tobacco (finding)"
+      }
+    ]
+  },
+  "encounters": [
+    {
+      "id": "073290f9-73e6-8842-400a-81228e8af0e6",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2025-03-10",
+      "end_date": "2025-03-10",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-5029-c40c7b0e1af6",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for check up (procedure)",
+      "start_date": "2024-03-18",
+      "end_date": "2024-03-18",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-7ae3-39ee3f9cdd89",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2024-03-04",
+      "end_date": "2024-03-04",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-29c8-fab6b80e5d7c",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2023-02-27",
+      "end_date": "2023-02-27",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-17a9-66a2c66b6ad8",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Patient encounter procedure (procedure)",
+      "start_date": "2022-08-01",
+      "end_date": "2022-08-01",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-5b40-cac504ebd0ee",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for check up (procedure)",
+      "start_date": "2022-03-07",
+      "end_date": "2022-03-07",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-a703-c5d22328aad3",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2022-02-21",
+      "end_date": "2022-02-21",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-cb64-83cc9cdbc5ec",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for check up (procedure)",
+      "start_date": "2021-12-27",
+      "end_date": "2021-12-27",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-5937-5cf6eaed3ebf",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Administration of vaccine to produce active immunity (procedure)",
+      "start_date": "2021-10-04",
+      "end_date": "2021-10-04",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-1942-aee6b8ce008b",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Administration of vaccine to produce active immunity (procedure)",
+      "start_date": "2021-09-06",
+      "end_date": "2021-09-06",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-9f7d-956cb90f8c0a",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2021-02-15",
+      "end_date": "2021-02-15",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-1979-2ae56cd075c2",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Consultation for treatment (procedure)",
+      "start_date": "2020-07-30",
+      "end_date": "2020-07-30",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-3a75-3ff7b6d159a9",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for check up (procedure)",
+      "start_date": "2020-02-24",
+      "end_date": "2020-02-24",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-ae1d-5d0feb702395",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2020-02-10",
+      "end_date": "2020-02-10",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-4b69-dd0ca4682bd0",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Consultation for treatment (procedure)",
+      "start_date": "2019-08-05",
+      "end_date": "2019-08-05",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-8c25-846ee4f2e358",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for symptom (procedure)",
+      "start_date": "2019-02-11",
+      "end_date": "2019-02-11",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-6354-d214a57c8687",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2019-02-04",
+      "end_date": "2019-02-04",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-e230-e17a0bf53ca9",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2018-01-29",
+      "end_date": "2018-01-29",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-0f3b-b7ea39cc9383",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Patient encounter procedure (procedure)",
+      "start_date": "2017-08-15",
+      "end_date": "2017-08-15",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-bb33-4f843fc8cca7",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Consultation for treatment (procedure)",
+      "start_date": "2017-08-12",
+      "end_date": "2017-08-12",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-c33b-50b7fb05a497",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Prenatal visit (regime/therapy)",
+      "start_date": "2017-05-23",
+      "end_date": "2017-05-23",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-bcc3-51df11453741",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Prenatal initial visit (regime/therapy)",
+      "start_date": "2017-05-08",
+      "end_date": "2017-05-08",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-80ba-d1d7eb6a5d3f",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Patient encounter procedure (procedure)",
+      "start_date": "2017-03-20",
+      "end_date": "2017-03-20",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-2bee-4f6c02d01ffa",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2017-01-23",
+      "end_date": "2017-01-23",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-b572-6cec5f1a6173",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Consultation for treatment (procedure)",
+      "start_date": "2016-08-17",
+      "end_date": "2016-08-17",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-b0bc-4e5ee654f960",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for check up (procedure)",
+      "start_date": "2016-02-01",
+      "end_date": "2016-02-01",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-c111-ea1f66c77f5d",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2016-01-18",
+      "end_date": "2016-01-18",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-494d-6d1be7f08866",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Consultation for treatment (procedure)",
+      "start_date": "2015-08-23",
+      "end_date": "2015-08-23",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-65a9-74b6f59e3c80",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2015-01-12",
+      "end_date": "2015-01-12",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-ec65-57cd8118826a",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Encounter for problem (procedure)",
+      "start_date": "2014-02-05",
+      "end_date": "2014-02-05",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-9885-94513b29748c",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "2000-03-06",
+      "end_date": "2000-03-06",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    },
+    {
+      "id": "073290f9-73e6-8842-f82e-dcb7b48a97b2",
+      "status": "finished",
+      "class": "AMB",
+      "type": "Prenatal visit (regime/therapy)",
+      "start_date": "1999-07-04",
+      "end_date": "1999-07-04",
+      "provider": "TEWKSBURY HOSPITAL"
+    },
+    {
+      "id": "073290f9-73e6-8842-f74d-e7e356f94510",
+      "status": "finished",
+      "class": "AMB",
+      "type": "General examination of patient (procedure)",
+      "start_date": "1990-02-19",
+      "end_date": "1990-02-19",
+      "provider": "DRACUT FAMILY HEALTHCARE"
+    }
+  ],
+  "diagnostic_reports": [
+    {
+      "id": "e07162d8-9891-113a-4f77-eef2104f0a08",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "1990-02-19",
+      "issued_date": "1990-02-19",
+      "category": "History and physical note"
+    },
+    {
+      "id": "0d605c6c-f2d6-45ba-ee31-df9bea955f67",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "1999-07-04",
+      "issued_date": "1999-07-04",
+      "category": "History and physical note"
+    },
+    {
+      "id": "0e1dbdc2-25fb-752b-fd9b-f11de79e7b88",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2000-03-06",
+      "issued_date": "2000-03-06",
+      "category": "History and physical note"
+    },
+    {
+      "id": "e07dd7ef-1e3d-4a17-adec-de7b37b50810",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2014-02-05",
+      "issued_date": "2014-02-05",
+      "category": "History and physical note"
+    },
+    {
+      "id": "f18f3b7e-25f5-6305-e972-713a4025c8e4",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2015-01-12",
+      "issued_date": "2015-01-12",
+      "category": "History and physical note"
+    },
+    {
+      "id": "7d60eb26-5ee1-a6cb-de2c-a916254d1eff",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2015-08-23",
+      "issued_date": "2015-08-23",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-e8c8-b687aaed9c40",
+      "status": "final",
+      "name": "Humiliation, Afraid, Rape, and Kick questionnaire [HARK]",
+      "code": "76499-3",
+      "effective_date": "2016-01-18",
+      "issued_date": "2016-01-18"
+    },
+    {
+      "id": "073290f9-73e6-8842-dc43-bce5fa9b11ff",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2016-01-18",
+      "issued_date": "2016-01-18"
+    },
+    {
+      "id": "88d15b37-19ff-564d-67c9-3e6cd61986b3",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2016-01-18",
+      "issued_date": "2016-01-18",
+      "category": "History and physical note"
+    },
+    {
+      "id": "e956e3be-2b05-3ced-80d2-c34b01f5a5af",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2016-02-01",
+      "issued_date": "2016-02-01",
+      "category": "History and physical note"
+    },
+    {
+      "id": "317f6b0c-e551-3eff-ed99-9b72c4492234",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2016-08-17",
+      "issued_date": "2016-08-17",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-3a86-3a7984b44f75",
+      "status": "final",
+      "name": "Lipid panel with direct LDL - Serum or Plasma",
+      "code": "57698-3",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23",
+      "category": "Laboratory"
+    },
+    {
+      "id": "073290f9-73e6-8842-528a-24dfa9a79d00",
+      "status": "final",
+      "name": "CBC panel - Blood by Automated count",
+      "code": "58410-2",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23",
+      "category": "Laboratory"
+    },
+    {
+      "id": "073290f9-73e6-8842-f96f-cdf80a87612b",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-cfd4-da6eb54b1731",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23"
+    },
+    {
+      "id": "073290f9-73e6-8842-347e-fe8f465a3414",
+      "status": "final",
+      "name": "Alcohol Use Disorder Identification Test - Consumption [AUDIT-C]",
+      "code": "72109-2",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23"
+    },
+    {
+      "id": "88a7b172-e1b5-9fa8-ee86-a9561771b9d8",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-01-23",
+      "issued_date": "2017-01-23",
+      "category": "History and physical note"
+    },
+    {
+      "id": "9fb1161a-b9f5-52fa-176f-0ee828fbdf14",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-03-20",
+      "issued_date": "2017-03-20",
+      "category": "History and physical note"
+    },
+    {
+      "id": "69b73d23-6b1c-e38c-40a7-a5e50298c319",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-05-08",
+      "issued_date": "2017-05-08",
+      "category": "History and physical note"
+    },
+    {
+      "id": "5b043561-0be8-49e1-e71d-ad1f04b5b8e7",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-05-23",
+      "issued_date": "2017-05-23",
+      "category": "History and physical note"
+    },
+    {
+      "id": "1896553c-ec6b-060a-4b85-d12e87491322",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-08-12",
+      "issued_date": "2017-08-12",
+      "category": "History and physical note"
+    },
+    {
+      "id": "48f6d652-bd9a-6030-0a8e-52324a715099",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2017-08-15",
+      "issued_date": "2017-08-15",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-336d-09c87b6d82c9",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2018-01-29",
+      "issued_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-efdf-0407d5db5810",
+      "status": "final",
+      "name": "Humiliation, Afraid, Rape, and Kick questionnaire [HARK]",
+      "code": "76499-3",
+      "effective_date": "2018-01-29",
+      "issued_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-4dba-93ea533d3bcb",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2018-01-29",
+      "issued_date": "2018-01-29"
+    },
+    {
+      "id": "073290f9-73e6-8842-67d1-953a0c6ead79",
+      "status": "final",
+      "name": "Drug Abuse Screening Test-10 [DAST-10]",
+      "code": "82666-9",
+      "effective_date": "2018-01-29",
+      "issued_date": "2018-01-29"
+    },
+    {
+      "id": "8ed1582a-b6af-047a-6dc9-3b6072c934e0",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2018-01-29",
+      "issued_date": "2018-01-29",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-ec91-588c5a8feb74",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2019-02-04",
+      "issued_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-654e-79b86c6c157e",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2019-02-04",
+      "issued_date": "2019-02-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-08bd-57974a45206e",
+      "status": "final",
+      "name": "Drug Abuse Screening Test-10 [DAST-10]",
+      "code": "82666-9",
+      "effective_date": "2019-02-04",
+      "issued_date": "2019-02-04"
+    },
+    {
+      "id": "6eaf8d0c-6b08-7d72-2632-d31926e779d9",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2019-02-04",
+      "issued_date": "2019-02-04",
+      "category": "History and physical note"
+    },
+    {
+      "id": "7d696c64-43d2-e21a-b0c5-2e074a30d198",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2019-02-11",
+      "issued_date": "2019-02-11",
+      "category": "History and physical note"
+    },
+    {
+      "id": "4483c5b3-f3d2-1109-b38a-51cd6b9009d6",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2019-08-05",
+      "issued_date": "2019-08-05",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-d30c-ab4e75ddc02a",
+      "status": "final",
+      "name": "Lipid panel with direct LDL - Serum or Plasma",
+      "code": "57698-3",
+      "effective_date": "2020-02-10",
+      "issued_date": "2020-02-10",
+      "category": "Laboratory"
+    },
+    {
+      "id": "073290f9-73e6-8842-4567-87d8e5e4c331",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2020-02-10",
+      "issued_date": "2020-02-10"
+    },
+    {
+      "id": "e1651183-4f25-03af-5f98-6d44f22b619f",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2020-02-10",
+      "issued_date": "2020-02-10",
+      "category": "History and physical note"
+    },
+    {
+      "id": "c2cd551a-cdb5-08aa-a1c5-385089cf3910",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2020-02-24",
+      "issued_date": "2020-02-24",
+      "category": "History and physical note"
+    },
+    {
+      "id": "554e3f74-9921-69ab-5bda-58ec571a371a",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2020-07-30",
+      "issued_date": "2020-07-30",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-b60c-ad533a0acf86",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2021-02-15",
+      "issued_date": "2021-02-15"
+    },
+    {
+      "id": "073290f9-73e6-8842-03df-be1484c45aad",
+      "status": "final",
+      "name": "Alcohol Use Disorder Identification Test - Consumption [AUDIT-C]",
+      "code": "72109-2",
+      "effective_date": "2021-02-15",
+      "issued_date": "2021-02-15"
+    },
+    {
+      "id": "3cb55f89-42f6-56c7-1d86-e2b83ab57075",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2021-02-15",
+      "issued_date": "2021-02-15",
+      "category": "History and physical note"
+    },
+    {
+      "id": "4dd45792-f283-dead-a995-fa9950735ce0",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2021-09-06",
+      "issued_date": "2021-09-06",
+      "category": "History and physical note"
+    },
+    {
+      "id": "c452e262-ed80-b0fd-85ea-5e427a57a166",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2021-10-04",
+      "issued_date": "2021-10-04",
+      "category": "History and physical note"
+    },
+    {
+      "id": "79aeb4ca-069e-7edf-379e-7b357ed2dfab",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2021-12-27",
+      "issued_date": "2021-12-27",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-155d-7ba22758e875",
+      "status": "final",
+      "name": "CBC panel - Blood by Automated count",
+      "code": "58410-2",
+      "effective_date": "2022-02-21",
+      "issued_date": "2022-02-21",
+      "category": "Laboratory"
+    },
+    {
+      "id": "073290f9-73e6-8842-f776-bc873ca16759",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2022-02-21",
+      "issued_date": "2022-02-21"
+    },
+    {
+      "id": "073290f9-73e6-8842-9a84-f9f998082442",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2022-02-21",
+      "issued_date": "2022-02-21"
+    },
+    {
+      "id": "74ef8106-6d87-40c3-8f1f-e6e5656a767f",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2022-02-21",
+      "issued_date": "2022-02-21",
+      "category": "History and physical note"
+    },
+    {
+      "id": "91e52869-cede-44a1-8161-1a04aceb5cd4",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2022-03-07",
+      "issued_date": "2022-03-07",
+      "category": "History and physical note"
+    },
+    {
+      "id": "be5c1ef0-342a-6078-1c4b-9d238fec037f",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2022-08-01",
+      "issued_date": "2022-08-01",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-7624-42aa811ec5dc",
+      "status": "final",
+      "name": "Lipid panel with direct LDL - Serum or Plasma",
+      "code": "57698-3",
+      "effective_date": "2023-02-27",
+      "issued_date": "2023-02-27",
+      "category": "Laboratory"
+    },
+    {
+      "id": "073290f9-73e6-8842-ef09-9599ef9b510e",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2023-02-27",
+      "issued_date": "2023-02-27"
+    },
+    {
+      "id": "5ddcf360-87c6-1d78-4d5b-26bc496923d6",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2023-02-27",
+      "issued_date": "2023-02-27",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-1fd4-6196bf75bab1",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2024-03-04",
+      "issued_date": "2024-03-04"
+    },
+    {
+      "id": "073290f9-73e6-8842-9d3b-15b5545bcfb7",
+      "status": "final",
+      "name": "Drug Abuse Screening Test-10 [DAST-10]",
+      "code": "82666-9",
+      "effective_date": "2024-03-04",
+      "issued_date": "2024-03-04"
+    },
+    {
+      "id": "399fd53a-29fc-15f9-6c8f-512bc4da2311",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2024-03-04",
+      "issued_date": "2024-03-04",
+      "category": "History and physical note"
+    },
+    {
+      "id": "8e44c470-0019-ab07-d451-804f7c80628a",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2024-03-18",
+      "issued_date": "2024-03-18",
+      "category": "History and physical note"
+    },
+    {
+      "id": "073290f9-73e6-8842-7b98-45d579d47680",
+      "status": "final",
+      "name": "Generalized anxiety disorder 7 item (GAD-7)",
+      "code": "69737-5",
+      "effective_date": "2025-03-10",
+      "issued_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-7def-91abd589fbfe",
+      "status": "final",
+      "name": "Patient Health Questionnaire 2 item (PHQ-2) [Reported]",
+      "code": "55757-9",
+      "effective_date": "2025-03-10",
+      "issued_date": "2025-03-10"
+    },
+    {
+      "id": "073290f9-73e6-8842-1447-b22d03051276",
+      "status": "final",
+      "name": "Drug Abuse Screening Test-10 [DAST-10]",
+      "code": "82666-9",
+      "effective_date": "2025-03-10",
+      "issued_date": "2025-03-10"
+    },
+    {
+      "id": "ed9c7abf-ebd3-7b00-e57f-b07c0603e0df",
+      "status": "final",
+      "name": "History and physical note",
+      "code": "34117-2",
+      "effective_date": "2025-03-10",
+      "issued_date": "2025-03-10",
+      "category": "History and physical note"
+    }
+  ],
+  "devices": [
+    {
+      "id": "073290f9-73e6-8842-71db-a0fc7ca041c6",
+      "name": "Dental x-ray system (physical object)",
+      "manufacturer": "",
+      "manufacture_date": "2016-01-11T05:31:31+00:00",
+      "expiration_date": "2041-01-25T05:31:31+00:00"
+    }
+  ],
+  "imaging_studies": [
+    {
+      "id": "073290f9-73e6-8842-95c3-943475e8b853",
+      "status": "available",
+      "description": "",
+      "started_date": "2016-02-01",
+      "modalities": []
+    }
+  ],
+  "claims": [
+    {
+      "id": "073290f9-73e6-8842-e13d-8847b279e4e9",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "1990-02-19",
+      "total_value": 1475.73,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-d61c-74271578d5f0",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "1999-07-04",
+      "total_value": 5438.48,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-10bd-295169857a4e",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2000-03-06",
+      "total_value": 704.2,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-75d7-85d2e8b85bad",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2014-02-05",
+      "total_value": 85.55,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-f477-b9708545af70",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2015-01-12",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-157a-541fa7492446",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2015-01-12",
+      "total_value": 1189.08,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-ab79-adcdc4ac687c",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2015-08-23",
+      "total_value": 13.98,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-316c-1b27bddd19a2",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2015-08-23",
+      "total_value": 1250.85,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-7f14-f47b26b18582",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2016-01-18",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-6127-9433ad6bd93c",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2016-01-18",
+      "total_value": 919.9,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-81bf-523ddfa3281c",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2016-02-01",
+      "total_value": 3105.35,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-932b-c73a28c63be0",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2016-08-17",
+      "total_value": 764.4,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-ec85-a63ed2346110",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2016-08-17",
+      "total_value": 142.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-b50d-dbeb79cfbf9b",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-01-23",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-b0a8-b3feb86d7060",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-01-23",
+      "total_value": 1383.51,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e2a2-7afaf65285e2",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-03-20",
+      "total_value": 4052.91,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e32d-aab20c75e5f6",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-05-08",
+      "total_value": 6453.97,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-9f02-4f7babbdebcc",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-05-23",
+      "total_value": 2113.65,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e112-e9e4e27609e3",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-08-12",
+      "total_value": 10.0,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-3552-2bb424a6d975",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-08-12",
+      "total_value": 142.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-3164-268c03d83c73",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2017-08-15",
+      "total_value": 4052.91,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-6885-beca12a74b80",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2018-01-29",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-0ae8-2b7fdd314798",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2018-01-29",
+      "total_value": 919.9,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-ae0b-fec1b6d46e06",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2019-02-04",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-a8ef-d92111a1a22e",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2019-02-04",
+      "total_value": 1300.5,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-36c7-1de78a23376f",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2019-02-11",
+      "total_value": 85.55,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-8c33-815846a09210",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2019-08-05",
+      "total_value": 295.62,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e2a1-cdf54cc2df93",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2019-08-05",
+      "total_value": 142.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-c7f4-1392aa094135",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2020-02-10",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-0ba2-e877a9e226a1",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2020-02-10",
+      "total_value": 1602.95,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-51c4-0e897fe62976",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2020-02-24",
+      "total_value": 2673.95,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e878-8a227d559a16",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2020-07-30",
+      "total_value": 229.32,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-9c6b-cd4ab5d8e2f8",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2020-07-30",
+      "total_value": 142.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-2ed8-8c9956b8a6d6",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2021-02-15",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-28bf-36b087e2d70f",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2021-02-15",
+      "total_value": 704.2,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-b0a3-418025f280d9",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2021-09-06",
+      "total_value": 278.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-f0bb-9882113350be",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2021-10-04",
+      "total_value": 278.58,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-c8b6-06f6aa718514",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2021-12-27",
+      "total_value": 5138.45,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-cec9-d3555aa9543a",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2022-02-21",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-f15f-257071a8c5a7",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2022-02-21",
+      "total_value": 914.78,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-f913-0f2f9a7bcfa4",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2022-03-07",
+      "total_value": 2673.95,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-8c6f-00d2d1d354bf",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2022-08-01",
+      "total_value": 573.98,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-1bce-f7997c309e28",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2023-02-27",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-4b3b-fd0f99e028f3",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2023-02-27",
+      "total_value": 1266.48,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-e6f6-2e8c6048dbbf",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2024-03-04",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-bd9c-678e88195a49",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2024-03-04",
+      "total_value": 704.2,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-73c3-00d7100d3e69",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2024-03-18",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-cdeb-050f54df408f",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2024-03-18",
+      "total_value": 3105.35,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-8024-409beb7d3579",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2025-03-10",
+      "total_value": 129.94,
+      "total_currency": "USD"
+    },
+    {
+      "id": "073290f9-73e6-8842-563f-1b3318e32e3c",
+      "status": "active",
+      "use": "claim",
+      "type": "",
+      "created_date": "2025-03-10",
+      "total_value": 704.2,
+      "total_currency": "USD"
+    }
+  ],
+  "summary": {
+    "total_entries": 547,
+    "resource_types": 17,
+    "patients": 1,
+    "conditions": 27,
+    "medications": 3,
+    "prescriptions": 17,
+    "procedures": 92,
+    "immunizations": 15,
+    "observations": 147,
+    "encounters": 33,
+    "diagnostic_reports": 61,
+    "claims": 50,
+    "devices": 1,
+    "imaging_studies": 1
+  }
+}
