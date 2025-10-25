@@ -151,8 +151,6 @@ async def handle_chat_message(ctx: Context, sender: str, msg: ChatMessage):
             'symptoms': user_text,  # Keep original symptoms for reference
             'triage_score': assessment['triage_score'],
             'reasoning': assessment['reasoning'],
-            'recommendation': assessment['recommendation'],
-            'emergency_keywords': assessment.get('emergency_keywords', []),
             'worsened': assessment.get('worsened', False),
             'timestamp': current_timestamp
         })
