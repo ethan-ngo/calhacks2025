@@ -1,53 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ERQueue, Patient, getRandomInteger } from '../utils/erQueue'
 
 export default function Queue() {
   const navigate = useNavigate()
   
-  // Initialize queue with sample data
-  const [erQueue] = useState(() => {
-    const queue = new ERQueue()
-    const samplePatients = [
-      { name: 'John Doe', triageLevel: 2, symptoms: 'Chest pain, shortness of breath', history: 'Previous heart condition', comments: 'Monitor closely' },
-      { name: 'Sarah Smith', triageLevel: 3, symptoms: 'Severe headache, nausea', history: 'Migraines', comments: 'Requires pain management' },
-      { name: 'Mike Johnson', triageLevel: 1, symptoms: 'Unresponsive, trauma', history: 'No known allergies', comments: 'Critical - immediate attention' },
-      { name: 'Emily Davis', triageLevel: 4, symptoms: 'Minor cut on hand', history: 'None', comments: 'Low priority' },
-      { name: 'Robert Brown', triageLevel: 2, symptoms: 'Difficulty breathing', history: 'Asthma', comments: 'Bring inhaler' },
-      { name: 'Anna Wilson', triageLevel: 2, symptoms: 'High fever, chills', history: 'Diabetic', comments: 'Check blood sugar' },
-      { name: 'David Lee', triageLevel: 3, symptoms: 'Abdominal pain', history: 'None', comments: 'Possible appendicitis' },
-      { name: 'David Lee', triageLevel: 3, symptoms: 'Abdominal pain', history: 'None', comments: 'Possible appendicitis' },
-      { name: 'David Lee', triageLevel: 3, symptoms: 'Abdominal pain', history: 'None', comments: 'Possible appendicitis' },
-
-    ]
-    
-    samplePatients.forEach((p, idx) => {
-      const patient = new Patient(
-        1000 + idx,
-        p.triageLevel,
-        new Date(Date.now() + getRandomInteger(0, 5000))
-      )
-      patient.name = p.name
-      patient.symptoms = p.symptoms
-      patient.history = p.history
-      patient.comments = p.comments
-      queue.addPatient(patient)
-    })
-    
-    return queue
+  // Load patients from localStorage
+  const [patients, setPatients] = useState(() => {
+    const saved = localStorage.getItem('erQueue')
+    return saved ? JSON.parse(saved) : []
   })
   
-  const [patients, setPatients] = useState(erQueue.getAllPatientsSorted())
   const [selectedPatient, setSelectedPatient] = useState(null)
+
+  // Listen for queue updates
+  useEffect(() => {
+    const handleQueueUpdate = () => {
+      const saved = localStorage.getItem('erQueue')
+      setPatients(saved ? JSON.parse(saved) : [])
+    }
+    
+    window.addEventListener('queueUpdated', handleQueueUpdate)
+    
+    return () => {
+      window.removeEventListener('queueUpdated', handleQueueUpdate)
+    }
+  }, [])
 
   const handleAddPatient = () => {
     navigate('/nurseform')
   }
 
   const handleRemovePatient = (id, e) => {
-    e.stopPropagation() // Prevent card click
-    erQueue.removePatient(id)
-    setPatients(erQueue.getAllPatientsSorted())
+    e.stopPropagation()
+    const updatedPatients = patients.filter(p => p.id !== id)
+    setPatients(updatedPatients)
+    localStorage.setItem('erQueue', JSON.stringify(updatedPatients))
   }
 
   const handleCardClick = (patient) => {
@@ -81,7 +68,6 @@ export default function Queue() {
   }
 
   const calculateEstimatedWaitTime = () => {
-    // Estimated processing time per ESI level (in minutes)
     const processingTimes = {
       1: 5,   // Immediate
       2: 15,  // Emergent
@@ -102,6 +88,9 @@ export default function Queue() {
     }
     return `${minutes}m`
   }
+
+  // Sort patients by triage level (lower = higher priority)
+  const sortedPatients = [...patients].sort((a, b) => a.triageLevel - b.triageLevel)
 
   return (
     <div style={styles.container}>
@@ -132,7 +121,7 @@ export default function Queue() {
       </div>
 
       <div style={styles.queueContainer}>
-        {patients.length === 0 ? (
+        {sortedPatients.length === 0 ? (
           <div style={styles.emptyState}>
             <div style={styles.emptyIcon}>🏥</div>
             <div style={styles.emptyText}>No patients in queue</div>
@@ -142,7 +131,7 @@ export default function Queue() {
           </div>
         ) : (
           <div style={styles.linkedList}>
-            {patients.map((patient, index) => (
+            {sortedPatients.map((patient, index) => (
               <div key={patient.id} style={styles.nodeWrapper}>
                 <div 
                   style={styles.node} 
@@ -176,7 +165,7 @@ export default function Queue() {
                   <div style={styles.nodeBody}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
                       <div style={styles.nodeName}>
-                        {patient.name || `Patient ${patient.id}`}
+                        {patient.name}
                       </div>
                       <span 
                         style={{
@@ -194,12 +183,12 @@ export default function Queue() {
                       </div>
                       <div style={styles.nodeDetail}>
                         <span style={styles.nodeDetailLabel}>Time:</span>{' '}
-                        {new Date(patient.timeIn).toLocaleTimeString()}
+                        {new Date(patient.timestamp).toLocaleTimeString()}
                       </div>
                     </div>
                   </div>
                 </div>
-                {index < patients.length - 1 && (
+                {index < sortedPatients.length - 1 && (
                   <div style={styles.connector}>
                     <div style={styles.arrow}>→</div>
                   </div>
@@ -223,7 +212,15 @@ export default function Queue() {
                 <h3 style={styles.sectionTitle}>Basic Information</h3>
                 <div style={styles.detailRow}>
                   <span style={styles.detailLabel}>Name:</span>
-                  <span style={styles.detailValue}>{selectedPatient.name || `Patient ${selectedPatient.id}`}</span>
+                  <span style={styles.detailValue}>{selectedPatient.name}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Age:</span>
+                  <span style={styles.detailValue}>{selectedPatient.age}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Gender:</span>
+                  <span style={styles.detailValue}>{selectedPatient.gender}</span>
                 </div>
                 <div style={styles.detailRow}>
                   <span style={styles.detailLabel}>ID:</span>
@@ -246,24 +243,77 @@ export default function Queue() {
                 </div>
                 <div style={styles.detailRow}>
                   <span style={styles.detailLabel}>Time In:</span>
-                  <span style={styles.detailValue}>{new Date(selectedPatient.timeIn).toLocaleString()}</span>
+                  <span style={styles.detailValue}>{new Date(selectedPatient.timestamp).toLocaleString()}</span>
+                </div>
+                {selectedPatient.wasOverridden && (
+                  <div style={{ marginTop: '12px', padding: '10px', backgroundColor: '#fff3cd', borderRadius: '8px', fontSize: '14px', color: '#856404' }}>
+                    ⚠️ ESI Level was overridden from {selectedPatient.originalScore} to {selectedPatient.triageLevel}
+                  </div>
+                )}
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Vitals</h3>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Heart Rate:</span>
+                  <span style={styles.detailValue}>{selectedPatient.vitals?.heartRate || 'N/A'}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Blood Pressure:</span>
+                  <span style={styles.detailValue}>{selectedPatient.vitals?.bloodPressure || 'N/A'}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Temperature:</span>
+                  <span style={styles.detailValue}>{selectedPatient.vitals?.temperature || 'N/A'}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Respiratory Rate:</span>
+                  <span style={styles.detailValue}>{selectedPatient.vitals?.respiratoryRate || 'N/A'}</span>
                 </div>
               </div>
 
               <div style={styles.detailSection}>
-                <h3 style={styles.sectionTitle}>Symptoms</h3>
+                <h3 style={styles.sectionTitle}>Clinical Assessment</h3>
                 <p style={styles.detailText}>{selectedPatient.symptoms || 'No symptoms recorded'}</p>
               </div>
 
-              <div style={styles.detailSection}>
-                <h3 style={styles.sectionTitle}>Medical History</h3>
-                <p style={styles.detailText}>{selectedPatient.history || 'No history recorded'}</p>
-              </div>
+              {selectedPatient.clinicalFindings?.red_flags?.length > 0 && (
+                <div style={styles.detailSection}>
+                  <h3 style={styles.sectionTitle}>🚨 Red Flags</h3>
+                  <ul style={{ margin: '8px 0', paddingLeft: '20px', color: '#dc3545' }}>
+                    {selectedPatient.clinicalFindings.red_flags.map((flag, i) => (
+                      <li key={i} style={{ marginBottom: '6px' }}>{flag}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedPatient.recommendations?.length > 0 && (
+                <div style={styles.detailSection}>
+                  <h3 style={styles.sectionTitle}>Recommendations</h3>
+                  <ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
+                    {selectedPatient.recommendations.map((rec, i) => (
+                      <li key={i} style={{ marginBottom: '6px', color: '#4b5563' }}>{rec}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div style={styles.detailSection}>
                 <h3 style={styles.sectionTitle}>Comments</h3>
                 <p style={styles.detailText}>{selectedPatient.comments || 'No comments'}</p>
               </div>
+
+              {selectedPatient.nursingNotes?.length > 0 && (
+                <div style={styles.detailSection}>
+                  <h3 style={styles.sectionTitle}>Nursing Notes</h3>
+                  <ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
+                    {selectedPatient.nursingNotes.map((note, i) => (
+                      <li key={i} style={{ marginBottom: '6px', color: '#4b5563' }}>{note}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -551,4 +601,3 @@ const styles = {
     margin: 0,
   },
 }
-

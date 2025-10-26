@@ -28,17 +28,18 @@ export default function NurseForm() {
   ])
 
   const patients = {
-    "Allen322 Stoltenberg489": "073290f9-73e6-8842-bddc-b568bfcb84b0",
-    "Carline928 Gibson10": "40021a9e-eeb3-4fd0-1d5a-2cd56a0bff73",
-    "Gregorio366 Batz141": "12bee8ac-7bce-f218-179e-0c2cabade79f",
-    "Selena146 Turner526": "1c026fd4-568f-5bc5-32f3-eb801c69ebd2",
-    "Kori635 Hermann103": "e369df4d-e272-e40a-8bf0-964b9bbe949c",
-    "Andra606 Cruickshank494": "fcc2ce58-4808-f223-9902-107143303d1a",
-    "Enrique929 Konopelski743": "8f76e2d9-92a3-0a2a-72a6-a042566a4cb0",
-    "Fonda178 Hettinger594": "e431384f-3578-ab67-d439-e5f55ff22a0d",
-    "Phyliss206 Marks830": "e36a2f5b-a5ac-db0b-bfdf-5c130dad1161",
-    "Terri848 Wolff180": "f9df9434-2057-1a21-bee6-791ed3f9d97b"
+    "Allen Stoltenberg": "073290f9-73e6-8842-bddc-b568bfcb84b0",
+    "Carline Gibson": "40021a9e-eeb3-4fd0-1d5a-2cd56a0bff73",
+    "Gregorio Batz": "12bee8ac-7bce-f218-179e-0c2cabade79f",
+    "Selena Turner": "1c026fd4-568f-5bc5-32f3-eb801c69ebd2",
+    "Kori Hermann": "e369df4d-e272-e40a-8bf0-964b9bbe949c",
+    "Andra Cruickshank": "fcc2ce58-4808-f223-9902-107143303d1a",
+    "Enrique Konopelski": "8f76e2d9-92a3-0a2a-72a6-a042566a4cb0",
+    "Fonda Hettinger": "e431384f-3578-ab67-d439-e5f55ff22a0d",
+    "Phyliss Marks": "e36a2f5b-a5ac-db0b-bfdf-5c130dad1161",
+    "Terri Wolff": "f9df9434-2057-1a21-bee6-791ed3f9d97b"
   }
+
 
   const handleInputChange = (e) => {
     setPatientData({

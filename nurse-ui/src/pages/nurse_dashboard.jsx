@@ -56,8 +56,45 @@ export default function TriageDashboard() {
   }
 
   const handleFinalize = () => {
-    // TODO: Save final decision to backend/database
-    console.log('Final Decision:', finalDecision)
+    // Create patient object for queue
+    const newPatient = {
+      id: Date.now(), // Generate unique ID
+      name: patientData.name,
+      age: patientData.age,
+      gender: patientData.gender,
+      triageLevel: finalDecision.score,
+      triageLabel: finalDecision.level,
+      symptoms: triageResult.assessment_summary?.primary_concern || 'See clinical findings',
+      vitals: {
+        heartRate: patientData.heartRate,
+        bloodPressure: patientData.bloodPressure,
+        temperature: patientData.temperature,
+        respiratoryRate: patientData.respiratoryRate
+      },
+      comments: triageResult.clinical_recommendations?.join('; ') || '',
+      wasOverridden: finalDecision.wasOverridden,
+      originalScore: finalDecision.originalScore,
+      timestamp: new Date().toISOString(),
+      clinicalFindings: triageResult.clinical_findings,
+      recommendations: triageResult.clinical_recommendations,
+      nursingNotes: triageResult.nursing_notes
+    }
+
+    // Get existing queue from localStorage
+    const existingQueue = JSON.parse(localStorage.getItem('erQueue') || '[]')
+    
+    // Add new patient
+    existingQueue.push(newPatient)
+    
+    // Save back to localStorage
+    localStorage.setItem('erQueue', JSON.stringify(existingQueue))
+    
+    // Dispatch event to notify Queue component
+    window.dispatchEvent(new Event('queueUpdated'))
+    
+    console.log('Patient added to queue:', newPatient)
+    
+    // Navigate back to queue
     navigate('/')
   }
 
@@ -79,6 +116,8 @@ export default function TriageDashboard() {
             <span>Gender: {patientData?.gender}</span>
             <span>HR: {patientData?.heartRate}</span>
             <span>BP: {patientData?.bloodPressure}</span>
+            <span>Temp: {patientData?.temperature}</span>
+            <span>RR: {patientData?.respiratoryRate}</span>
           </div>
         </div>
 
@@ -291,6 +330,7 @@ const styles = {
     gap: '20px',
     fontSize: '14px',
     color: '#6c757d',
+    flexWrap: 'wrap',
   },
   dashboardCard: {
     backgroundColor: '#fff',
