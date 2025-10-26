@@ -22,6 +22,8 @@ from livekit.plugins.turn_detector.multilingual import MultilingualModel
 # uncomment to enable Krisp background voice/noise cancellation
 # from livekit.plugins import noise_cancellation
 
+#edit for coderabbit
+
 logger = logging.getLogger("basic-agent")
 
 load_dotenv()
