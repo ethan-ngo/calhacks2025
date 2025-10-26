@@ -1,115 +1,91 @@
 import logging
+import json
 from collections.abc import AsyncIterable
+from typing import Optional, Callable
 
-import numpy as np
 from dotenv import load_dotenv
+from pydantic_core import from_json
+from livekit.agents import Agent, AgentSession, ChatContext, FunctionTool, JobContext, ModelSettings, WorkerOptions, cli
+from livekit.plugins import openai, silero
+from livekit.plugins.turn_detector.english import EnglishModel
 
-from livekit import rtc
-from livekit.agents import (
-    Agent,
-    AgentSession,
-    JobContext,
-    JobProcess,
-    ModelSettings,
-    WorkerOptions,
-    cli,
-    utils,
-)
-from livekit.plugins import deepgram, openai, silero
-
-try:
-    import librosa
-except ImportError:
-    raise ImportError(
-        "librosa is required to run this example, install it with `pip install librosa`"
-    ) from None
-
-
-logger = logging.getLogger("speedup-output-audio")
-logging.getLogger("numba").setLevel(logging.WARNING)
-
+logger = logging.getLogger("structured-output")
 load_dotenv()
 
-## This example demonstrates how to add post-processing to the output audio of the agent.
+class TriageStructuredResponse(dict):
+    name: Optional[str]
+    age: Optional[int]
+    gender: Optional[str]
+    weight: Optional[int]
+    heart_rate: Optional[int]
+    temperature: Optional[float]
+    respiratory_rate: Optional[int]
+    suggested_triage_level: Optional[int]
+    patient_notes: Optional[str]
+    response: Optional[str]
+    voice_instructions: Optional[str]
+
+async def process_structured_output(
+    text: AsyncIterable[str],
+    callback: Optional[Callable[[TriageStructuredResponse], None]] = None,
+) -> AsyncIterable[str]:
+    last_response = ""
+    acc_text = ""
+    async for chunk in text:
+        acc_text += chunk
+        try:
+            resp: TriageStructuredResponse = from_json(acc_text, allow_partial="trailing-strings")
+        except ValueError:
+            continue
+
+        if callback:
+            callback(resp)
+
+        if not resp.get("response"):
+            continue
+
+        new_delta = resp["response"][len(last_response):]
+        if new_delta:
+            yield new_delta
+        last_response = resp["response"]
 
 
 class MyAgent(Agent):
-    def __init__(self, *, speed_factor: float = 1.2) -> None:
+    def __init__(self) -> None:
         super().__init__(
-            instructions="Your name is Jenna. You would interact with users via voice."
-            "with that in mind keep your responses concise and to the point."
-            "You are curious and friendly, and have a sense of humor.",
-        )
-        self.speed_factor = speed_factor
-
-    async def tts_node(self, text: AsyncIterable[str], model_settings: ModelSettings):
-        return self._process_audio_stream(Agent.default.tts_node(self, text, model_settings))
-
-    async def realtime_audio_output_node(
-        self, audio: AsyncIterable[rtc.AudioFrame], model_settings: ModelSettings
-    ) -> AsyncIterable[rtc.AudioFrame]:
-        return self._process_audio_stream(
-            Agent.default.realtime_audio_output_node(self, audio, model_settings)
+            instructions=(
+                "Your name is Apollo. You will listen to the users and fill out the necessary information in TriageStructuredResponse."
+                "You are a specialized Emergency Room (ER) triage monitoring agent trained to assess whether a patient’s condition is improving or worsening."
+                "Keep responses concise, direct, and professional."
+                "Do not speak to the user."
+            ),
+            stt=openai.STT(model="gpt-4o-transcribe"),
+            llm=openai.LLM(model="gpt-4o-mini"),
+            tts=None  # Remove TTS completely
         )
 
-    async def _process_audio_stream(
-        self, audio: AsyncIterable[rtc.AudioFrame]
-    ) -> AsyncIterable[rtc.AudioFrame]:
-        stream: utils.audio.AudioByteStream | None = None
-        async for frame in audio:
-            if stream is None:
-                stream = utils.audio.AudioByteStream(
-                    sample_rate=frame.sample_rate,
-                    num_channels=frame.num_channels,
-                    samples_per_channel=frame.sample_rate // 10,  # 100ms
-                )
-            # TODO: find a streamed way to process the audio
-            for f in stream.push(frame.data):
-                yield self._process_audio(f)
-
-        for f in stream.flush():
-            yield self._process_audio(f)
-
-    def _process_audio(self, frame: rtc.AudioFrame) -> rtc.AudioFrame:
-        # time-stretch without pitch change
-        audio_data = np.frombuffer(frame.data, dtype=np.int16)
-
-        stretched = librosa.effects.time_stretch(
-            audio_data.astype(np.float32) / np.iinfo(np.int16).max,
-            rate=self.speed_factor,
-        )
-        stretched = (stretched * np.iinfo(np.int16).max).astype(np.int16)
-        return rtc.AudioFrame(
-            data=stretched.tobytes(),
-            sample_rate=frame.sample_rate,
-            num_channels=frame.num_channels,
-            samples_per_channel=stretched.shape[-1],
-        )
-
-
-def prewarm(proc: JobProcess):
-    proc.userdata["vad"] = silero.VAD.load()
-
-    # warmup the librosa JIT
-    librosa.effects.time_stretch(np.random.randn(16000).astype(np.float32), rate=1.2)
+    async def llm_node(
+        self, chat_ctx: ChatContext, tools: list[FunctionTool], model_settings: ModelSettings
+    ):
+        llm = self.llm
+        tool_choice = model_settings.tool_choice if model_settings else None
+        async with llm.chat(
+            chat_ctx=chat_ctx,
+            tools=tools,
+            tool_choice=tool_choice,
+            response_format=TriageStructuredResponse,
+        ) as stream:
+            async for chunk in stream:
+                yield chunk
 
 
 async def entrypoint(ctx: JobContext):
-    # each log entry will include these fields
-    ctx.log_context_fields = {
-        "room": ctx.room.name,
-        "user_id": "your user_id",
-    }
     session = AgentSession(
-        vad=ctx.proc.userdata["vad"],
-        llm=openai.LLM(model="gpt-4o-mini"),
-        stt=deepgram.STT(model="nova-3"),
-        tts=openai.TTS(voice="ash"),
-        # llm=openai.realtime.RealtimeModel(voice="alloy"),
+        vad=silero.VAD.load(),
+        turn_detection=EnglishModel(),
     )
-
     await session.start(agent=MyAgent(), room=ctx.room)
 
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, prewarm_fnc=prewarm))
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
