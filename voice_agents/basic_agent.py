@@ -22,18 +22,23 @@ from livekit.plugins.turn_detector.multilingual import MultilingualModel
 # uncomment to enable Krisp background voice/noise cancellation
 # from livekit.plugins import noise_cancellation
 
+#edit for coderabbit
+
 logger = logging.getLogger("basic-agent")
 
 load_dotenv()
 
-
 class MyAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
-            instructions="Your name is Kelly. You would interact with users via voice."
+            instructions="Your name is Apollo. You would interact with users via voice."
+            "You are a specialized Emergency Room (ER) triage monitoring agent trained to assess whether a patient’s condition is improving or worsening."
             "with that in mind keep your responses concise and to the point."
+            "Keep responses short, direct, and professional."
             "do not use emojis, asterisks, markdown, or other special characters in your responses."
-            "You are curious and friendly, and have a sense of humor."
+            "Maintain a serious, systematic, and calm tone — you are focused on evaluating the patient’s condition accurately."
+            "Listen to the patient’s description of symptoms, pain levels, and any changes since the last check."
+            "Ask one question at a time to determine changes in pain, breathing, consciousness, bleeding, or discomfort."
             "you will speak english to the user",
         )
 
@@ -45,23 +50,33 @@ class MyAgent(Agent):
     # all functions annotated with @function_tool will be passed to the LLM when this
     # agent is active
     @function_tool
-    async def lookup_weather(
-        self, context: RunContext, location: str, latitude: str, longitude: str
+    async def update_triage_level(
+        self, context: RunContext, patient_name: str,triage_level: str, notes: str = ""
     ):
-        """Called when the user asks for weather related information.
-        Ensure the user's location (city or region) is provided.
-        When given a location, please estimate the latitude and longitude of the location and
-        do not ask the user for them.
+        """
+        Called when the agent determines the patient's condition has changed.
+        Updates the patient's triage level in the system and logs any relevant notes.
 
         Args:
-            location: The location they are asking for
-            latitude: The latitude of the location, do not ask user for it
-            longitude: The longitude of the location, do not ask user for it
+            patient_name: Name or ID of the patient,
+            prev_triage_level: Old triage level(1-5),
+            triage_level: New triage level (1-5, 
+            1 = Requires immediate life saving intervention, must be seen immediately
+            2 = Situation could progress to triage sever without intervention, seen within 10 minutes
+            3 = Has the potential to increase in severity if not treated, Seen within 30 minutes
+            4 = Not severe or life threatening. seen within 60 minutes
+            5 = Not life threatening in any way. Can wait for treatment
+            )
+            notes: Optional notes about the patient's condition or symptoms
         """
 
-        logger.info(f"Looking up weather for {location}")
+        logger.info(
+            f"Updating triage for {patient_name}: level={triage_level}, notes={notes}"
+        )
 
-        return "sunny with a temperature of 70 degrees."
+        # Here you could also call a backend API, database, or notify a nurse
+        # For now, just log and return confirmation
+        return f"Triage level for {patient_name} updated to {triage_level}."
 
 
 def prewarm(proc: JobProcess):
@@ -120,7 +135,6 @@ async def entrypoint(ctx: JobContext):
         ),
         room_output_options=RoomOutputOptions(transcription_enabled=True),
     )
-
 
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, prewarm_fnc=prewarm))

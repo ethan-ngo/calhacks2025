@@ -13,10 +13,24 @@ from livekit.agents import (
 )
 from livekit.plugins import cartesia, deepgram, openai, silero
 
-logger = logging.getLogger("get-email-agent")
+class TriageAgent(Agent):
+    def __init__(self):
+        super().__init__(
+            instructions=(
+                "Your name is Apollo. You would interact with users via voice."
+                "You are a specialized Emergency Room (ER) triage monitoring agent trained to assess whether a patient’s condition is improving or worsening."
+                "with that in mind keep your responses concise and to the point."
+                "Keep responses short, direct, and professional."
+                "do not use emojis, asterisks, markdown, or other special characters in your responses."
+                "Maintain a serious, systematic, and calm tone — you are focused on evaluating the patient’s condition accurately."
+                "Listen to the patient’s description of symptoms, pain levels, and any changes since the last check."
+                "Ask one question at a time to determine changes in pain, breathing, consciousness, bleeding, or discomfort."
+                "you will speak english to the user",
+            )
+        )
+logger = logging.getLogger("triage-agent")
 
 load_dotenv()
-
 
 async def entrypoint(ctx: JobContext):
     session = AgentSession(
@@ -34,11 +48,17 @@ async def entrypoint(ctx: JobContext):
         for _ in range(3):
             await session.generate_reply(
                 instructions=(
-                    "The user has been inactive. Politely check if the user is still present."
+                    "The patient has been silent. Ask gently if they are still feeling okay "
+                    "or if their symptoms have worsened."
                 )
             )
             await asyncio.sleep(10)
 
+        await session.generate_reply(
+            instructions=(
+                "No response from the patient. If user made any mention of worsening condition, escalate to nurse for manual follow-up."
+            )
+        )
         session.shutdown()
 
     @session.on("user_state_changed")
@@ -52,8 +72,7 @@ async def entrypoint(ctx: JobContext):
         if inactivity_task is not None:
             inactivity_task.cancel()
 
-    await session.start(agent=Agent(instructions="You are a helpful assistant."), room=ctx.room)
-
+    await session.start(agent=TriageAgent(), room=ctx.room)
 
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
