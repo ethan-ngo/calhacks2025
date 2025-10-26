@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PatientInfoCard from '../components/PatientInfoCard'
 import PainSeverityCard from '../components/PainSeverityCard'
 import KeyVitalsCard from '../components/KeyVitalsCard'
@@ -6,6 +7,7 @@ import CommentsCard from '../components/CommentsCard'
 import ChatInterface from '../components/ChatInterface'
 
 export default function NurseForm() {
+  const navigate = useNavigate()
   const [patientData, setPatientData] = useState({
     name: 'John Doe',
     age: '21',
@@ -87,9 +89,14 @@ export default function NurseForm() {
           handleInputChange={handleInputChange}
         />
 
-        <button onClick={handleSubmit} style={styles.submitButton}>
-          Submit
-        </button>
+        <div style={styles.buttonContainer}>
+          <button onClick={() => navigate('/queue')} style={styles.backButton}>
+            ← Back
+          </button>
+          <button onClick={handleSubmit} style={styles.submitButton}>
+            Submit
+          </button>
+        </div>
       </div>
 
       <div style={styles.rightPanel}>
@@ -138,6 +145,22 @@ const styles = {
     marginBottom: '20px',
     alignItems: 'right',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  backButton: {
+    backgroundColor: 'transparent',
+    color: '#3b9dff',
+    border: '2px solid #3b9dff',
+    borderRadius: '12px',
+    padding: '16px 48px',
+    fontSize: '18px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
   submitButton: {
     backgroundColor: '#3b9dff',
     color: '#fff',
@@ -147,7 +170,5 @@ const styles = {
     fontSize: '18px',
     fontWeight: '500',
     cursor: 'pointer',
-    float: 'right',
-    marginTop: '20px',
   },
 }
