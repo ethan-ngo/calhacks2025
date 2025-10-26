@@ -2,8 +2,22 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+import sys
+from datetime import datetime
 from livekit import api
 import requests
+
+# Add agents directory to Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'agents'))
+
+# Import triage functions
+try:
+    from triage import calculate_triage_detailed, format_triage_response
+    TRIAGE_AVAILABLE = True
+    print("✅ Triage functions loaded successfully")
+except ImportError as e:
+    TRIAGE_AVAILABLE = False
+    print(f"❌ Could not import triage functions: {e}")
 
 app = Flask(__name__)
 CORS(app)
@@ -15,30 +29,68 @@ AGENTS = {
     "patient": "http://127.0.0.1:8001"
 }
 
+# In-memory storage
+patient_histories = {}  # For chat history
+patient_data_store = {}  # For patient information from nurse dashboard
+triage_alerts = {}  # For tracking patients who need triage updates
+
 @app.route('/nurse/triage', methods=['POST'])
 def nurse_triage():
-    """Nurse triage assessment"""
+    """Nurse triage assessment - calls triage function directly"""
     try:
+        if not TRIAGE_AVAILABLE:
+            return jsonify({
+                "error": "Triage system unavailable",
+                "triage_score": 3
+            }), 503
+        
         data = request.json
         if not data:
-            return jsonify({"error": "No data provided"})
+            return jsonify({"error": "No data provided"}), 400
         
-        # Call nurse agent
-        response = requests.post(f"{AGENTS['nurse']}/triage", json=data)
-        response.raise_for_status()
+        # Extract data from payload
+        user_id = data.get('userID', 'unknown')
+        vitals = data.get('current_vitals', {})
+        symptoms = data.get('current_symptoms', '')
+        history = data.get('history', '')
+        recall_history = data.get('recall_history', '')
         
-        result = response.json()
+        print(f"\n🏥 Nurse triage request for: {user_id}")
+        print(f"   Symptoms: {symptoms[:100] if isinstance(symptoms, str) else str(symptoms)[:100]}...")
+        
+        # Call triage function
+        assessment = calculate_triage_detailed(
+            symptoms=symptoms,
+            history=history,
+            vitals=vitals,
+            recall_history=recall_history
+        )
+        
+        # Extract key info for response
+        triage_score = assessment.get('triage_score')
+        primary_concern = assessment.get('assessment_summary', {}).get('primary_concern', '')
+        
+        print(f"✅ Triage complete: Score {triage_score}/5\n")
         
         return jsonify({
-            "triage_score": result.get('triage_score'),
-            "reasoning": result.get('reasoning'),
-            "worsened": result.get('worsened', False)
+            "triage_score": triage_score,
+            "triage_level": assessment.get('triage_level'),
+            "acuity": assessment.get('acuity'),
+            "reasoning": primary_concern,
+            "worsened": assessment.get('symptom_progression', {}).get('status') == 'worsening',
+            "assessment": assessment,  # Full assessment for dashboard
+            "success": True
         })
         
-    except requests.RequestException as e:
-        return jsonify({"error": f"Failed to connect to nurse agent: {str(e)}"})
     except Exception as e:
-        return jsonify({"error": f"Triage failed: {str(e)}"})
+        print(f"❌ Triage error: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "error": str(e),
+            "triage_score": 3,  # Default to urgent
+            "success": False
+        }), 500
 
 @app.route('/patient/assess', methods=['POST'])
 def patient_assess():

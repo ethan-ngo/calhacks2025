@@ -1,25 +1,75 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function PatientWait() {
+  const navigate = useNavigate()
+  const { patientId } = useParams() // Get patientId from URL
   const [waitTime, setWaitTime] = useState(20)
   const [queuePosition, setQueuePosition] = useState(5)
-  const [patientName, setPatientName] = useState('Araya')
+  const [patientName, setPatientName] = useState('Patient')
+  const [patientData, setPatientData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Fetch patient data on mount
+  useEffect(() => {
+    if (patientId) {
+      fetchPatientData()
+    } else {
+      setIsLoading(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [patientId])
+
+  const fetchPatientData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/patient/data/${patientId}`)
+      const data = await response.json()
+      
+      if (data.success) {
+        setPatientData(data.data)
+        setPatientName(data.data.name || 'Patient')
+        // Calculate wait time based on triage score
+        const scoreToWaitTime = {
+          1: 0,
+          2: 5,
+          3: 15,
+          4: 30,
+          5: 60
+        }
+        setWaitTime(scoreToWaitTime[data.data.triageScore] || 20)
+      }
+    } catch (error) {
+      console.error('Error fetching patient data:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleUpdate = async () => {
-    // TODO: Fetch updated queue information from backend
-    // For now, just simulate an update
-    try {
-      // const response = await fetch('http://127.0.0.1:5000/patient/status', {
-      //   method: 'GET',
-      // })
-      // const data = await response.json()
-      // setWaitTime(data.waitTime)
-      // setQueuePosition(data.position)
-      
+    if (patientId) {
+      await fetchPatientData()
       alert('System updated!')
-    } catch (error) {
-      console.error('Failed to update:', error)
+    } else {
+      alert('System updated!')
     }
+  }
+
+  const handleChatClick = () => {
+    if (patientId) {
+      navigate(`/patientchat/${patientId}`)
+    } else {
+      navigate('/patientchat')
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div style={styles.container}>
+        <div style={styles.content}>
+          <div style={styles.greeting}>Loading...</div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -44,9 +94,11 @@ export default function PatientWait() {
           Current Queue Position: <span style={styles.positionNumber}>{queuePosition}th</span>
         </div>
 
-        <button onClick={handleUpdate} style={styles.updateButton}>
-          Update System
-        </button>
+        <div style={styles.buttonContainer}>
+          <button onClick={handleChatClick} style={styles.chatButton}>
+            Report Symptoms
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -130,6 +182,13 @@ const styles = {
     fontWeight: '700',
     color: '#1f2937',
   },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
+    maxWidth: '400px',
+  },
   updateButton: {
     backgroundColor: '#3b9dff',
     color: '#fff',
@@ -140,6 +199,18 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     boxShadow: '0 4px 12px rgba(59, 157, 255, 0.3)',
+    transition: 'all 0.2s ease',
+  },
+  chatButton: {
+    backgroundColor: '#fff',
+    color: '#3b9dff',
+    border: '2px solid #3b9dff',
+    borderRadius: '50px',
+    padding: '18px 80px',
+    fontSize: '20px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    boxShadow: '0 4px 12px rgba(59, 157, 255, 0.15)',
     transition: 'all 0.2s ease',
   },
 }

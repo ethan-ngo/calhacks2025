@@ -15,6 +15,7 @@ export default function NurseForm() {
     age: '21',
     gender: 'Male',
     weight: '70kgs',
+    phoneNumber: '',
     heartRate: '71/min',
     temperature: '37.5 Cel',
     respiratoryRate: '13/min',
@@ -85,7 +86,8 @@ export default function NurseForm() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/triage', {
+      // Use Flask backend endpoint instead of calling agent directly
+      const response = await fetch('http://127.0.0.1:5000/nurse/triage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -97,16 +99,66 @@ export default function NurseForm() {
       
       const result = await response.json()
       
-      if (result.success) {
-        // Navigate to dashboard with triage result
-        navigate('/triage-dashboard', {
-          state: {
-            triageResult: result,
-            patientData: patientData
-          }
+      // Check if we got a triage_score
+      if (result.triage_score) {
+        console.log('✅ Triage result:', result)
+        
+        // Save patient data and send link via SMS
+        const submitResponse = await fetch('http://127.0.0.1:5000/nurse/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: patientData.name,
+            age: patientData.age,
+            gender: patientData.gender,
+            weight: patientData.weight,
+            phoneNumber: patientData.phoneNumber,
+            heartRate: patientData.heartRate,
+            temperature: patientData.temperature,
+            respiratoryRate: patientData.respiratoryRate,
+            bloodPressure: patientData.bloodPressure,
+            painSeverity: patientData.painSeverity,
+            symptoms: symptoms,
+            triageScore: result.triage_score
+          })
         })
+        
+        const submitData = await submitResponse.json()
+        console.log('✅ Patient submitted:', submitData.success)
+        
+        if (submitData.success) {
+          // Show simple confirmation without revealing patient info
+          alert(
+            `✅ Patient Successfully Registered\n\n` +
+            `${submitData.sms_sent ? '📱 Portal link sent to patient\'s phone' : '⚠️ Unable to send SMS - please notify patient manually'}`
+          )
+          
+          // Use the full assessment from result
+          const triageResultForDashboard = result.assessment || {
+            triage_score: result.triage_score,
+            triage_level: result.triage_level,
+            acuity: result.acuity,
+            assessment_summary: {
+              primary_concern: result.reasoning
+            },
+            clinical_recommendations: [],
+            nursing_notes: []
+          }
+          
+          // Navigate to dashboard with patient link
+          navigate('/triage-dashboard', {
+            state: {
+              triageResult: triageResultForDashboard,
+              patientData: patientData,
+              patientLink: submitData.patient_link,
+              patientId: submitData.patient_id
+            }
+          })
+        } else {
+          alert('Failed to register patient: ' + (submitData.error || 'Unknown error'))
+        }
       } else {
-        alert('Triage failed: ' + (result.error || 'Unknown error'))
+        alert('Triage failed: ' + (result.error || 'No triage score returned'))
       }
     } catch (error) {
       console.error('Error:', error)
