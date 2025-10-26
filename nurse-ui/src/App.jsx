@@ -4,7 +4,7 @@ import NurseForm from './pages/nurse_form'
 import Queue from './pages/Queue'
 import PatientWait from './pages/PatientWait'
 import VoiceNurse from './pages/voice_nurse'
-
+import TriageDashboard from './pages/nurse_dashboard'
 function App() {
     return (
         <Routes>
@@ -13,6 +13,7 @@ function App() {
             <Route path="/inputtest" element={<InputLoginPage />} />
             <Route path="/nurseform" element={<NurseForm />} />
             <Route path="/patientwait" element={<PatientWait />} />
+            <Route path="/triage-dashboard" element={<TriageDashboard />} />
         </Routes>
     )
 }

@@ -11,6 +11,8 @@ const LIVEKIT_URL = 'wss://triageagent-2aap4wyl.livekit.cloud'
 
 export default function NurseForm() {
   const navigate = useNavigate()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
   const [patientData, setPatientData] = useState({
     name: 'John Doe',
     age: '21',
@@ -28,6 +30,20 @@ export default function NurseForm() {
     { sender: 'patient', text: 'Hi I am your transcription voice assistant.' }
   ])
 
+  const patients = {
+    "Allen Stoltenberg": "073290f9-73e6-8842-bddc-b568bfcb84b0",
+    "Carline Gibson": "40021a9e-eeb3-4fd0-1d5a-2cd56a0bff73",
+    "Gregorio Batz": "12bee8ac-7bce-f218-179e-0c2cabade79f",
+    "Selena Turner": "1c026fd4-568f-5bc5-32f3-eb801c69ebd2",
+    "Kori Hermann": "e369df4d-e272-e40a-8bf0-964b9bbe949c",
+    "Andra Cruickshank": "fcc2ce58-4808-f223-9902-107143303d1a",
+    "Enrique Konopelski": "8f76e2d9-92a3-0a2a-72a6-a042566a4cb0",
+    "Fonda Hettinger": "e431384f-3578-ab67-d439-e5f55ff22a0d",
+    "Phyliss Marks": "e36a2f5b-a5ac-db0b-bfdf-5c130dad1161",
+    "Terri Wolff": "f9df9434-2057-1a21-bee6-791ed3f9d97b"
+  }
+
+
   // Voice agent states
   const [isVoiceActive, setIsVoiceActive] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
@@ -41,33 +57,63 @@ export default function NurseForm() {
   }
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
+    
+    const heartRate = parseInt(patientData.heartRate.split('/')[0])
+    const temperature = parseFloat(patientData.temperature.split(' ')[0])
+    const respiratoryRate = parseInt(patientData.respiratoryRate.split('/')[0])
+    const bloodPressure = patientData.bloodPressure
+    
+    
+    //breaks the output with JSON Parse Error at line 1, column 1 Error: Expecting value
+    //const symptoms = chatMessages[chatMessages.length - 1]?.text || patientData.comments || 'No symptoms reported'
+    // Combine all chat messages and the comments, fixes all the issues with the previous line that was commented out
+    const chatLog = chatMessages.map(m => m.text).join(' \n');
+    const symptoms = `Chat Transcript: \n${chatLog} \n\nNurse Comments: \n${patientData.comments}`;
+    const patientID = patients[patientData.name] || patientData.name
+
     const payload = {
-      userID: patientData.name,
-      current_vitals: [
-        `HR: ${patientData.heartRate}`,
-        `Temp: ${patientData.temperature}`,
-        `RR: ${patientData.respiratoryRate}`,
-        `BP: ${patientData.bloodPressure}`
-      ],
-      current_symptoms: [chatMessages[chatMessages.length - 1].text]
+      userID: patientID,
+      current_vitals: {
+        heart_rate: heartRate,
+        temperature: temperature,
+        respiratory_rate: respiratoryRate,
+        blood_pressure: bloodPressure
+      },
+      current_symptoms: symptoms,
+      history: "",
+      recall_history: ""
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/nurse/triage', {
+      const response = await fetch('http://127.0.0.1:8000/triage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const result = await response.json()
       
-      setPatientData({
-        ...patientData,
-        comments: result.reasoning || 'Assessment complete'
-      })
-      
-      alert(`Triage Score: ${result.triage_score}/5`)
+      if (result.success) {
+        // Navigate to dashboard with triage result
+        navigate('/triage-dashboard', {
+          state: {
+            triageResult: result,
+            patientData: patientData
+          }
+        })
+      } else {
+        alert('Triage failed: ' + (result.error || 'Unknown error'))
+      }
     } catch (error) {
+      console.error('Error:', error)
       alert('Failed to submit: ' + error.message)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -205,8 +251,15 @@ export default function NurseForm() {
           <button onClick={() => navigate('/')} style={styles.backButton}>
             ← Back
           </button>
-          <button onClick={handleSubmit} style={styles.submitButton}>
-            Submit
+          <button 
+            onClick={handleSubmit} 
+            style={{
+              ...styles.submitButton,
+              ...(isSubmitting ? styles.submitButtonLoading : {})
+            }}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Calculating...' : 'Submit'}
           </button>
         </div>
       </div>
@@ -287,5 +340,11 @@ const styles = {
     fontSize: '18px',
     fontWeight: '500',
     cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  submitButtonLoading: {
+    backgroundColor: '#7ab8ff',
+    cursor: 'not-allowed',
+    opacity: 0.7,
   },
 }
