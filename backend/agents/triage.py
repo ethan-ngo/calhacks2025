@@ -1,6 +1,6 @@
 """
-Triage Score Calculator using Claude LLM
-Uses Anthropic's Claude to analyze symptoms and calculate triage scores (1-5)
+Triage Score Calculator using Claude LLM - ENHANCED VERSION
+Forces detailed analysis with patient history integration
 """
 
 import os
@@ -11,76 +11,127 @@ from anthropic import Anthropic
 
 load_dotenv()
 
-# Initialize Anthropic client
 client = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
 
-# Model configuration
-MODEL_NAME = 'claude-3-7-sonnet-20250219'  # Latest Claude model
-MAX_TOKENS = 1024
-TEMPERATURE = 0.3  # Lower temperature for more consistent medical assessments
+MODEL_NAME = 'claude-3-7-sonnet-20250219'
+MAX_TOKENS = 3000  # Increased for MORE detailed responses
+TEMPERATURE = 0.2  # Lower for more consistent detailed output
 
-TRIAGE_SYSTEM_PROMPT = """You are an expert medical triage assistant using the ESI (Emergency Severity Index) methodology for triage assessment.
+TRIAGE_SYSTEM_PROMPT = """You are an expert medical triage nurse with 20+ years of emergency department experience. You MUST provide comprehensive, detailed assessments that thoroughly analyze patient history.
+
+CRITICAL: Your assessments must be DETAILED and THOROUGH. Simple, thin assessments are unacceptable and dangerous.
 
 ESI Triage Scale (1-5):
-The Emergency Severity Index is a five-level triage algorithm that categorizes patients by evaluating both acuity and resource needs.
+- Level 1 (RESUSCITATION): Immediate life-saving intervention
+- Level 2 (EMERGENT): High-risk, severe distress, or altered mental status
+- Level 3 (URGENT): Stable but needs 2+ resources
+- Level 4 (LESS URGENT): Stable, needs 1 resource  
+- Level 5 (NON-URGENT): No resources needed
 
-- Level 1 (RESUSCITATION): Immediate life-saving intervention required
-  * Requires immediate physician evaluation and life-saving interventions
-  * Unstable vital signs, severe trauma, cardiac arrest
-  * Unresponsive or only responding to painful stimuli
-  Examples: Cardiac arrest, severe respiratory distress, unresponsive, severe trauma, active seizure
+MANDATORY JSON FORMAT - YOU MUST FILL EVERY SECTION THOROUGHLY:
 
-- Level 2 (EMERGENT): High-risk situation, confused/lethargic/disoriented, or severe pain/distress
-  * Should not wait to be seen
-  * High-risk situation (chest pain, altered mental status)
-  * Confused, lethargic, or disoriented
-  * Severe pain or distress (typically 7-10/10 pain scale)
-  Examples: Chest pain, difficulty breathing, altered mental status, severe pain, signs of sepsis
-
-- Level 3 (URGENT): Stable but requires multiple resources
-  * Patient is stable enough to wait but condition needs attention
-  * Expected to require 2+ hospital resources (labs, imaging, IV fluids, etc.)
-  * Moderate symptoms that are stable
-  Examples: Abdominal pain, moderate fever, mild dehydration, stable injuries requiring multiple tests
-
-- Level 4 (LESS URGENT): Stable, requires one resource
-  * Can safely wait to be seen
-  * Expected to need only 1 hospital resource
-  * Minor to moderate symptoms
-  Examples: Minor lacerations, simple fractures, UTI symptoms, mild symptoms
-
-- Level 5 (NON-URGENT): Stable, no resources needed
-  * Could be treated in clinic or primary care setting
-  * No resources anticipated
-  * Very minor complaints
-  Examples: Prescription refill, minor rash, chronic stable conditions, preventive care
-
-ESI Decision Points:
-1. Does the patient require immediate life-saving intervention? (Level 1)
-2. Is this a high-risk situation, or is the patient confused/lethargic/disoriented, or in severe pain/distress? (Level 2)
-3. How many resources will the patient need? (Levels 3, 4, or 5)
-   - Multiple resources (2+) → Level 3
-   - One resource → Level 4
-   - No resources → Level 5
-
-You must respond ONLY with a valid JSON object in this exact format:
 {
-  "triage_score": <integer 1-5>,
-  "reasoning": "<Extremely Detailed explanation referencing ESI criteria and paitent history: vital stability, resource needs, acuity level>",
-  "worsened": <boolean true/false>
+  "triage_score": <1-5>,
+  "triage_level": "<LEVEL NAME>",
+  "acuity": "<CRITICAL|HIGH|MODERATE|LOW|MINIMAL>",
+  "assessment_summary": {
+    "primary_concern": "<detailed 2-3 sentence summary>",
+    "immediate_action_required": <true|false>,
+    "estimated_wait_time": "<time>"
+  },
+  "clinical_findings": {
+    "presenting_symptoms": [
+      "MINIMUM 3-4 SYMPTOMS - Be specific and detailed"
+    ],
+    "vital_signs_assessment": [
+      "Heart Rate: X bpm - STATUS - DETAILED clinical significance",
+      "Blood Pressure: X/X - STATUS - DETAILED clinical significance", 
+      "Respiratory Rate: X - STATUS - DETAILED clinical significance",
+      "Temperature: X°F - STATUS - DETAILED clinical significance",
+      "Overall Hemodynamic Status: STATUS - DETAILED summary"
+    ],
+    "red_flags": [
+      "LIST EVERY CRITICAL FINDING with clinical reasoning"
+    ]
+  },
+  "patient_history_relevance": {
+    "pertinent_history": [
+      "MINIMUM 4-5 ITEMS from history - MUST explain why each matters",
+      "Active conditions: X - increases risk of Y",
+      "Medications: X - may cause/mask Z",
+      "Past surgeries: X - relevant because Y",
+      "Chronic conditions: X - affects presentation because Y"
+    ],
+    "risk_factors": [
+      "MINIMUM 3-4 RISK FACTORS - explain each thoroughly"
+    ]
+  },
+  "esi_rationale": {
+    "decision_path": [
+      "Step 1: Life-saving? → DETAILED reasoning with specific vitals/symptoms",
+      "Step 2: High-risk? → DETAILED reasoning referencing history + current state",
+      "Step 3: Resources → LIST 5-7 SPECIFIC tests/interventions needed"
+    ],
+    "key_factors": [
+      "MINIMUM 4-5 KEY FACTORS - each with detailed clinical reasoning"
+    ]
+  },
+  "recommended_resources": [
+    "MINIMUM 6-8 SPECIFIC RESOURCES",
+    "12-lead ECG - to rule out ACS",
+    "Troponin I, CK-MB - cardiac biomarkers",
+    "CBC - assess for infection/anemia",
+    "CMP - electrolytes and renal function",
+    "Chest X-ray - evaluate cardiac/pulmonary",
+    "IV access - for medications/fluids",
+    "Continuous cardiac monitoring"
+  ],
+  "clinical_recommendations": [
+    "MINIMUM 5-6 DETAILED ACTIONABLE RECOMMENDATIONS",
+    "Immediate: X - do within Y minutes",
+    "Monitoring: Track X every Y minutes",
+    "Medications: Consider X for Y",
+    "Escalation: Call X if Y occurs",
+    "Safety: Z precautions"
+  ],
+  "symptom_progression": {
+    "status": "<worsening|stable|improving|unknown>",
+    "comparison": "DETAILED 3-4 sentence comparison if previous assessment available",
+    "concerning_changes": [
+      "Specific change 1 with before→after values",
+      "Specific change 2 with clinical significance"
+    ]
+  },
+  "nursing_notes": [
+    "MINIMUM 4-5 CRITICAL NURSING NOTES",
+    "PRIORITY: Most critical action",
+    "MONITORING: Specific parameters + frequency",
+    "COMMUNICATION: Who to notify + when",
+    "SAFETY: Specific risks to watch"
+  ]
 }
 
-Assessment Guidelines:
-- Follow ESI decision algorithm: life-saving intervention → high risk/severe distress → resource needs
-- Consider vital sign stability and hemodynamic status
-- Assess mental status (alert, confused, lethargic, unresponsive)
-- Evaluate pain level and distress
-- Estimate resource utilization (how many medical resources/tests would be needed)
-- Compare current symptoms to previous assessments to determine if worsened
-- Red flags: unstable vitals, altered mental status, severe pain, high-risk conditions
-- When in doubt between levels, choose the higher acuity level for patient safety
+🚨 QUALITY REQUIREMENTS - YOUR RESPONSE WILL BE REJECTED IF:
+❌ You provide fewer than 3 items in patient_history_relevance.pertinent_history
+❌ You provide fewer than 5 recommended_resources
+❌ You provide fewer than 4 clinical_recommendations  
+❌ Your vital signs assessment doesn't explain clinical significance
+❌ You don't actively use the patient history provided
+❌ Your reasoning is generic instead of specific to THIS patient
+❌ You don't compare to previous assessment when recall_history exists
 
-Reference: Emergency Severity Index (ESI) - Agency for Healthcare Research and Quality (AHRQ)"""
+✅ QUALITY CHECKLIST - EVERY ASSESSMENT MUST:
+1. Reference AT LEAST 4 specific items from patient medical history
+2. Provide AT LEAST 6 specific recommended resources/tests
+3. Provide AT LEAST 5 detailed clinical recommendations
+4. Explain clinical significance of EVERY abnormal vital sign
+5. Compare to previous assessment if recall_history provided
+6. Be specific (e.g., "12-lead ECG" not "cardiac workup")
+7. Include clinical reasoning for every statement
+8. Cite specific medications and conditions from history
+9. Explain WHY each history item matters for current presentation
+
+REMEMBER: Nurses need DETAILED, ACTIONABLE information. Thin assessments put patients at risk!"""
 
 
 def calculate_triage_detailed(
@@ -89,60 +140,48 @@ def calculate_triage_detailed(
     vitals: dict = None,
     recall_history: str = ""
 ) -> Dict:
-    """
-    Calculate detailed triage assessment including score, reasoning, and recommendations.
+    """Calculate DETAILED triage assessment"""
     
-    Args:
-        symptoms (str): Current patient symptoms description
-        history (str): Patient medical history
-        vitals (dict): Dictionary of vital signs
-        recall_history (str): Previous symptom reports and assessments
-        
-    Returns:
-        Dict: Dictionary containing:
-            - triage_score (int): Score from 1-5
-            - reasoning (str): Explanation for the score
-            - recommendation (str): Medical recommendation
-            - emergency_keywords (list): List of critical symptoms identified
-            - worsened (bool): Whether symptoms have worsened from previous
-    """
-    # Build comprehensive prompt with all available information
-    user_message = f"""Analyze the following patient information and provide a triage assessment:
+    # Build EMPHATIC prompt
+    user_message = f"""URGENT: Provide a COMPREHENSIVE, DETAILED triage assessment for this patient.
 
 CURRENT SYMPTOMS:
 {symptoms}
 
-PATIENT HISTORY:
-{history if history else "No history provided"}
+PATIENT MEDICAL HISTORY:
+{history if history else "No history provided - but still provide detailed assessment"}
 
 VITAL SIGNS:
-{json.dumps(vitals, indent=2) if vitals else "No vital signs provided"}
+{json.dumps(vitals, indent=2) if vitals else "No vitals provided"}
 
 PREVIOUS ASSESSMENTS:
 {recall_history if recall_history else "No previous assessments"}
 
-Provide your assessment as a JSON object with triage_score (1-5), reasoning, and worsened (boolean)."""
+🚨 CRITICAL INSTRUCTIONS:
+1. You MUST reference at least 4 items from the patient history
+2. You MUST provide at least 6 specific recommended resources
+3. You MUST provide at least 5 detailed clinical recommendations
+4. You MUST explain the clinical significance of every abnormal vital
+5. If patient history is provided, ACTIVELY USE IT in your reasoning
+6. Be SPECIFIC and DETAILED - generic assessments are unacceptable
+7. Compare to previous assessment if recall_history is provided
+
+Provide your COMPREHENSIVE assessment as JSON following the exact format."""
 
     try:
-        # Call Claude API
+        print(f"\n🔍 Calling Claude with {len(history)} chars of history...")
+        
         response = client.messages.create(
             model=MODEL_NAME,
             max_tokens=MAX_TOKENS,
             temperature=TEMPERATURE,
             system=TRIAGE_SYSTEM_PROMPT,
-            messages=[
-                {
-                    "role": "user",
-                    "content": user_message
-                }
-            ]
+            messages=[{"role": "user", "content": user_message}]
         )
         
-        # Extract response text
         response_text = response.content[0].text
         
-        # Parse JSON response
-        # Remove markdown code blocks if present
+        # Parse JSON
         if "```json" in response_text:
             response_text = response_text.split("```json")[1].split("```")[0].strip()
         elif "```" in response_text:
@@ -150,61 +189,80 @@ Provide your assessment as a JSON object with triage_score (1-5), reasoning, and
         
         result = json.loads(response_text)
         
-        # Validate triage score is in range
+        # Validate
         if not (1 <= result.get("triage_score", 0) <= 5):
             raise ValueError(f"Invalid triage score: {result.get('triage_score')}")
+        
+        # Quality checks
+        history_items = len(result.get('patient_history_relevance', {}).get('pertinent_history', []))
+        resources = len(result.get('recommended_resources', []))
+        recommendations = len(result.get('clinical_recommendations', []))
+        
+        print(f"✅ Quality check: {history_items} history items, {resources} resources, {recommendations} recommendations")
         
         return result
         
     except json.JSONDecodeError as e:
-        print(f"Error parsing Claude response: {e}")
-        print(f"Response text: {response_text}")
-        # Return default assessment
-        return {
-            "triage_score": 3,
-            "reasoning": "Unable to parse triage assessment. Defaulting to moderate urgency.",
-            "worsened": False
-        }
+        print(f"❌ Error parsing JSON: {e}")
+        print(f"Response: {response_text[:500]}")
+        return _get_default_assessment(symptoms, str(e))
     except Exception as e:
-        print(f"Error calling Claude API: {e}")
-        # Return default assessment
-        return {
-            "triage_score": 3,
-            "reasoning": f"Error during triage assessment: {str(e)}",
-            "worsened": False
-        }
+        print(f"❌ Error: {e}")
+        return _get_default_assessment(symptoms, str(e))
 
 
-def format_triage_response(assessment: Dict) -> str:
-    """
-    Format triage assessment into human-readable text.
-    
-    Args:
-        assessment (Dict): Assessment dictionary from calculate_triage_detailed
-        
-    Returns:
-        str: Formatted response text
-    """
-    score = assessment["triage_score"]
-    reasoning = assessment["reasoning"]
-    worsened = assessment.get("worsened", False)
-    
-    urgency_labels = {
-        1: "RESUSCITATION - Immediate Life-Saving Intervention",
-        2: "EMERGENT - High Risk/Severe Distress",
-        3: "URGENT - Stable, Multiple Resources",
-        4: "LESS URGENT - Stable, One Resource",
-        5: "NON-URGENT - Stable, No Resources"
+def _get_default_assessment(symptoms: str, error: str) -> Dict:
+    """Return detailed default assessment on error"""
+    return {
+        "triage_score": 3,
+        "triage_level": "URGENT",
+        "acuity": "MODERATE",
+        "assessment_summary": {
+            "primary_concern": f"System error during assessment: {error}. Patient requires immediate clinical evaluation.",
+            "immediate_action_required": True,
+            "estimated_wait_time": "immediate"
+        },
+        "clinical_findings": {
+            "presenting_symptoms": [symptoms],
+            "vital_signs_assessment": [
+                "Unable to assess vitals due to system error",
+                "Overall Hemodynamic Status: Unknown - requires immediate assessment"
+            ],
+            "red_flags": ["System error - unable to complete automated triage"]
+        },
+        "patient_history_relevance": {
+            "pertinent_history": ["Unable to analyze history due to system error"],
+            "risk_factors": ["Unknown - requires clinical evaluation"]
+        },
+        "esi_rationale": {
+            "decision_path": [
+                "Step 1: Unable to assess - system error",
+                "Step 2: Defaulting to moderate urgency for safety",
+                "Step 3: Full evaluation required"
+            ],
+            "key_factors": ["System error requires immediate clinical override"]
+        },
+        "recommended_resources": [
+            "Immediate clinical evaluation",
+            "Full vital signs assessment",
+            "Complete medical history review",
+            "Appropriate diagnostic workup per clinical judgment"
+        ],
+        "clinical_recommendations": [
+            "IMMEDIATE: Clinical evaluation required - do not rely on automated triage",
+            "Perform complete assessment manually",
+            "Document system error in medical record",
+            "Escalate to charge nurse/physician immediately"
+        ],
+        "symptom_progression": {
+            "status": "unknown",
+            "comparison": "Unable to assess due to system error",
+            "concerning_changes": []
+        },
+        "nursing_notes": [
+            "CRITICAL: Automated triage system error",
+            "Manual triage required immediately",
+            f"Error details: {error}",
+            "Do not delay care due to system issue"
+        ]
     }
-    
-    response = f"""
-🏥 ESI TRIAGE ASSESSMENT
-
-ESI Level: {score}/5 - {urgency_labels.get(score, "Unknown")}
-Status: {"⚠️ Symptoms have worsened" if worsened else "Stable or improved"}
-
-REASONING:
-{reasoning}
-"""
-    
-    return response.strip()

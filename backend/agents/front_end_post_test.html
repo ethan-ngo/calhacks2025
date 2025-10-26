@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Triage Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .input-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            display: none;
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .dashboard.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .score-header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .score-header.level-1 { border-left: 8px solid #f44336; }
+        .score-header.level-2 { border-left: 8px solid #ff9800; }
+        .score-header.level-3 { border-left: 8px solid #ffc107; }
+        .score-header.level-4 { border-left: 8px solid #4caf50; }
+        .score-header.level-5 { border-left: 8px solid #2196f3; }
+        
+        .score-big {
+            font-size: 72px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        .acuity-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .acuity-CRITICAL { background: #ffebee; color: #c62828; }
+        .acuity-HIGH { background: #fff3e0; color: #e65100; }
+        .acuity-MODERATE { background: #fff9c4; color: #f57f17; }
+        .acuity-LOW { background: #e8f5e9; color: #2e7d32; }
+        .acuity-MINIMAL { background: #e3f2fd; color: #1565c0; }
+        
+        .primary-concern {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .immediate-action {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .immediate-action.yes {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .immediate-action.no {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            padding: 10px;
+            margin: 8px 0;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .red-flag {
+            border-left-color: #f44336;
+            background: #ffebee;
+            font-weight: 500;
+        }
+        
+        .status-worsening { color: #c62828; font-weight: 600; }
+        .status-stable { color: #2e7d32; font-weight: 600; }
+        .status-improving { color: #1976d2; font-weight: 600; }
+        .status-unknown { color: #757575; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Input Panel -->
+        <div class="input-panel">
+            <h1>🏥 Patient Triage Dashboard</h1>
+            <p class="subtitle">AI-Powered Emergency Severity Index (ESI) Assessment</p>
+            
+            <form id="triageForm">
+                <div class="form-group">
+                    <label for="userID">Patient ID</label>
+                    <input 
+                        type="text" 
+                        id="userID" 
+                        placeholder="Enter patient ID"
+                        value="073290f9-73e6-8842-bddc-b568bfcb84b0"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="symptoms">Current Symptoms</label>
+                    <textarea 
+                        id="symptoms" 
+                        placeholder="Describe current symptoms..."
+                        required
+                    >chest pain and shortness of breath, struggling to walk, vision is blurry</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Vital Signs</label>
+                    <div class="vitals-grid">
+                        <input type="number" id="heart_rate" placeholder="Heart Rate (bpm)" value="110">
+                        <input type="text" id="blood_pressure" placeholder="Blood Pressure" value="150/95">
+                        <input type="number" step="0.1" id="temperature" placeholder="Temperature (°F)" value="98.6">
+                        <input type="number" id="respiratory_rate" placeholder="Respiratory Rate" value="22">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recall_history">Previous Assessment</label>
+                    <textarea 
+                        id="recall_history" 
+                        placeholder="Previous assessments..."
+                    >Previous assessment 2 hours ago: Level 3 - stable with moderate symptoms</textarea>
+                </div>
+                
+                <button type="submit">Calculate Triage Score</button>
+            </form>
+            
+            <div class="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 10px; color: #666;">Analyzing patient data...</p>
+            </div>
+            
+            <div class="error">
+                <strong>Error:</strong> <span id="errorMessage"></span>
+            </div>
+        </div>
+        
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <!-- Score Header -->
+            <div class="score-header" id="scoreHeader">
+                <div class="score-big" id="scoreBig"></div>
+                <div class="score-label" id="scoreLabel"></div>
+                <div class="acuity-badge" id="acuityBadge"></div>
+            </div>
+            
+            <!-- Primary Concern -->
+            <div class="card">
+                <h2>📋 Assessment Summary</h2>
+                <div class="primary-concern" id="primaryConcern"></div>
+                <div class="immediate-action" id="immediateAction"></div>
+                <div style="margin-top: 10px;">
+                    <strong>Estimated Wait Time:</strong> <span id="waitTime"></span>
+                </div>
+            </div>
+            
+            <!-- Two Column Layout -->
+            <div class="grid-2">
+                <!-- Clinical Findings -->
+                <div class="card">
+                    <h2>🩺 Clinical Findings</h2>
+                    <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Presenting Symptoms</h3>
+                    <ul id="symptoms"></ul>
+                    
+                    <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Vital Signs</h3>
+                    <ul id="vitals"></ul>
+                    
+                    <h3 style="font-size: 14px; margin-top: 15px; color: #666;">⚠️ Red Flags</h3>
+                    <ul id="redFlags"></ul>
+                </div>
+                
+                <!-- Patient History -->
+                <div class="card">
+                    <h2>📂 Patient History Relevance</h2>
+                    <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Pertinent History</h3>
+                    <ul id="pertinentHistory"></ul>
+                    
+                    <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Risk Factors</h3>
+                    <ul id="riskFactors"></ul>
+                </div>
+            </div>
+            
+            <!-- ESI Rationale -->
+            <div class="card">
+                <h2>🧮 ESI Decision Rationale</h2>
+                <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Decision Path</h3>
+                <ul id="decisionPath"></ul>
+                
+                <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Key Factors</h3>
+                <ul id="keyFactors"></ul>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="grid-2">
+                <div class="card">
+                    <h2>🔬 Recommended Resources</h2>
+                    <ul id="resources"></ul>
+                </div>
+                
+                <div class="card">
+                    <h2>💊 Clinical Recommendations</h2>
+                    <ul id="recommendations"></ul>
+                </div>
+            </div>
+            
+            <!-- Symptom Progression -->
+            <div class="card">
+                <h2>📈 Symptom Progression</h2>
+                <div style="margin: 15px 0;">
+                    <strong>Status:</strong> <span id="progressionStatus"></span>
+                </div>
+                <div class="primary-concern" id="progressionComparison"></div>
+                <h3 style="font-size: 14px; margin-top: 15px; color: #666;">Concerning Changes</h3>
+                <ul id="concerningChanges"></ul>
+            </div>
+            
+            <!-- Nursing Notes -->
+            <div class="card">
+                <h2>📝 Nursing Notes</h2>
+                <ul id="nursingNotes"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://localhost:8000/triage';
+        
+        const form = document.getElementById('triageForm');
+        const loading = document.querySelector('.loading');
+        const error = document.querySelector('.error');
+        const dashboard = document.getElementById('dashboard');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Hide previous results
+            dashboard.classList.remove('show');
+            error.classList.remove('show');
+            
+            // Show loading
+            loading.classList.add('show');
+            form.querySelector('button').disabled = true;
+            
+            // Collect form data
+            const requestData = {
+                userID: document.getElementById('userID').value,
+                current_symptoms: document.getElementById('symptoms').value,
+                current_vitals: {},
+                recall_history: document.getElementById('recall_history').value
+            };
+            
+            // Add vitals if provided
+            const hr = document.getElementById('heart_rate').value;
+            const bp = document.getElementById('blood_pressure').value;
+            const temp = document.getElementById('temperature').value;
+            const rr = document.getElementById('respiratory_rate').value;
+            
+            if (hr) requestData.current_vitals.heart_rate = parseInt(hr);
+            if (bp) requestData.current_vitals.blood_pressure = bp;
+            if (temp) requestData.current_vitals.temperature = parseFloat(temp);
+            if (rr) requestData.current_vitals.respiratory_rate = parseInt(rr);
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                loading.classList.remove('show');
+                form.querySelector('button').disabled = false;
+                
+                if (data.success) {
+                    displayDashboard(data);
+                } else {
+                    showError(data.error || 'Unknown error occurred');
+                }
+                
+            } catch (err) {
+                loading.classList.remove('show');
+                form.querySelector('button').disabled = false;
+                showError(err.message);
+            }
+        });
+        
+        function displayDashboard(data) {
+            // Score Header
+            const scoreHeader = document.getElementById('scoreHeader');
+            scoreHeader.className = 'score-header level-' + data.triage_score;
+            document.getElementById('scoreBig').textContent = data.triage_score + '/5';
+            document.getElementById('scoreLabel').textContent = data.triage_level;
+            
+            const acuityBadge = document.getElementById('acuityBadge');
+            acuityBadge.className = 'acuity-badge acuity-' + data.acuity;
+            acuityBadge.textContent = data.acuity + ' ACUITY';
+            
+            // Assessment Summary
+            document.getElementById('primaryConcern').textContent = 
+                data.assessment_summary.primary_concern;
+            
+            const immediateAction = document.getElementById('immediateAction');
+            immediateAction.className = 'immediate-action ' + 
+                (data.assessment_summary.immediate_action_required ? 'yes' : 'no');
+            immediateAction.textContent = data.assessment_summary.immediate_action_required 
+                ? '⚠️ IMMEDIATE ACTION REQUIRED' 
+                : '✅ No Immediate Action Required';
+            
+            document.getElementById('waitTime').textContent = 
+                data.assessment_summary.estimated_wait_time;
+            
+            // Clinical Findings
+            fillList('symptoms', data.clinical_findings.presenting_symptoms);
+            fillList('vitals', data.clinical_findings.vital_signs_assessment);
+            fillList('redFlags', data.clinical_findings.red_flags, 'red-flag');
+            
+            // Patient History
+            fillList('pertinentHistory', data.patient_history_relevance.pertinent_history);
+            fillList('riskFactors', data.patient_history_relevance.risk_factors);
+            
+            // ESI Rationale
+            fillList('decisionPath', data.esi_rationale.decision_path);
+            fillList('keyFactors', data.esi_rationale.key_factors);
+            
+            // Recommendations
+            fillList('resources', data.recommended_resources);
+            fillList('recommendations', data.clinical_recommendations);
+            
+            // Symptom Progression
+            const status = data.symptom_progression.status;
+            const statusSpan = document.getElementById('progressionStatus');
+            statusSpan.className = 'status-' + status;
+            statusSpan.textContent = status.toUpperCase();
+            
+            document.getElementById('progressionComparison').textContent = 
+                data.symptom_progression.comparison;
+            fillList('concerningChanges', data.symptom_progression.concerning_changes);
+            
+            // Nursing Notes
+            fillList('nursingNotes', data.nursing_notes);
+            
+            // Show dashboard
+            dashboard.classList.add('show');
+            
+            // Scroll to results
+            dashboard.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function fillList(elementId, items, extraClass = '') {
+            const ul = document.getElementById(elementId);
+            ul.innerHTML = '';
+            
+            if (!items || items.length === 0) {
+                ul.innerHTML = '<li style="border-left-color: #ccc;">None</li>';
+                return;
+            }
+            
+            items.forEach(item => {
+                const li = document.createElement('li');
+                if (extraClass) li.className = extraClass;
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+        }
+        
+        function showError(message) {
+            document.getElementById('errorMessage').textContent = message;
+            error.classList.add('show');
+        }
+    </script>
+</body>
+</html>
