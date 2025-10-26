@@ -422,7 +422,7 @@ const styles = {
     height: '100vh',
     margin: 0,
     padding: 0,
-    backgroundColor: '#e8eef3',
+    background: 'linear-gradient(180deg,rgba(240, 240, 240, 1) 0%, rgba(161, 208, 255, 1) 100%)',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     overflow: 'hidden',
   },

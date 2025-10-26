@@ -242,11 +242,11 @@ export default function Queue() {
                     onClick={() => handleCardClick(patient)}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-4px)'
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 157, 255, 0.15)'
+                      e.currentTarget.style.filter = 'drop-shadow(0 12px 24px rgba(59, 157, 255, 0.3))'
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0)'
-                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)'
+                      e.currentTarget.style.filter = 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15))'
                     }}
                   >
                   <div style={styles.nodeHeader}>
@@ -572,7 +572,7 @@ const styles = {
   container: {
     width: '100vw',
     height: '100vh',
-    backgroundColor: '#e8eef3',
+    background: 'linear-gradient(180deg,rgba(240, 240, 240, 1) 0%, rgba(161, 208, 255, 1) 100%)',
     padding: '40px',
     boxSizing: 'border-box',
     overflowY: 'auto',
@@ -599,14 +599,14 @@ const styles = {
     fontSize: '16px',
     fontWeight: '600',
     cursor: 'pointer',
-    boxShadow: '0 2px 8px rgba(59, 157, 255, 0.25)',
+    filter: 'drop-shadow(0 4px 8px rgba(59, 157, 255, 0.35))',
     transition: 'all 0.2s ease',
   },
   statsContainer: {
     backgroundColor: '#fff',
     borderRadius: '16px',
     padding: '20px 32px',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+    filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1))',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -638,7 +638,7 @@ const styles = {
     backgroundColor: '#fff',
     borderRadius: '20px',
     padding: '32px',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+    filter: 'drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12))',
     minHeight: '400px',
   },
   emptyState: {
@@ -679,7 +679,7 @@ const styles = {
     backgroundColor: '#fff',
     borderRadius: '16px',
     overflow: 'hidden',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+    filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15))',
     border: '1px solid #e5e7eb',
     transition: 'all 0.3s ease',
     cursor: 'pointer',

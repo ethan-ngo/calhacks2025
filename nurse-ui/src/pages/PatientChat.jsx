@@ -173,7 +173,7 @@ const styles = {
     flexDirection: 'column',
     minHeight: '100vh',
     width: '100vw',
-    backgroundColor: '#e8eef3',
+    background: 'linear-gradient(180deg,rgba(240, 240, 240, 1) 0%, rgba(161, 208, 255, 1) 100%)',
     fontFamily: 'system-ui, -apple-system, sans-serif',
     padding: '20px',
     boxSizing: 'border-box',
