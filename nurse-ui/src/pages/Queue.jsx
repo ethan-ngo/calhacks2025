@@ -158,19 +158,35 @@ export default function Queue() {
                 >
                   <div style={styles.nodeHeader}>
                     <span style={styles.nodePosition}>#{index + 1}</span>
-                    <span 
-                      style={{
-                        ...styles.nodeTriageLevel,
-                        backgroundColor: getTriageColor(patient.triageLevel),
-                        color: '#fff'
+                    <button
+                      onClick={(e) => handleRemovePatient(patient.id, e)}
+                      style={styles.removeButton}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#374151'
+                        e.currentTarget.style.transform = 'scale(1.2)'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#9ca3af'
+                        e.currentTarget.style.transform = 'scale(1)'
                       }}
                     >
-                      ESI {patient.triageLevel}
-                    </span>
+                      ✕
+                    </button>
                   </div>
                   <div style={styles.nodeBody}>
-                    <div style={styles.nodeName}>
-                      {patient.name || `Patient ${patient.id}`}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                      <div style={styles.nodeName}>
+                        {patient.name || `Patient ${patient.id}`}
+                      </div>
+                      <span 
+                        style={{
+                          ...styles.nodeTriageLevel,
+                          backgroundColor: getTriageColor(patient.triageLevel),
+                          color: '#fff'
+                        }}
+                      >
+                        ESI {patient.triageLevel}
+                      </span>
                     </div>
                     <div style={styles.nodeDetails}>
                       <div style={styles.nodeDetail}>
@@ -181,12 +197,6 @@ export default function Queue() {
                         {new Date(patient.timeIn).toLocaleTimeString()}
                       </div>
                     </div>
-                    <button
-                      onClick={(e) => handleRemovePatient(patient.id, e)}
-                      style={styles.removeButton}
-                    >
-                      Remove
-                    </button>
                   </div>
                 </div>
                 {index < patients.length - 1 && (
@@ -365,7 +375,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: '24px',
+    gap: '0',
     paddingBottom: '20px',
   },
   nodeWrapper: {
@@ -373,6 +383,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     gap: '0',
+    marginBottom: '24px',
   },
   node: {
     width: '240px',
@@ -397,7 +408,8 @@ const styles = {
     backgroundColor: '#f3f4f6',
   },
   nodePosition: {
-    fontSize: '16px',
+    fontSize: '20px',
+    fontWeight: '700',
   },
   nodeTriageLevel: {
     fontSize: '14px',
@@ -415,14 +427,11 @@ const styles = {
     fontSize: '18px',
     fontWeight: '600',
     color: '#1f2937',
-    marginBottom: '10px',
   },
   nodeDetails: {
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',
-    marginBottom: 'auto',
-    paddingBottom: '12px',
   },
   nodeDetail: {
     fontSize: '12px',
@@ -434,26 +443,30 @@ const styles = {
     fontSize: '11px',
   },
   removeButton: {
-    backgroundColor: '#3b9dff',
-    color: '#fff',
+    backgroundColor: 'transparent',
+    color: '#9ca3af',
     border: 'none',
-    borderRadius: '6px',
-    padding: '8px',
-    fontSize: '13px',
+    fontSize: '18px',
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
+    lineHeight: 1,
   },
   connector: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '32px',
+    width: '48px',
+    position: 'relative',
   },
   arrow: {
-    fontSize: '28px',
+    fontSize: '32px',
     color: '#3b9dff',
+    fontWeight: '300',
   },
   modalOverlay: {
     position: 'fixed',

@@ -3,6 +3,8 @@ import InputLoginPage from './pages/input_test'
 import VoiceNurse from './pages/voice_nurse'
 import NurseForm from './pages/nurse_form'
 import Queue from './pages/Queue'
+import PatientWait from './pages/PatientWait'
+import PatientChat from './pages/PatientChat'
 
 function App() {
     return (
@@ -11,7 +13,8 @@ function App() {
             <Route path="/inputtest" element={<InputLoginPage />} />
             <Route path="/voice_nurse" element={<VoiceNurse />} />
             <Route path="/nurseform" element={<NurseForm />} />
-            <Route path="/queue" element={<Queue />} />
+            <Route path="/patientwait" element={<PatientWait />} />
+            <Route path="/chat" element={<PatientChat />} />
         </Routes>
     )
 }
