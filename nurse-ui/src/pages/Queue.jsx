@@ -330,6 +330,7 @@ const styles = {
     padding: '40px',
     boxSizing: 'border-box',
     overflowY: 'auto',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   header: {
     display: 'flex',

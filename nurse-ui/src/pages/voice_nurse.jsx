@@ -32,7 +32,7 @@ export default function App() {
         height: '100vh',
         backgroundColor: '#1a1a1a',
         color: '#ff4444',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
         padding: '20px',
         textAlign: 'center'
       }}>
@@ -135,7 +135,7 @@ function TriageInterface() {
           borderRadius: '12px',
           color: '#fff',
           textAlign: 'center',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
           maxWidth: '500px',
           zIndex: 10
         }}>
@@ -166,7 +166,7 @@ function TriageInterface() {
           padding: '12px 24px',
           borderRadius: '8px',
           color: '#fff',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
           fontSize: '14px',
           fontWeight: 500,
           zIndex: 10,

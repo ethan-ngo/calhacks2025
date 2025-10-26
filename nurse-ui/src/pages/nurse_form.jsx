@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Room, RoomEvent } from 'livekit-client'
 import PatientInfoCard from '../components/PatientInfoCard'
 import PainSeverityCard from '../components/PainSeverityCard'
 import KeyVitalsCard from '../components/KeyVitalsCard'
 import CommentsCard from '../components/CommentsCard'
 import ChatInterface from '../components/ChatInterface'
-
-const LIVEKIT_URL = 'wss://triageagent-2aap4wyl.livekit.cloud'
 
 export default function NurseForm() {
   const navigate = useNavigate()
@@ -44,10 +41,12 @@ export default function NurseForm() {
   }
 
 
-  // Voice agent states
+  // Voice recognition states
   const [isVoiceActive, setIsVoiceActive] = useState(false)
-  const [isConnecting, setIsConnecting] = useState(false)
-  const roomRef = useRef(null)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const recognitionRef = useRef(null)
+  const transcriptionBuffer = useRef('')
+  const processTimeoutRef = useRef(null)
 
   const handleInputChange = (e) => {
     setPatientData({
@@ -117,97 +116,178 @@ export default function NurseForm() {
     }
   }
 
+  // Process transcription with AI to extract structured data
+  const processTranscription = async (text) => {
+    if (!text || text.trim().length === 0) return
+    
+    setIsProcessing(true)
+    console.log('🤖 Processing transcription with AI:', text)
+    
+    try {
+      const response = await fetch('http://127.0.0.1:5000/voice/process', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcription: text })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`Failed to process transcription: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      console.log('✅ Received structured data from AI:', data)
+      
+      // Update form fields with extracted data
+      if (data.name) setPatientData(prev => ({ ...prev, name: data.name }))
+      if (data.age) setPatientData(prev => ({ ...prev, age: data.age.toString() }))
+      if (data.gender) setPatientData(prev => ({ ...prev, gender: data.gender }))
+      if (data.weight) setPatientData(prev => ({ ...prev, weight: `${data.weight}kgs` }))
+      if (data.heart_rate) setPatientData(prev => ({ ...prev, heartRate: `${data.heart_rate}/min` }))
+      if (data.temperature) setPatientData(prev => ({ ...prev, temperature: `${data.temperature} Cel` }))
+      if (data.respiratory_rate) setPatientData(prev => ({ ...prev, respiratoryRate: `${data.respiratory_rate}/min` }))
+      if (data.suggested_triage_level) setPatientData(prev => ({ ...prev, painSeverity: data.suggested_triage_level.toString() }))
+      if (data.patient_notes) setPatientData(prev => ({ ...prev, comments: data.patient_notes }))
+      
+      setChatMessages(prev => [...prev, {
+        sender: 'system',
+        text: '✅ Form automatically filled with your information'
+      }])
+      
+    } catch (error) {
+      console.error('❌ Error processing transcription:', error)
+      setChatMessages(prev => [...prev, {
+        sender: 'system',
+        text: '⚠️ Failed to process voice input. Please try again.'
+      }])
+    } finally {
+      setIsProcessing(false)
+    }
+  }
+
   const toggleVoiceAgent = async () => {
     if (isVoiceActive) {
-      // Disconnect
-      if (roomRef.current) {
-        roomRef.current.disconnect()
-        roomRef.current = null
+      // Stop voice recognition
+      if (recognitionRef.current) {
+        recognitionRef.current.stop()
+        recognitionRef.current = null
       }
+      
+      if (processTimeoutRef.current) {
+        clearTimeout(processTimeoutRef.current)
+      }
+      
+      // Process any remaining transcription
+      if (transcriptionBuffer.current.trim().length > 0) {
+        await processTranscription(transcriptionBuffer.current)
+        transcriptionBuffer.current = ''
+      }
+      
       setIsVoiceActive(false)
-      setChatMessages(prev => [...prev, { 
-        sender: 'system', 
-        text: 'Voice agent disconnected' 
+      setChatMessages(prev => [...prev, {
+        sender: 'system',
+        text: '🛑 Voice recognition stopped'
       }])
     } else {
-      // Connect
-      setIsConnecting(true)
+      // Start voice recognition
       try {
-        // Get token from Flask backend
-        const tokenRes = await fetch('http://127.0.0.1:5000/getToken', { 
-          method: 'POST' 
-        })
-        const token = await tokenRes.text()
-
-        // Create room and connect
-        const room = new Room({
-          adaptiveStream: true,
-          dynacast: true,
-        })
-
-        // Set up event listeners
-        room.on(RoomEvent.Connected, () => {
-          console.log('Connected to room')
-          setIsVoiceActive(true)
-          setIsConnecting(false)
-          setChatMessages(prev => [...prev, { 
-            sender: 'system', 
-            text: 'Voice agent connected - Start speaking' 
-          }])
-        })
-
-        room.on(RoomEvent.Disconnected, () => {
-          console.log('Disconnected from room')
-          setIsVoiceActive(false)
-        })
-
-        // Listen for transcriptions from the agent
-        room.on(RoomEvent.TranscriptionReceived, (transcription) => {
-          if (transcription.participant && transcription.participant.identity !== room.localParticipant.identity) {
-            // This is from the agent
-            setChatMessages(prev => [...prev, { 
-              sender: 'agent', 
-              text: transcription.text 
-            }])
-          }
-        })
-
-        // Listen for data messages (structured output from agent)
-        room.on(RoomEvent.DataReceived, (payload, participant) => {
-          try {
-            const data = JSON.parse(new TextDecoder().decode(payload))
-            console.log('Received data from agent:', data)
-            
-            // Update patient data if agent sends structured info
-            if (data.name) setPatientData(prev => ({ ...prev, name: data.name }))
-            if (data.age) setPatientData(prev => ({ ...prev, age: data.age.toString() }))
-            if (data.gender) setPatientData(prev => ({ ...prev, gender: data.gender }))
-            if (data.weight) setPatientData(prev => ({ ...prev, weight: `${data.weight}kgs` }))
-            if (data.heart_rate) setPatientData(prev => ({ ...prev, heartRate: `${data.heart_rate}/min` }))
-            if (data.temperature) setPatientData(prev => ({ ...prev, temperature: `${data.temperature} Cel` }))
-            if (data.respiratory_rate) setPatientData(prev => ({ ...prev, respiratoryRate: `${data.respiratory_rate}/min` }))
-            if (data.suggested_triage_level) setPatientData(prev => ({ ...prev, painSeverity: data.suggested_triage_level.toString() }))
-            if (data.patient_notes) setPatientData(prev => ({ ...prev, comments: data.patient_notes }))
-          } catch (e) {
-            console.error('Failed to parse agent data:', e)
-          }
-        })
-
-        // Connect to room
-        await room.connect(LIVEKIT_URL, token)
+        // Check if browser supports Web Speech API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         
-        // Enable microphone
-        await room.localParticipant.setMicrophoneEnabled(true)
-
-        roomRef.current = room
-
+        if (!SpeechRecognition) {
+          alert('Voice recognition is not supported in your browser. Please use Chrome, Safari, or Edge.')
+          return
+        }
+        
+        const recognition = new SpeechRecognition()
+        recognition.continuous = true
+        recognition.interimResults = true
+        recognition.lang = 'en-US'
+        
+        recognition.onstart = () => {
+          console.log('🎤 Voice recognition started')
+          setIsVoiceActive(true)
+          transcriptionBuffer.current = ''
+          setChatMessages(prev => [...prev, {
+            sender: 'system',
+            text: '🎤 Voice recognition active - Start speaking about your symptoms'
+          }])
+        }
+        
+        recognition.onresult = (event) => {
+          let interimTranscript = ''
+          let finalTranscript = ''
+          
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript
+            if (event.results[i].isFinal) {
+              finalTranscript += transcript + ' '
+            } else {
+              interimTranscript += transcript
+            }
+          }
+          
+          if (finalTranscript) {
+            console.log('📝 Final transcript:', finalTranscript)
+            transcriptionBuffer.current += finalTranscript
+            
+            setChatMessages(prev => [...prev, {
+              sender: 'user',
+              text: finalTranscript.trim()
+            }])
+            
+            // Clear existing timeout
+            if (processTimeoutRef.current) {
+              clearTimeout(processTimeoutRef.current)
+            }
+            
+            // Process transcription after 2 seconds of silence
+            processTimeoutRef.current = setTimeout(() => {
+              if (transcriptionBuffer.current.trim().length > 0) {
+                processTranscription(transcriptionBuffer.current)
+                transcriptionBuffer.current = ''
+              }
+            }, 2000)
+          }
+        }
+        
+        recognition.onerror = (event) => {
+          console.error('❌ Speech recognition error:', event.error)
+          
+          let errorMessage = 'Voice recognition error'
+          if (event.error === 'not-allowed') {
+            errorMessage = 'Microphone access denied. Please allow microphone access in your browser settings.'
+          } else if (event.error === 'no-speech') {
+            errorMessage = 'No speech detected. Please try speaking again.'
+          } else if (event.error === 'network') {
+            errorMessage = 'Network error. Please check your connection.'
+          }
+          
+          setChatMessages(prev => [...prev, {
+            sender: 'system',
+            text: `⚠️ ${errorMessage}`
+          }])
+          
+          setIsVoiceActive(false)
+        }
+        
+        recognition.onend = () => {
+          console.log('🛑 Voice recognition ended')
+          if (isVoiceActive) {
+            // Restart if it ended unexpectedly
+            try {
+              recognition.start()
+            } catch (e) {
+              console.log('Recognition already started or stopped by user')
+            }
+          }
+        }
+        
+        recognitionRef.current = recognition
+        recognition.start()
+        
       } catch (error) {
-        console.error('Failed to connect to voice agent:', error)
-        setIsConnecting(false)
-        setChatMessages(prev => [...prev, { 
-          sender: 'system', 
-          text: 'Failed to connect to voice agent: ' + error.message 
-        }])
+        console.error('Failed to start voice recognition:', error)
+        alert('Failed to start voice recognition: ' + error.message)
       }
     }
   }
@@ -215,39 +295,20 @@ export default function NurseForm() {
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (roomRef.current) {
-        roomRef.current.disconnect()
+      if (recognitionRef.current) {
+        recognitionRef.current.stop()
+      }
+      if (processTimeoutRef.current) {
+        clearTimeout(processTimeoutRef.current)
       }
     }
   }, [])
 
   return (
     <div style={styles.container}>
-      <div style={styles.leftPanel}>
-        <h1 style={styles.title}>Triage Patient Report</h1>
-        
-        <div style={styles.topRow}>
-          <PatientInfoCard 
-            patientData={patientData} 
-            handleInputChange={handleInputChange} 
-          />
-          <PainSeverityCard 
-            painSeverity={patientData.painSeverity}
-            handleInputChange={handleInputChange}
-          />
-        </div>
-
-        <KeyVitalsCard 
-          patientData={patientData}
-          handleInputChange={handleInputChange}
-        />
-
-        <CommentsCard 
-          comments={patientData.comments}
-          handleInputChange={handleInputChange}
-        />
-
-        <div style={styles.buttonContainer}>
+      <div style={styles.header}>
+        <h1 style={styles.headerTitle}>Triage Patient Report</h1>
+        <div style={styles.headerButtons}>
           <button onClick={() => navigate('/')} style={styles.backButton}>
             ← Back
           </button>
@@ -264,13 +325,38 @@ export default function NurseForm() {
         </div>
       </div>
 
-      <div style={styles.rightPanel}>
-        <ChatInterface 
-          chatMessages={chatMessages}
-          onMicrophoneClick={toggleVoiceAgent}
-          isVoiceActive={isVoiceActive}
-          isConnecting={isConnecting}
-        />
+      <div style={styles.contentWrapper}>
+        <div style={styles.leftPanel}>
+          <div style={styles.topRow}>
+            <PatientInfoCard 
+              patientData={patientData} 
+              handleInputChange={handleInputChange} 
+            />
+            <PainSeverityCard 
+              painSeverity={patientData.painSeverity}
+              handleInputChange={handleInputChange}
+            />
+          </div>
+
+          <KeyVitalsCard 
+            patientData={patientData}
+            handleInputChange={handleInputChange}
+          />
+
+          <CommentsCard 
+            comments={patientData.comments}
+            handleInputChange={handleInputChange}
+          />
+        </div>
+
+        <div style={styles.rightPanel}>
+          <ChatInterface 
+            chatMessages={chatMessages}
+            toggleVoiceAgent={toggleVoiceAgent}
+            isVoiceActive={isVoiceActive}
+            isProcessing={isProcessing}
+          />
+        </div>
       </div>
     </div>
   )
@@ -279,6 +365,7 @@ export default function NurseForm() {
 const styles = {
   container: {
     display: 'flex',
+    flexDirection: 'column',
     width: '100vw',
     height: '100vh',
     margin: 0,
@@ -287,46 +374,58 @@ const styles = {
     fontFamily: 'system-ui, -apple-system, sans-serif',
     overflow: 'hidden',
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 40px',
+    backgroundColor: '#fff',
+    borderBottom: '1px solid #e0e0e0',
+    flexShrink: 0,
+  },
+  headerTitle: {
+    fontSize: '28px',
+    fontWeight: '500',
+    color: '#5a5a5a',
+    margin: 0,
+  },
+  headerButtons: {
+    display: 'flex',
+    gap: '12px',
+  },
+  contentWrapper: {
+    display: 'flex',
+    flex: 1,
+    overflow: 'hidden',
+  },
   leftPanel: {
     width: '50%',
-    padding: '40px',
+    padding: '24px',
     overflowY: 'auto',
     boxSizing: 'border-box',
   },
   rightPanel: {
     width: '50%',
     backgroundColor: '#fff',
-    padding: '40px',
+    padding: '24px',
     display: 'flex',
     flexDirection: 'column',
     boxSizing: 'border-box',
-    overflowY: 'auto',
-  },
-  title: {
-    fontSize: '42px',
-    fontWeight: '500',
-    color: '#5a5a5a',
-    marginBottom: '30px',
-    marginTop: 0,
+    overflow: 'hidden',
   },
   topRow: {
     display: 'flex',
-    gap: '20px',
-    marginBottom: '20px',
+    gap: '16px',
+    marginBottom: '16px',
     alignItems: 'right',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '20px',
   },
   backButton: {
     backgroundColor: 'transparent',
     color: '#3b9dff',
     border: '2px solid #3b9dff',
-    borderRadius: '12px',
-    padding: '16px 48px',
-    fontSize: '18px',
+    borderRadius: '8px',
+    padding: '10px 32px',
+    fontSize: '16px',
     fontWeight: '500',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
@@ -335,9 +434,9 @@ const styles = {
     backgroundColor: '#3b9dff',
     color: '#fff',
     border: 'none',
-    borderRadius: '12px',
-    padding: '16px 48px',
-    fontSize: '18px',
+    borderRadius: '8px',
+    padding: '10px 32px',
+    fontSize: '16px',
     fontWeight: '500',
     cursor: 'pointer',
     transition: 'all 0.2s ease',

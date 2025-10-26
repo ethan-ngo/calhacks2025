@@ -38,7 +38,7 @@ export default function ERQueueTest() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+    <div style={{ padding: '20px', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}>
       <h2>🏥 ER Queue Test</h2>
 
       {/* Add Section */}

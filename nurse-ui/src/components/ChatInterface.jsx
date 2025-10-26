@@ -1,4 +1,4 @@
-export default function ChatInterface({ chatMessages, onMicrophoneClick, isVoiceActive, isConnecting }) {
+export default function ChatInterface({ chatMessages, toggleVoiceAgent, isVoiceActive, isProcessing }) {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Voice Assistant</h2>
@@ -21,20 +21,26 @@ export default function ChatInterface({ chatMessages, onMicrophoneClick, isVoice
 
       <div style={styles.controls}>
         <button 
-          onClick={onMicrophoneClick}
-          disabled={isConnecting}
+          onClick={toggleVoiceAgent}
+          disabled={isProcessing}
           style={{
             ...styles.micButton,
-            backgroundColor: isVoiceActive ? '#ff4444' : isConnecting ? '#999' : '#3b9dff',
-            cursor: isConnecting ? 'not-allowed' : 'pointer',
+            backgroundColor: isVoiceActive ? '#ff4444' : isProcessing ? '#999' : '#3b9dff',
+            cursor: isProcessing ? 'not-allowed' : 'pointer',
           }}
         >
-          {isConnecting ? '⏳ Connecting...' : isVoiceActive ? '🎤 Stop Recording' : '🎤 Start Voice Agent'}
+          {isProcessing ? '⏳ Processing...' : isVoiceActive ? '🛑 Stop Voice' : '🎤 Start Voice'}
         </button>
         
         {isVoiceActive && (
           <div style={styles.recordingIndicator}>
             <span style={styles.pulse}>●</span> Recording...
+          </div>
+        )}
+        
+        {isProcessing && (
+          <div style={styles.processingIndicator}>
+            <span>🤖 AI processing your voice...</span>
           </div>
         )}
       </div>
@@ -98,5 +104,13 @@ const styles = {
   pulse: {
     animation: 'pulse 1.5s ease-in-out infinite',
     fontSize: '20px',
+  },
+  processingIndicator: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    color: '#3b9dff',
+    fontSize: '14px',
+    fontWeight: '500',
   },
 }

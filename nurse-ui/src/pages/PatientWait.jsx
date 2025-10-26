@@ -62,7 +62,7 @@ const styles = {
     alignItems: 'center',
     padding: '20px',
     boxSizing: 'border-box',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   content: {
     width: '100%',

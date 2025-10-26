@@ -19,6 +19,7 @@ from livekit.agents import (
     ModelSettings,
     WorkerOptions,
     RoomInputOptions,
+    RoomOutputOptions,
     cli,
 )
 from livekit.plugins import openai, silero
@@ -88,24 +89,24 @@ async def process_structured_output(
 class MyAgent(Agent):
     def __init__(self, room) -> None:
         self.room = room  # Store room reference to send data
+        self.collected_data = {}  # Store collected patient data
         super().__init__(
             instructions=
-                "Your name is Apollo. You will listen to the users and fill out the necessary information in TriageStructuredResponse."
-                "You are a specialized Emergency Room (ER) agent tasked with filling out the patients necessary information."
-                "Maintain a serious, systematic, and calm tone — you are focused on collecting the patient's information accurately."
-                "Listen to the patient's description of symptoms, pain levels, and any changes since the last check."
-                "you will speak to the user once you have finished listening and taking all his data."
-                "Whenever I mention the following terms this is what I mean."
-                "Triage Level, a 1-5 scale for severity of patient assigning each number to a priority. the definitions for 1-5 are below."
+                "Your name is Apollo. You are a specialized Emergency Room (ER) triage agent."
+                "Your job is to collect patient information through conversation and fill out the TriageStructuredResponse."
+                "Start by greeting the patient and asking for their name, age, and what brings them to the ER today."
+                "Then systematically collect: gender, weight, heart rate, temperature, respiratory rate."
+                "Based on their symptoms, assign a triage level (1-5) and provide patient notes."
+                "Always be professional, calm, and systematic."
+                "Triage Level definitions:"
                 "1 = Requires immediate life saving intervention, must be seen immediately"
-                "2 = Situation could progress to triage severe without intervention, seen within 10 minutes"
+                "2 = Situation could progress to severe without intervention, seen within 10 minutes"
                 "3 = Has the potential to increase in severity if not treated, seen within 30 minutes"
                 "4 = Not severe or life threatening, seen within 60 minutes"
                 "5 = Not life threatening in any way, can wait for treatment"
-                "Whenever user mentions anything measurable(e.g. weight, height, temperature) do not include the unit only take the number."
-                "You will write anything that could be outside the scope of the properties into patient_notes"
-                "You will save the information."
-                ,
+                "For measurable values (weight, height, temperature), extract only the number without units."
+                "Put any additional information in patient_notes."
+                "When you have collected all necessary information, set finished_talking to true.",
             
             # Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
             # See all available models at https://docs.livekit.io/agents/models/stt/
@@ -124,13 +125,26 @@ class MyAgent(Agent):
         # not all LLMs support structured output, so we need to cast to the specific LLM type
         llm = cast(openai.LLM, self.llm)
         tool_choice = model_settings.tool_choice if model_settings else NOT_GIVEN
+        
+        logger.info(f"LLM processing conversation with {len(chat_ctx.messages)} messages")
+        
         async with llm.chat(
             chat_ctx=chat_ctx,
             tools=tools,    
             response_format=TriageStructuredResponse,  # <--- this line enforces schema
         ) as stream:
             async for chunk in stream:
+                logger.info(f"LLM chunk received: {chunk}")
                 yield chunk
+
+    async def conversation_node(self, chat_ctx: ChatContext, model_settings: ModelSettings):
+        """Handle the conversation flow and generate structured responses"""
+        logger.info(f"Conversation node triggered with {len(chat_ctx.messages)} messages")
+        
+        # Process the conversation through LLM with structured output
+        async for chunk in self.llm_node(chat_ctx, [], model_settings):
+            logger.info(f"Conversation chunk: {chunk}")
+            yield chunk
 
     async def tts_node(self, text: AsyncIterable[str], model_settings: ModelSettings):
         instruction_updated = False
@@ -161,12 +175,6 @@ class MyAgent(Agent):
         async for _ in process_structured_output(text, callback=output_processed):
             pass
 
-    async def transcription_node(self, text: AsyncIterable[str], model_settings: ModelSettings):
-        # transcription_node needs to return what the agent would say, minus the TTS instructions
-        return Agent.default.transcription_node(
-            self, process_structured_output(text), model_settings
-        )
-
 
 async def entrypoint(ctx: JobContext):
     await ctx.connect(auto_subscribe=True)
@@ -177,9 +185,23 @@ async def entrypoint(ctx: JobContext):
     session = AgentSession(
         vad=silero.VAD.load(),
         turn_detection=EnglishModel(),
+        # Enable preemptive generation for better responsiveness
+        preemptive_generation=True,
+        # Resume speech if interrupted by background noise
+        resume_false_interruption=True,
+        false_interruption_timeout=1.0,
     )
     
-    await session.start(agent=agent, room=ctx.room, room_input_options=RoomInputOptions(close_on_disconnect=False))
+    await session.start(
+        agent=agent, 
+        room=ctx.room, 
+        room_input_options=RoomInputOptions(
+            close_on_disconnect=False,
+        ),
+        room_output_options=RoomOutputOptions(
+            transcription_enabled=True,
+        )
+    )
     logger.info("Agent session started and listening")
 
 if __name__ == "__main__":

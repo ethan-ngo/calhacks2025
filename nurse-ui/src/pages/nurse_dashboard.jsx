@@ -283,7 +283,7 @@ const styles = {
     minHeight: '100vh',
     backgroundColor: '#e8eef3',
     padding: '40px',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   header: {
     display: 'flex',
