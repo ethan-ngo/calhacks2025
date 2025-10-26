@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Room, RoomEvent } from 'livekit-client'
 import PatientInfoCard from '../components/PatientInfoCard'
 import PainSeverityCard from '../components/PainSeverityCard'
 import KeyVitalsCard from '../components/KeyVitalsCard'
 import CommentsCard from '../components/CommentsCard'
 import ChatInterface from '../components/ChatInterface'
+
+const LIVEKIT_URL = 'wss://triageagent-2aap4wyl.livekit.cloud'
 
 export default function NurseForm() {
   const navigate = useNavigate()
@@ -23,7 +26,7 @@ export default function NurseForm() {
     comments: ''
   })
 
-  const [chatMessages] = useState([
+  const [chatMessages, setChatMessages] = useState([
     { sender: 'patient', text: 'Hi I am your transcription voice assistant.' }
   ])
 
@@ -40,6 +43,11 @@ export default function NurseForm() {
     "Terri Wolff": "f9df9434-2057-1a21-bee6-791ed3f9d97b"
   }
 
+
+  // Voice agent states
+  const [isVoiceActive, setIsVoiceActive] = useState(false)
+  const [isConnecting, setIsConnecting] = useState(false)
+  const roomRef = useRef(null)
 
   const handleInputChange = (e) => {
     setPatientData({
@@ -109,6 +117,110 @@ export default function NurseForm() {
     }
   }
 
+  const toggleVoiceAgent = async () => {
+    if (isVoiceActive) {
+      // Disconnect
+      if (roomRef.current) {
+        roomRef.current.disconnect()
+        roomRef.current = null
+      }
+      setIsVoiceActive(false)
+      setChatMessages(prev => [...prev, { 
+        sender: 'system', 
+        text: 'Voice agent disconnected' 
+      }])
+    } else {
+      // Connect
+      setIsConnecting(true)
+      try {
+        // Get token from Flask backend
+        const tokenRes = await fetch('http://127.0.0.1:5000/getToken', { 
+          method: 'POST' 
+        })
+        const token = await tokenRes.text()
+
+        // Create room and connect
+        const room = new Room({
+          adaptiveStream: true,
+          dynacast: true,
+        })
+
+        // Set up event listeners
+        room.on(RoomEvent.Connected, () => {
+          console.log('Connected to room')
+          setIsVoiceActive(true)
+          setIsConnecting(false)
+          setChatMessages(prev => [...prev, { 
+            sender: 'system', 
+            text: 'Voice agent connected - Start speaking' 
+          }])
+        })
+
+        room.on(RoomEvent.Disconnected, () => {
+          console.log('Disconnected from room')
+          setIsVoiceActive(false)
+        })
+
+        // Listen for transcriptions from the agent
+        room.on(RoomEvent.TranscriptionReceived, (transcription) => {
+          if (transcription.participant && transcription.participant.identity !== room.localParticipant.identity) {
+            // This is from the agent
+            setChatMessages(prev => [...prev, { 
+              sender: 'agent', 
+              text: transcription.text 
+            }])
+          }
+        })
+
+        // Listen for data messages (structured output from agent)
+        room.on(RoomEvent.DataReceived, (payload, participant) => {
+          try {
+            const data = JSON.parse(new TextDecoder().decode(payload))
+            console.log('Received data from agent:', data)
+            
+            // Update patient data if agent sends structured info
+            if (data.name) setPatientData(prev => ({ ...prev, name: data.name }))
+            if (data.age) setPatientData(prev => ({ ...prev, age: data.age.toString() }))
+            if (data.gender) setPatientData(prev => ({ ...prev, gender: data.gender }))
+            if (data.weight) setPatientData(prev => ({ ...prev, weight: `${data.weight}kgs` }))
+            if (data.heart_rate) setPatientData(prev => ({ ...prev, heartRate: `${data.heart_rate}/min` }))
+            if (data.temperature) setPatientData(prev => ({ ...prev, temperature: `${data.temperature} Cel` }))
+            if (data.respiratory_rate) setPatientData(prev => ({ ...prev, respiratoryRate: `${data.respiratory_rate}/min` }))
+            if (data.suggested_triage_level) setPatientData(prev => ({ ...prev, painSeverity: data.suggested_triage_level.toString() }))
+            if (data.patient_notes) setPatientData(prev => ({ ...prev, comments: data.patient_notes }))
+          } catch (e) {
+            console.error('Failed to parse agent data:', e)
+          }
+        })
+
+        // Connect to room
+        await room.connect(LIVEKIT_URL, token)
+        
+        // Enable microphone
+        await room.localParticipant.setMicrophoneEnabled(true)
+
+        roomRef.current = room
+
+      } catch (error) {
+        console.error('Failed to connect to voice agent:', error)
+        setIsConnecting(false)
+        setChatMessages(prev => [...prev, { 
+          sender: 'system', 
+          text: 'Failed to connect to voice agent: ' + error.message 
+        }])
+      }
+    }
+  }
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (roomRef.current) {
+        roomRef.current.disconnect()
+      }
+    }
+  }, [])
+
   return (
     <div style={styles.container}>
       <div style={styles.leftPanel}>
@@ -153,7 +265,12 @@ export default function NurseForm() {
       </div>
 
       <div style={styles.rightPanel}>
-        <ChatInterface chatMessages={chatMessages} />
+        <ChatInterface 
+          chatMessages={chatMessages}
+          onMicrophoneClick={toggleVoiceAgent}
+          isVoiceActive={isVoiceActive}
+          isConnecting={isConnecting}
+        />
       </div>
     </div>
   )

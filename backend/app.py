@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+from livekit import api
 import requests
 
 app = Flask(__name__)
 CORS(app)
+load_dotenv()
 
 # Agent endpoints
 AGENTS = {
@@ -60,6 +64,23 @@ def patient_assess():
         return jsonify({"error": f"Failed to connect to patient agent: {str(e)}"})
     except Exception as e:
         return jsonify({"error": f"Assessment failed: {str(e)}"})
+
+@app.route('/getToken', methods=["POST"])
+def get_token():
+    # Generate a new token every request
+    token = (
+        api.AccessToken(os.getenv('LIVEKIT_API_KEY'), os.getenv('LIVEKIT_API_SECRET'))
+        .with_identity("user_" + os.urandom(4).hex())  # unique identity
+        .with_grants(
+            api.VideoGrants(
+                room_join=True,
+                room="my-room",
+                can_publish=True,
+                can_subscribe=True
+            )
+        )
+    )
+    return token.to_jwt()
 
 if __name__ == '__main__':
     print("Starting Flask Medical Triage API...")

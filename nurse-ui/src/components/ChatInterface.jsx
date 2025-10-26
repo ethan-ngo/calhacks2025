@@ -1,38 +1,17 @@
-import { useState, useEffect } from 'react'
-
-export default function ChatInterface({ chatMessages }) {
-  const [isRecording, setIsRecording] = useState(false)
-  const [barHeights, setBarHeights] = useState([40, 50, 60, 70, 60, 50, 40])
-
-  useEffect(() => {
-    let interval
-    if (isRecording) {
-      interval = setInterval(() => {
-        setBarHeights([
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-          30 + Math.random() * 50,
-        ])
-      }, 150)
-    } else {
-      setBarHeights([40, 50, 60, 70, 60, 50, 40])
-    }
-    return () => clearInterval(interval)
-  }, [isRecording])
-
+export default function ChatInterface({ chatMessages, onMicrophoneClick, isVoiceActive, isConnecting }) {
   return (
-    <div style={styles.chatContainer}>
-      <div style={styles.chatMessages}>
+    <div style={styles.container}>
+      <h2 style={styles.title}>Voice Assistant</h2>
+      
+      <div style={styles.messagesContainer}>
         {chatMessages.map((msg, idx) => (
           <div 
             key={idx} 
             style={{
               ...styles.message,
-              ...(msg.sender === 'nurse' ? styles.nurseMessage : styles.patientMessage)
+              alignSelf: msg.sender === 'patient' || msg.sender === 'system' ? 'flex-start' : 'flex-end',
+              backgroundColor: msg.sender === 'agent' ? '#3b9dff' : msg.sender === 'system' ? '#ffa500' : '#e8eef3',
+              color: msg.sender === 'agent' || msg.sender === 'system' ? '#fff' : '#333',
             }}
           >
             {msg.text}
@@ -40,94 +19,84 @@ export default function ChatInterface({ chatMessages }) {
         ))}
       </div>
 
-      <div style={styles.audioVisualization}>
-        {barHeights.map((height, i) => (
-          <div 
-            key={i} 
-            style={{
-              ...styles.audioBar,
-              height: `${height}px`,
-              ...(isRecording ? styles.audioBarActive : {})
-            }}
-          />
-        ))}
+      <div style={styles.controls}>
+        <button 
+          onClick={onMicrophoneClick}
+          disabled={isConnecting}
+          style={{
+            ...styles.micButton,
+            backgroundColor: isVoiceActive ? '#ff4444' : isConnecting ? '#999' : '#3b9dff',
+            cursor: isConnecting ? 'not-allowed' : 'pointer',
+          }}
+        >
+          {isConnecting ? '⏳ Connecting...' : isVoiceActive ? '🎤 Stop Recording' : '🎤 Start Voice Agent'}
+        </button>
+        
+        {isVoiceActive && (
+          <div style={styles.recordingIndicator}>
+            <span style={styles.pulse}>●</span> Recording...
+          </div>
+        )}
       </div>
-
-      <button 
-        onClick={() => setIsRecording(!isRecording)}
-        style={{
-          ...styles.micButton,
-          ...(isRecording ? styles.micButtonActive : {})
-        }}
-      >
-        🎤
-      </button>
     </div>
   )
 }
 
 const styles = {
-  chatContainer: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'space-between',
   },
-  chatMessages: {
+  title: {
+    fontSize: '28px',
+    fontWeight: '500',
+    color: '#5a5a5a',
+    marginBottom: '20px',
+    marginTop: 0,
+  },
+  messagesContainer: {
     flex: 1,
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
-    marginBottom: '40px',
+    gap: '12px',
+    marginBottom: '20px',
+    padding: '10px',
   },
   message: {
-    padding: '20px 24px',
-    borderRadius: '16px',
-    fontSize: '18px',
+    padding: '12px 16px',
+    borderRadius: '12px',
+    maxWidth: '80%',
+    fontSize: '15px',
     lineHeight: '1.5',
   },
-  nurseMessage: {
-    backgroundColor: '#f0f0f0',
-    color: '#ccc',
-    alignSelf: 'flex-start',
-  },
-  patientMessage: {
-    backgroundColor: '#f0f0f0',
-    color: '#333',
-    alignSelf: 'flex-start',
-  },
-  audioVisualization: {
+  controls: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: '10px',
     alignItems: 'center',
-    gap: '8px',
-    marginBottom: '40px',
-    height: '80px',
-  },
-  audioBar: {
-    width: '8px',
-    backgroundColor: '#ccc',
-    borderRadius: '4px',
-    transition: 'height 0.15s ease-out',
-  },
-  audioBarActive: {
-    backgroundColor: '#3b9dff',
   },
   micButton: {
-    width: '80px',
-    height: '80px',
-    borderRadius: '50%',
-    backgroundColor: '#3b9dff',
+    padding: '16px 32px',
+    fontSize: '16px',
+    fontWeight: '500',
+    color: '#fff',
     border: 'none',
-    fontSize: '32px',
-    cursor: 'pointer',
-    alignSelf: 'center',
-    boxShadow: '0 4px 12px rgba(59, 157, 255, 0.3)',
-    transition: 'transform 0.2s ease',
+    borderRadius: '12px',
+    transition: 'all 0.2s ease',
+    width: '100%',
   },
-  micButtonActive: {
-    backgroundColor: '#ff3b3b',
-    transform: 'scale(1.1)',
+  recordingIndicator: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    color: '#ff4444',
+    fontSize: '14px',
+    fontWeight: '500',
+  },
+  pulse: {
+    animation: 'pulse 1.5s ease-in-out infinite',
+    fontSize: '20px',
   },
 }
-

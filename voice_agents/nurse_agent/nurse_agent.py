@@ -18,6 +18,7 @@ from livekit.agents import (
     JobContext,
     ModelSettings,
     WorkerOptions,
+    RoomInputOptions,
     cli,
 )
 from livekit.plugins import openai, silero
@@ -85,13 +86,14 @@ async def process_structured_output(
 
 
 class MyAgent(Agent):
-    def __init__(self) -> None:
+    def __init__(self, room) -> None:
+        self.room = room  # Store room reference to send data
         super().__init__(
             instructions=
                 "Your name is Apollo. You will listen to the users and fill out the necessary information in TriageStructuredResponse."
-                "You are a specialized Emergency Room (ER) agent tasked with filling out the patients neessary information."
-                "Maintain a serious, systematic, and calm tone — you are focused on collecting the patient’s information accurately."
-                "Listen to the patient’s description of symptoms, pain levels, and any changes since the last check."
+                "You are a specialized Emergency Room (ER) agent tasked with filling out the patients necessary information."
+                "Maintain a serious, systematic, and calm tone — you are focused on collecting the patient's information accurately."
+                "Listen to the patient's description of symptoms, pain levels, and any changes since the last check."
                 "you will speak to the user once you have finished listening and taking all his data."
                 "Whenever I mention the following terms this is what I mean."
                 "Triage Level, a 1-5 scale for severity of patient assigning each number to a priority. the definitions for 1-5 are below."
@@ -135,14 +137,24 @@ class MyAgent(Agent):
 
         def output_processed(resp: TriageStructuredResponse):
             nonlocal instruction_updated
-            logger.info(f"Callback triggered: {resp}\n{resp.get("response")}\n{instruction_updated}")
+            logger.info(f"Callback triggered: {resp}\n{resp.get('response')}\n{instruction_updated}")
                 # when the response isn't empty, we can assume voice_instructions is complete.
                 # (if the LLM sent the fields in the right order)
             if (resp.get("voice_instructions")):
                 resp_to_save = {key: resp.get(key) for key in ordered_keys}
+                
+                # Save to file
                 with open("triage_log.jsonl", "a") as f:
                     json.dump(resp_to_save, f)
                     f.write("\n")
+                
+                # Send data to frontend via LiveKit DataChannel
+                try:
+                    data_to_send = json.dumps(resp_to_save).encode('utf-8')
+                    self.room.local_participant.publish_data(data_to_send, reliable=True)
+                    logger.info(f"Sent data to frontend: {resp_to_save}")
+                except Exception as e:
+                    logger.error(f"Failed to send data to frontend: {e}")
 
         # process_structured_output strips the TTS instructions and only synthesizes the verbal part
         # of the LLM output
@@ -157,12 +169,18 @@ class MyAgent(Agent):
 
 
 async def entrypoint(ctx: JobContext):
+    await ctx.connect(auto_subscribe=True)
+    logger.info(f"Agent connected to room: {ctx.room.name}")
+
+    agent = MyAgent(ctx.room)  # Pass room reference to agent
+    
     session = AgentSession(
         vad=silero.VAD.load(),
         turn_detection=EnglishModel(),
     )
-    await session.start(agent=MyAgent(), room=ctx.room)
-
+    
+    await session.start(agent=agent, room=ctx.room, room_input_options=RoomInputOptions(close_on_disconnect=False))
+    logger.info("Agent session started and listening")
 
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
