@@ -4,6 +4,7 @@ import VoiceNurse from './pages/voice_nurse'
 import NurseForm from './pages/nurse_form'
 import Queue from './pages/Queue'
 import PatientWait from './pages/PatientWait'
+import VoiceNurse from './pages/voice_nurse'
 
 function App() {
     return (
