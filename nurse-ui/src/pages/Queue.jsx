@@ -11,18 +11,39 @@ export default function Queue() {
   })
   
   const [selectedPatient, setSelectedPatient] = useState(null)
+  const [alerts, setAlerts] = useState({})
+  const [selectedAlert, setSelectedAlert] = useState(null)
 
-  // Listen for queue updates
+  // Fetch alerts from backend
+  const fetchAlerts = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/alerts')
+      const data = await response.json()
+      
+      if (data.success) {
+        setAlerts(data.alerts || {})
+      }
+    } catch (error) {
+      console.error('Error fetching alerts:', error)
+    }
+  }
+
+  // Listen for queue updates and fetch alerts
   useEffect(() => {
     const handleQueueUpdate = () => {
       const saved = localStorage.getItem('erQueue')
       setPatients(saved ? JSON.parse(saved) : [])
     }
     
+    // Fetch alerts on mount and every 30 seconds
+    fetchAlerts()
+    const alertInterval = setInterval(fetchAlerts, 30000)
+    
     window.addEventListener('queueUpdated', handleQueueUpdate)
     
     return () => {
       window.removeEventListener('queueUpdated', handleQueueUpdate)
+      clearInterval(alertInterval)
     }
   }, [])
 
@@ -43,6 +64,72 @@ export default function Queue() {
 
   const closeModal = () => {
     setSelectedPatient(null)
+  }
+
+  const handleAlertClick = (patientId, e) => {
+    e.stopPropagation()
+    const alert = alerts[patientId]
+    if (alert) {
+      setSelectedAlert(alert)
+    }
+  }
+
+  const closeAlertModal = () => {
+    setSelectedAlert(null)
+  }
+
+  const handleAcceptAlert = async () => {
+    if (!selectedAlert) return
+    
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/alerts/${selectedAlert.patient_id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'accept' })
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        // Update patient in queue with new triage
+        const updatedPatients = patients.map(p => 
+          p.patientId === selectedAlert.patient_id 
+            ? { ...p, triageLevel: selectedAlert.new_triage }
+            : p
+        )
+        setPatients(updatedPatients)
+        localStorage.setItem('erQueue', JSON.stringify(updatedPatients))
+        
+        // Refresh alerts
+        await fetchAlerts()
+        closeAlertModal()
+        alert('✅ Triage level updated successfully')
+      }
+    } catch (error) {
+      console.error('Error accepting alert:', error)
+      alert('Failed to update triage')
+    }
+  }
+
+  const handleRejectAlert = async () => {
+    if (!selectedAlert) return
+    
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/alerts/${selectedAlert.patient_id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'reject' })
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        await fetchAlerts()
+        closeAlertModal()
+      }
+    } catch (error) {
+      console.error('Error rejecting alert:', error)
+    }
   }
 
   const getTriageColor = (level) => {
@@ -146,7 +233,18 @@ export default function Queue() {
                   }}
                 >
                   <div style={styles.nodeHeader}>
-                    <span style={styles.nodePosition}>#{index + 1}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={styles.nodePosition}>#{index + 1}</span>
+                      {alerts[patient.patientId] && (
+                        <button
+                          onClick={(e) => handleAlertClick(patient.patientId, e)}
+                          style={styles.alertBadge}
+                          title="Patient condition worsened - Click to review"
+                        >
+                          ⚠️
+                        </button>
+                      )}
+                    </div>
                     <button
                       onClick={(e) => handleRemovePatient(patient.id, e)}
                       style={styles.removeButton}
@@ -314,6 +412,84 @@ export default function Queue() {
                   </ul>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Alert Modal for Triage Updates */}
+      {selectedAlert && (
+        <div style={styles.modalOverlay} onClick={closeAlertModal}>
+          <div style={styles.alertModalContent} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.alertModalHeader}>
+              <h2 style={styles.alertModalTitle}>⚠️ Triage Alert</h2>
+              <button onClick={closeAlertModal} style={styles.closeButton}>✕</button>
+            </div>
+            <div style={styles.modalBody}>
+              <div style={styles.alertWarning}>
+                Patient condition has worsened. Review and update triage level.
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Patient Information</h3>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Name:</span>
+                  <span style={styles.detailValue}>{selectedAlert.patient_name}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Reported:</span>
+                  <span style={styles.detailValue}>{new Date(selectedAlert.timestamp).toLocaleString()}</span>
+                </div>
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Triage Change</h3>
+                <div style={styles.triageComparison}>
+                  <div style={styles.triageBox}>
+                    <div style={styles.triageBoxLabel}>Current ESI</div>
+                    <div 
+                      style={{
+                        ...styles.triageBoxValue,
+                        backgroundColor: getTriageColor(selectedAlert.original_triage)
+                      }}
+                    >
+                      {selectedAlert.original_triage}
+                    </div>
+                  </div>
+                  <div style={styles.triageArrow}>→</div>
+                  <div style={styles.triageBox}>
+                    <div style={styles.triageBoxLabel}>Suggested ESI</div>
+                    <div 
+                      style={{
+                        ...styles.triageBoxValue,
+                        backgroundColor: getTriageColor(selectedAlert.new_triage)
+                      }}
+                    >
+                      {selectedAlert.new_triage}
+                    </div>
+                    <div style={styles.triageBoxLevel}>{selectedAlert.new_triage_level}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Recent Symptoms</h3>
+                <p style={styles.detailText}>{selectedAlert.symptoms}</p>
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Assessment</h3>
+                <p style={styles.detailText}>{selectedAlert.reason}</p>
+              </div>
+
+              <div style={styles.alertActions}>
+                <button onClick={handleRejectAlert} style={styles.rejectButton}>
+                  Dismiss Alert
+                </button>
+                <button onClick={handleAcceptAlert} style={styles.acceptButton}>
+                  Accept & Update Triage
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -599,5 +775,128 @@ const styles = {
     color: '#4b5563',
     lineHeight: '1.6',
     margin: 0,
+  },
+  alertBadge: {
+    backgroundColor: '#ff3b3b',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '50%',
+    width: '24px',
+    height: '24px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
+    animation: 'pulse 2s infinite',
+    boxShadow: '0 0 10px rgba(255, 59, 59, 0.5)',
+  },
+  alertModalContent: {
+    backgroundColor: '#fff',
+    borderRadius: '16px',
+    width: '90%',
+    maxWidth: '600px',
+    maxHeight: '80vh',
+    overflow: 'auto',
+    boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+    border: '3px solid #ff3b3b',
+  },
+  alertModalHeader: {
+    padding: '24px',
+    borderBottom: '2px solid #ff3b3b',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: '#fff3f3',
+    zIndex: 1,
+  },
+  alertModalTitle: {
+    fontSize: '24px',
+    fontWeight: '600',
+    color: '#ff3b3b',
+    margin: 0,
+  },
+  alertWarning: {
+    backgroundColor: '#fff3cd',
+    border: '1px solid #ffeb3b',
+    borderRadius: '8px',
+    padding: '16px',
+    marginBottom: '20px',
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#856404',
+    textAlign: 'center',
+  },
+  triageComparison: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '24px',
+    padding: '20px',
+    backgroundColor: '#f9fafb',
+    borderRadius: '12px',
+  },
+  triageBox: {
+    textAlign: 'center',
+  },
+  triageBoxLabel: {
+    fontSize: '14px',
+    color: '#6b7280',
+    marginBottom: '8px',
+    fontWeight: '600',
+  },
+  triageBoxValue: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '36px',
+    fontWeight: '700',
+    color: '#fff',
+    margin: '0 auto 8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+  },
+  triageBoxLevel: {
+    fontSize: '12px',
+    color: '#6b7280',
+    fontWeight: '600',
+  },
+  triageArrow: {
+    fontSize: '32px',
+    color: '#ff3b3b',
+    fontWeight: '600',
+  },
+  alertActions: {
+    display: 'flex',
+    gap: '12px',
+    marginTop: '24px',
+    justifyContent: 'flex-end',
+  },
+  rejectButton: {
+    backgroundColor: '#e5e7eb',
+    color: '#374151',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  acceptButton: {
+    backgroundColor: '#ff3b3b',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
   },
 }

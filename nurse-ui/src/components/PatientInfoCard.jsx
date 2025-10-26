@@ -41,6 +41,17 @@ export default function PatientInfoCard({ patientData, handleInputChange }) {
           style={styles.input}
         />
       </div>
+      <div style={styles.infoRow}>
+        <span style={styles.label}>Phone:</span>
+        <input 
+          type="tel" 
+          name="phoneNumber"
+          value={patientData.phoneNumber}
+          onChange={handleInputChange}
+          style={styles.input}
+          placeholder="+1234567890"
+        />
+      </div>
     </div>
   )
 }

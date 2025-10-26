@@ -231,3 +231,103 @@ def _get_default_assessment(symptoms: str, error: str) -> Dict:
             f"Error: {error[:100]}"
         ]
     }
+
+
+def format_triage_response(assessment: Dict) -> str:
+    """Format triage assessment into user-friendly chat response"""
+    
+    # Extract key information
+    triage_score = assessment.get('triage_score', 3)
+    triage_level = assessment.get('triage_level', 'URGENT')
+    acuity = assessment.get('acuity', 'MODERATE')
+    
+    summary = assessment.get('assessment_summary', {})
+    primary_concern = summary.get('primary_concern', 'Assessment in progress')
+    immediate_action = summary.get('immediate_action_required', False)
+    wait_time = summary.get('estimated_wait_time', 'unknown')
+    
+    clinical = assessment.get('clinical_findings', {})
+    symptoms = clinical.get('presenting_symptoms', [])
+    vitals = clinical.get('vital_signs_assessment', [])
+    red_flags = clinical.get('red_flags', [])
+    
+    progression = assessment.get('symptom_progression', {})
+    status = progression.get('status', 'unknown')
+    comparison = progression.get('comparison', 'No previous assessment')
+    concerning_changes = progression.get('concerning_changes', [])
+    
+    recommendations = assessment.get('clinical_recommendations', [])
+    
+    # Build response
+    response_parts = []
+    
+    # Header with triage score
+    urgency_emoji = {
+        1: '🚨',
+        2: '⚠️',
+        3: '🔔',
+        4: '📋',
+        5: '✅'
+    }.get(triage_score, '🔔')
+    
+    response_parts.append(f"{urgency_emoji} **TRIAGE ASSESSMENT**\n")
+    response_parts.append(f"**Level:** {triage_score} - {triage_level} ({acuity})")
+    response_parts.append(f"**Estimated Wait Time:** {wait_time}\n")
+    
+    # Primary concern
+    response_parts.append(f"**Primary Concern:**\n{primary_concern}\n")
+    
+    # Immediate action flag
+    if immediate_action:
+        response_parts.append("⚠️ **IMMEDIATE ATTENTION REQUIRED**\n")
+    
+    # Red flags if any
+    if red_flags:
+        response_parts.append("**❗ Critical Findings:**")
+        for flag in red_flags:
+            response_parts.append(f"\n\t  • {flag}")
+        response_parts.append("")
+    
+    # Symptom progression
+    status_emoji = {
+        'worsening': '📈',
+        'stable': '➡️',
+        'improving': '📉',
+        'unknown': '❓'
+    }.get(status, '❓')
+    
+    response_parts.append(f"**Symptom Status:** \n{status_emoji} {status.upper()}")
+    if comparison and comparison != "No previous assessment":
+        response_parts.append(f"  {comparison}")
+    
+    if concerning_changes:
+        response_parts.append("\n**Concerning Changes:**")
+        for change in concerning_changes:
+            response_parts.append(f"\n\t  • {change}")
+    response_parts.append("")
+    
+    # Key symptoms
+    if symptoms:
+        response_parts.append("**Key Symptoms:**")
+        for symptom in symptoms[:3]:  # Limit to top 3
+            response_parts.append(f"\n\t    • {symptom}")
+        response_parts.append("")
+    
+    # Vital signs status (condensed)
+    if vitals:
+        overall_status = next((v for v in vitals if 'Overall Status' in v), None)
+        if overall_status:
+            response_parts.append(f"**{overall_status}**\n")
+    
+    # Recommendations
+    if recommendations:
+        response_parts.append("**Recommendations:**")
+        for rec in recommendations[:3]:  # Limit to top 3
+            response_parts.append(f"\n\t    • {rec}")
+        response_parts.append("")
+    
+    # Footer
+    response_parts.append("---")
+    response_parts.append("_This is an AI-assisted triage assessment. Medical staff will provide final evaluation._")
+    
+    return "\n".join(response_parts)

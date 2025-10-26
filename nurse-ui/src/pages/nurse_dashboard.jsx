@@ -6,10 +6,21 @@ export default function TriageDashboard() {
   const location = useLocation()
   const triageResult = location.state?.triageResult
   const patientData = location.state?.patientData
+  const patientLink = location.state?.patientLink
+  const patientId = location.state?.patientId
 
   const [isOverriding, setIsOverriding] = useState(false)
   const [overrideScore, setOverrideScore] = useState(null)
   const [finalDecision, setFinalDecision] = useState(null)
+  const [linkCopied, setLinkCopied] = useState(false)
+
+  const copyPatientLink = () => {
+    if (patientLink) {
+      navigator.clipboard.writeText(patientLink)
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    }
+  }
 
   if (!triageResult) {
     return (
@@ -108,6 +119,29 @@ export default function TriageDashboard() {
       </div>
 
       <div style={styles.content}>
+        {/* Patient Link Card - Show if link is available */}
+        {patientLink && (
+          <div style={styles.linkCard}>
+            <div style={styles.linkHeader}>
+              <span style={styles.linkIcon}>📱</span>
+              <span style={styles.linkTitle}>Patient Portal Link</span>
+            </div>
+            <div style={styles.linkUrl}>{patientLink}</div>
+            <button 
+              onClick={copyPatientLink} 
+              style={{
+                ...styles.copyButton,
+                ...(linkCopied ? styles.copyButtonCopied : {})
+              }}
+            >
+              {linkCopied ? '✓ Copied!' : 'Copy Link'}
+            </button>
+            <div style={styles.linkDescription}>
+              Link has been sent to patient's phone. You can also copy it here as a backup.
+            </div>
+          </div>
+        )}
+
         {/* Patient Info Summary */}
         <div style={styles.patientCard}>
           <h2 style={styles.patientName}>Patient: {patientData?.name}</h2>
@@ -549,6 +583,59 @@ const styles = {
     fontSize: '18px',
     fontWeight: '600',
     cursor: 'pointer',
+  },
+  linkCard: {
+    backgroundColor: '#e7f3ff',
+    borderRadius: '16px',
+    padding: '24px',
+    marginBottom: '24px',
+    border: '2px solid #3b9dff',
+    boxShadow: '0 2px 8px rgba(59, 157, 255, 0.15)',
+  },
+  linkHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    marginBottom: '16px',
+  },
+  linkIcon: {
+    fontSize: '24px',
+  },
+  linkTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#1f2937',
+  },
+  linkUrl: {
+    backgroundColor: '#fff',
+    padding: '12px 16px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    color: '#3b9dff',
+    marginBottom: '12px',
+    wordBreak: 'break-all',
+    fontFamily: 'monospace',
+    border: '1px solid #3b9dff',
+  },
+  copyButton: {
+    backgroundColor: '#3b9dff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '10px 24px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    marginBottom: '12px',
+  },
+  copyButtonCopied: {
+    backgroundColor: '#28a745',
+  },
+  linkDescription: {
+    fontSize: '13px',
+    color: '#6b7280',
+    fontStyle: 'italic',
   },
   errorCard: {
     backgroundColor: '#fff',
