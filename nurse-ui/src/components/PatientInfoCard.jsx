@@ -61,12 +61,12 @@ const styles = {
   },
   label: {
     color: '#999',
-    fontSize: '16px',
-    minWidth: '70px',
+    fontSize: '18px',
+    minWidth: '80px',
   },
   input: {
     border: 'none',
-    fontSize: '16px',
+    fontSize: '18px',
     color: '#000',
     fontWeight: '500',
     background: 'transparent',

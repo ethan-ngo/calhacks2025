@@ -14,13 +14,13 @@ export default function NurseForm() {
     heartRate: '71/min',
     temperature: '37.5 Cel',
     respiratoryRate: '13/min',
+    bloodPressure: '120/80',
     painSeverity: '5',
     comments: ''
   })
 
   const [chatMessages] = useState([
-    { sender: 'nurse', text: 'Hi how are you doing?' },
-    { sender: 'patient', text: 'Hey! I am experiencing pain in my left shoulder' }
+    { sender: 'patient', text: 'Hi I am your transcription voice assistant.' }
   ])
 
   const handleInputChange = (e) => {
@@ -36,7 +36,8 @@ export default function NurseForm() {
       current_vitals: [
         `HR: ${patientData.heartRate}`,
         `Temp: ${patientData.temperature}`,
-        `RR: ${patientData.respiratoryRate}`
+        `RR: ${patientData.respiratoryRate}`,
+        `BP: ${patientData.bloodPressure}`
       ],
       current_symptoms: [chatMessages[chatMessages.length - 1].text]
     }

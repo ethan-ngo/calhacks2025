@@ -1,7 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function ChatInterface({ chatMessages }) {
   const [isRecording, setIsRecording] = useState(false)
+  const [barHeights, setBarHeights] = useState([40, 50, 60, 70, 60, 50, 40])
+
+  useEffect(() => {
+    let interval
+    if (isRecording) {
+      interval = setInterval(() => {
+        setBarHeights([
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+          30 + Math.random() * 50,
+        ])
+      }, 150)
+    } else {
+      setBarHeights([40, 50, 60, 70, 60, 50, 40])
+    }
+    return () => clearInterval(interval)
+  }, [isRecording])
 
   return (
     <div style={styles.chatContainer}>
@@ -20,12 +41,13 @@ export default function ChatInterface({ chatMessages }) {
       </div>
 
       <div style={styles.audioVisualization}>
-        {[...Array(7)].map((_, i) => (
+        {barHeights.map((height, i) => (
           <div 
             key={i} 
             style={{
               ...styles.audioBar,
-              height: `${30 + Math.random() * 40}px`
+              height: `${height}px`,
+              ...(isRecording ? styles.audioBarActive : {})
             }}
           />
         ))}
@@ -86,7 +108,10 @@ const styles = {
     width: '8px',
     backgroundColor: '#ccc',
     borderRadius: '4px',
-    transition: 'height 0.2s ease',
+    transition: 'height 0.15s ease-out',
+  },
+  audioBarActive: {
+    backgroundColor: '#3b9dff',
   },
   micButton: {
     width: '80px',

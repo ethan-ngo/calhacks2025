@@ -17,6 +17,19 @@ export default function KeyVitalsCard({ patientData, handleInputChange }) {
           </div>
         </div>
         <div>
+          <div style={styles.vitalLabel}>Blood Pressure</div>
+          <div style={styles.vitalBox}>
+            <span style={styles.icon}>🩸</span>
+            <input 
+              type="text" 
+              name="bloodPressure"
+              value={patientData.bloodPressure}
+              onChange={handleInputChange}
+              style={styles.vitalInput}
+            />
+          </div>
+        </div>
+        <div>
           <div style={styles.vitalLabel}>Temperature</div>
           <div style={styles.vitalBox}>
             <span style={styles.icon}>🌡️</span>
@@ -63,7 +76,7 @@ const styles = {
   },
   vitalsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
     gap: '16px',
   },
   vitalLabel: {
@@ -81,6 +94,7 @@ const styles = {
   },
   icon: {
     fontSize: '20px',
+    flexShrink: 0,
   },
   vitalInput: {
     border: 'none',
@@ -90,6 +104,7 @@ const styles = {
     color: '#000',
     flex: 1,
     outline: 'none',
+    minWidth: 0,
   },
 }
 
