@@ -1,6 +1,8 @@
 import logging
+import json
 from collections.abc import AsyncIterable
 from typing import Annotated, Callable, Optional, cast
+from typing_extensions import TypedDict, NotRequired
 
 from dotenv import load_dotenv
 from pydantic import Field
@@ -18,35 +20,40 @@ from livekit.agents import (
     WorkerOptions,
     cli,
 )
-from livekit.plugins import openai, silero
+from livekit.plugins import openai, silero, assemblyai
 from livekit.plugins.turn_detector.english import EnglishModel
 
 logger = logging.getLogger("structured-output")
 load_dotenv()
 
 ## This example demonstrates how to use structured output from the LLM to control the TTS.
-## The LLM is instructed to provide a TTS directive, which is returned as a ResponseEmotion object.
+## The LLM is instructed to provide a TTS directive, which is returned as a TriageStructuredResponse object.
 ## before generating the response
 
 
-class ResponseEmotion(TypedDict):
-    voice_instructions: Annotated[
-        str,
-        Field(..., description="Concise TTS directive for tone, emotion, intonation, and speed"),
-    ]
-    response: str
-
+class TriageStructuredResponse(TypedDict):
+    name: Optional[str]
+    age: Optional[int]
+    gender: Optional[str]
+    weight: Optional[int]
+    heart_rate: Optional[int]
+    temperature: Optional[float]
+    respiratory_rate: Optional[int]
+    suggested_triage_level: Optional[int]
+    patient_notes: Optional[str]
+    response: Optional[str]
+    voice_instructions: Optional[str]
 
 async def process_structured_output(
     text: AsyncIterable[str],
-    callback: Optional[Callable[[ResponseEmotion], None]] = None,
+    callback: Optional[Callable[[TriageStructuredResponse], None]] = None,
 ) -> AsyncIterable[str]:
     last_response = ""
     acc_text = ""
     async for chunk in text:
         acc_text += chunk
         try:
-            resp: ResponseEmotion = from_json(acc_text, allow_partial="trailing-strings")
+            resp: TriageStructuredResponse = from_json(acc_text, allow_partial="trailing-strings")
         except ValueError:
             continue
 
@@ -65,14 +72,16 @@ async def process_structured_output(
 class MyAgent(Agent):
     def __init__(self) -> None:
         super().__init__(
-            instructions=(
-                "Your name is Echo. You are an extraordinarily expressive voice assistant "
-                "with mastery over vocal dynamics and emotions. Adapt your voice—modulate tone, "
-                "pitch, speed, intonation, and convey emotions such as happiness, sadness, "
-                "excitement, or calmness—to match the conversation context. "
-                "Keep responses concise, clear, and engaging, turning every interaction into a "
-                "captivating auditory performance."
-            ),
+            instructions=
+                "Your name is Apollo. You will listen to the users and fill out the necessary information in TriageStructuredResponse."
+                "You are a specialized Emergency Room (ER) triage monitoring agent trained to assess whether a patient’s condition is improving or worsening."
+                "with that in mind keep your responses concise and to the point."
+                "Keep responses short, direct, and professional."
+                "do not use emojis, asterisks, markdown, or other special characters in your responses."
+                "Maintain a serious, systematic, and calm tone — you are focused on evaluating the patient’s condition accurately."
+                "Listen to the patient’s description of symptoms, pain levels, and any changes since the last check."
+                "Ask one question at a time to determine changes in pain, breathing, consciousness, bleeding, or discomfort."
+                "you will NOT speak to the user through voice, you are only listening.",
             stt=openai.STT(model="gpt-4o-transcribe"),
             llm=openai.LLM(model="gpt-4o-mini"),
             tts=openai.TTS(model="gpt-4o-mini-tts"),
@@ -88,7 +97,7 @@ class MyAgent(Agent):
             chat_ctx=chat_ctx,
             tools=tools,
             tool_choice=tool_choice,
-            response_format=ResponseEmotion,
+            response_format=TriageStructuredResponse,
         ) as stream:
             async for chunk in stream:
                 yield chunk
@@ -96,7 +105,7 @@ class MyAgent(Agent):
     async def tts_node(self, text: AsyncIterable[str], model_settings: ModelSettings):
         instruction_updated = False
 
-        def output_processed(resp: ResponseEmotion):
+        def output_processed(resp: TriageStructuredResponse):
             nonlocal instruction_updated
             if resp.get("voice_instructions") and resp.get("response") and not instruction_updated:
                 # when the response isn't empty, we can assume voice_instructions is complete.
@@ -106,7 +115,9 @@ class MyAgent(Agent):
                     f"Applying TTS instructions before generating response audio: "
                     f'"{resp["voice_instructions"]}"'
                 )
-
+                with open("triage_log.json", "a") as f:
+                    json.dump(resp, f)
+                    f.write("\n")
                 tts = cast(openai.TTS, self.tts)
                 tts.update_options(instructions=resp["voice_instructions"])
 
