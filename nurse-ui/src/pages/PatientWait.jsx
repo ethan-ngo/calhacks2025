@@ -91,7 +91,7 @@ export default function PatientWait() {
         </div>
 
         <div style={styles.positionText}>
-          Current ESI: <span style={styles.positionNumber}>{queuePosition}th</span>
+          Current ESI: <span style={styles.positionNumber}>{patientData.triageScore}</span>
         </div>
 
         <div style={styles.buttonContainer}>

@@ -105,13 +105,14 @@ export default function PatientChat() {
         ← Back
       </button>
       
-      {/* Title */}
-      <div style={styles.titleContainer}>
-        <h1 style={styles.title}>Have your symptoms changed?</h1>
-      </div>
+      <div style={styles.contentWrapper}>
+        {/* Title */}
+        <div style={styles.titleContainer}>
+          <h1 style={styles.title}>Have your symptoms changed?</h1>
+        </div>
 
-      {/* Messages Area */}
-      <div style={styles.chatCard}>
+        {/* Messages Area */}
+        <div style={styles.chatCard}>
         <div style={styles.messagesContainer}>
           {messages.map((message) => (
             <div 
@@ -160,6 +161,7 @@ export default function PatientChat() {
             {isLoading ? '...' : '→'}
           </button>
         </div>
+        </div>
       </div>
     </div>
   )
@@ -173,7 +175,7 @@ const styles = {
     width: '100vw',
     backgroundColor: '#e8eef3',
     fontFamily: 'system-ui, -apple-system, sans-serif',
-    padding: '20px 20px 40px 20px',
+    padding: '20px',
     boxSizing: 'border-box',
   },
   backButton: {
@@ -184,14 +186,21 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     padding: '8px',
-    marginBottom: '30px',
+    marginBottom: '16px',
     display: 'inline-flex',
     alignItems: 'center',
     alignSelf: 'flex-start',
   },
+  contentWrapper: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   titleContainer: {
     textAlign: 'center',
-    marginBottom: '40px',
+    marginBottom: '24px',
   },
   title: {
     fontSize: 'clamp(28px, 6vw, 42px)',

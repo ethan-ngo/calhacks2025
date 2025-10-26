@@ -359,7 +359,7 @@ export default function NurseForm() {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.headerTitle}>Triage Patient Report</h1>
+          <h1 style={styles.headerTitle}>Triage Patient Report</h1>
         <div style={styles.headerButtons}>
           <button onClick={() => navigate('/')} style={styles.backButton}>
             ← Back
