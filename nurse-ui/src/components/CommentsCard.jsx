@@ -6,7 +6,7 @@ export default function CommentsCard({ comments, handleInputChange }) {
         name="comments"
         value={comments}
         onChange={handleInputChange}
-        placeholder="Enter any patient specific   comments here..."
+        placeholder="Enter any patient specific comments here..."
         style={styles.textarea}
       />
     </div>
