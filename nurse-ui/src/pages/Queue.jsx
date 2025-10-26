@@ -45,9 +45,9 @@ export default function Queue() {
     // Initial load
     handleQueueUpdate()
     
-    // Fetch alerts on mount and every 30 seconds
+    // Fetch alerts on mount and every 5 seconds for real-time updates
     fetchAlerts()
-    const alertInterval = setInterval(fetchAlerts, 30000)
+    const alertInterval = setInterval(fetchAlerts, 5000)
     
     window.addEventListener('queueUpdated', handleQueueUpdate)
     
@@ -260,15 +260,27 @@ export default function Queue() {
                           console.log(`   - Has alert: ${hasAlert ? 'YES' : 'NO'}`)
                           console.log(`   - Alert keys: ${Object.keys(alerts).join(', ')}`)
                         }
-                        return hasAlert ? (
+                        if (!hasAlert) return null
+                        
+                        const isImprovement = hasAlert.new_triage > hasAlert.original_triage
+                        
+                        return (
                           <button
                             onClick={(e) => handleAlertClick(patient.patientId, e)}
-                            style={styles.alertBadge}
-                            title="Patient condition changed - Click to review"
+                            style={{
+                              ...styles.alertBadge,
+                              backgroundColor: isImprovement ? '#28a745' : '#ff3b3b',
+                              boxShadow: isImprovement 
+                                ? '0 0 10px rgba(40, 167, 69, 0.5)' 
+                                : '0 0 10px rgba(255, 59, 59, 0.5)'
+                            }}
+                            title={isImprovement 
+                              ? "Patient condition improved - Click to review" 
+                              : "Patient condition worsened - Click to review"}
                           >
-                            ⚠️
+                            {isImprovement ? '✓' : '⚠️'}
                           </button>
-                        ) : null
+                        )
                       })()}
                     </div>
                     <button
@@ -448,20 +460,33 @@ export default function Queue() {
       {/* Alert Modal for Triage Updates */}
       {selectedAlert && (
         <div style={styles.modalOverlay} onClick={closeAlertModal}>
-          <div style={styles.alertModalContent} onClick={(e) => e.stopPropagation()}>
-            <div style={styles.alertModalHeader}>
-              <h2 style={styles.alertModalTitle}>⚠️ Triage Alert</h2>
+          <div style={{
+            ...styles.alertModalContent,
+            borderColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'
+          }} onClick={(e) => e.stopPropagation()}>
+            <div style={{
+              ...styles.alertModalHeader,
+              backgroundColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#fff3f3' : '#f0fdf4',
+              borderBottomColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'
+            }}>
+              <h2 style={{
+                ...styles.alertModalTitle,
+                color: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'
+              }}>
+                {selectedAlert.new_triage < selectedAlert.original_triage ? '⚠️ Triage Alert' : '✅ Condition Improved'}
+              </h2>
               <button onClick={closeAlertModal} style={styles.closeButton}>✕</button>
             </div>
             <div style={styles.modalBody}>
               <div style={{
                 ...styles.alertWarning,
-                backgroundColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#fee' : '#ffe',
-                borderColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ffeb3b',
+                backgroundColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#fee' : '#d4edda',
+                borderColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745',
+                color: selectedAlert.new_triage < selectedAlert.original_triage ? '#856404' : '#155724'
               }}>
                 {selectedAlert.new_triage < selectedAlert.original_triage 
                   ? '🚨 Patient condition has WORSENED - Higher priority needed'
-                  : '📊 Patient condition has changed - Review recommended'
+                  : '✅ Patient condition has IMPROVED - Lower priority suggested'
                 }
               </div>
 
@@ -511,7 +536,7 @@ export default function Queue() {
                         backgroundColor: getTriageColor(selectedAlert.new_triage),
                         boxShadow: selectedAlert.new_triage < selectedAlert.original_triage 
                           ? '0 0 20px rgba(255, 59, 59, 0.5)' 
-                          : '0 4px 12px rgba(0,0,0,0.15)'
+                          : '0 0 20px rgba(40, 167, 69, 0.5)'
                       }}
                     >
                       {selectedAlert.new_triage}
@@ -524,7 +549,7 @@ export default function Queue() {
                   marginTop: '12px',
                   fontSize: '14px',
                   fontWeight: '600',
-                  color: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ff8c3b'
+                  color: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'
                 }}>
                   {selectedAlert.new_triage < selectedAlert.original_triage 
                     ? `↑ Urgency increased by ${selectedAlert.original_triage - selectedAlert.new_triage} level${selectedAlert.original_triage - selectedAlert.new_triage > 1 ? 's' : ''}`
@@ -539,7 +564,7 @@ export default function Queue() {
                   backgroundColor: '#f9fafb',
                   padding: '12px 16px',
                   borderRadius: '8px',
-                  borderLeft: `4px solid ${selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ff8c3b'}`,
+                  borderLeft: `4px solid ${selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'}`,
                   fontSize: '14px',
                   lineHeight: '1.6'
                 }}>
@@ -556,7 +581,10 @@ export default function Queue() {
                 <button onClick={handleRejectAlert} style={styles.rejectButton}>
                   Dismiss Alert
                 </button>
-                <button onClick={handleAcceptAlert} style={styles.acceptButton}>
+                <button onClick={handleAcceptAlert} style={{
+                  ...styles.acceptButton,
+                  backgroundColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#28a745'
+                }}>
                   Accept & Update Triage
                 </button>
               </div>
@@ -931,7 +959,7 @@ const styles = {
   },
   triageArrow: {
     fontSize: '32px',
-    color: '#ff3b3b',
+    color: '#6b7280',
     fontWeight: '600',
   },
   alertActions: {
