@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Queue() {
@@ -17,14 +17,19 @@ export default function Queue() {
   // Fetch alerts from backend
   const fetchAlerts = async () => {
     try {
+      console.log('🔄 Fetching alerts from backend...')
       const response = await fetch('http://127.0.0.1:5000/alerts')
       const data = await response.json()
       
+      console.log('📊 Alert response:', data)
+      
       if (data.success) {
+        console.log('✅ Alerts received:', Object.keys(data.alerts || {}).length, 'alerts')
+        console.log('📋 Alert details:', data.alerts)
         setAlerts(data.alerts || {})
       }
     } catch (error) {
-      console.error('Error fetching alerts:', error)
+      console.error('❌ Error fetching alerts:', error)
     }
   }
 
@@ -32,8 +37,13 @@ export default function Queue() {
   useEffect(() => {
     const handleQueueUpdate = () => {
       const saved = localStorage.getItem('erQueue')
-      setPatients(saved ? JSON.parse(saved) : [])
+      const loadedPatients = saved ? JSON.parse(saved) : []
+      console.log('👥 Queue patients:', loadedPatients.map(p => ({ name: p.name, patientId: p.patientId })))
+      setPatients(loadedPatients)
     }
+    
+    // Initial load
+    handleQueueUpdate()
     
     // Fetch alerts on mount and every 30 seconds
     fetchAlerts()
@@ -94,7 +104,11 @@ export default function Queue() {
         // Update patient in queue with new triage
         const updatedPatients = patients.map(p => 
           p.patientId === selectedAlert.patient_id 
-            ? { ...p, triageLevel: selectedAlert.new_triage }
+            ? { 
+                ...p, 
+                triageLevel: selectedAlert.new_triage,
+                triageLabel: selectedAlert.new_triage_level
+              }
             : p
         )
         setPatients(updatedPatients)
@@ -103,7 +117,7 @@ export default function Queue() {
         // Refresh alerts
         await fetchAlerts()
         closeAlertModal()
-        alert('✅ Triage level updated successfully')
+
       }
     } catch (error) {
       console.error('Error accepting alert:', error)
@@ -218,32 +232,44 @@ export default function Queue() {
           </div>
         ) : (
           <div style={styles.linkedList}>
-            {sortedPatients.map((patient, index) => (
-              <div key={patient.id} style={styles.nodeWrapper}>
-                <div 
-                  style={styles.node} 
-                  onClick={() => handleCardClick(patient)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)'
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 157, 255, 0.15)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)'
-                  }}
-                >
+            {sortedPatients.map((patient, index) => {
+              const showArrow = (index + 1) % 4 !== 0 && index < sortedPatients.length - 1
+              
+              return (
+                <React.Fragment key={patient.id}>
+                  <div 
+                    style={styles.node} 
+                    onClick={() => handleCardClick(patient)}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)'
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 157, 255, 0.15)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)'
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)'
+                    }}
+                  >
                   <div style={styles.nodeHeader}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={styles.nodePosition}>#{index + 1}</span>
-                      {alerts[patient.patientId] && (
-                        <button
-                          onClick={(e) => handleAlertClick(patient.patientId, e)}
-                          style={styles.alertBadge}
-                          title="Patient condition worsened - Click to review"
-                        >
-                          ⚠️
-                        </button>
-                      )}
+                      {(() => {
+                        const hasAlert = alerts[patient.patientId]
+                        if (index === 0) {
+                          console.log(`🔍 Patient: ${patient.name}`)
+                          console.log(`   - patientId: ${patient.patientId}`)
+                          console.log(`   - Has alert: ${hasAlert ? 'YES' : 'NO'}`)
+                          console.log(`   - Alert keys: ${Object.keys(alerts).join(', ')}`)
+                        }
+                        return hasAlert ? (
+                          <button
+                            onClick={(e) => handleAlertClick(patient.patientId, e)}
+                            style={styles.alertBadge}
+                            title="Patient condition changed - Click to review"
+                          >
+                            ⚠️
+                          </button>
+                        ) : null
+                      })()}
                     </div>
                     <button
                       onClick={(e) => handleRemovePatient(patient.id, e)}
@@ -286,13 +312,15 @@ export default function Queue() {
                     </div>
                   </div>
                 </div>
-                {index < sortedPatients.length - 1 && (
-                  <div style={styles.connector}>
-                    <div style={styles.arrow}>→</div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  
+                  {showArrow && (
+                    <div style={styles.arrowConnector}>
+                      →
+                    </div>
+                  )}
+                </React.Fragment>
+              )
+            })}
           </div>
         )}
       </div>
@@ -426,8 +454,15 @@ export default function Queue() {
               <button onClick={closeAlertModal} style={styles.closeButton}>✕</button>
             </div>
             <div style={styles.modalBody}>
-              <div style={styles.alertWarning}>
-                Patient condition has worsened. Review and update triage level.
+              <div style={{
+                ...styles.alertWarning,
+                backgroundColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#fee' : '#ffe',
+                borderColor: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ffeb3b',
+              }}>
+                {selectedAlert.new_triage < selectedAlert.original_triage 
+                  ? '🚨 Patient condition has WORSENED - Higher priority needed'
+                  : '📊 Patient condition has changed - Review recommended'
+                }
               </div>
 
               <div style={styles.detailSection}>
@@ -439,6 +474,16 @@ export default function Queue() {
                 <div style={styles.detailRow}>
                   <span style={styles.detailLabel}>Reported:</span>
                   <span style={styles.detailValue}>{new Date(selectedAlert.timestamp).toLocaleString()}</span>
+                </div>
+                <div style={styles.detailRow}>
+                  <span style={styles.detailLabel}>Acuity:</span>
+                  <span style={{
+                    ...styles.detailValue,
+                    backgroundColor: '#f3f4f6',
+                    padding: '4px 8px',
+                    borderRadius: '6px',
+                    fontWeight: '600'
+                  }}>{selectedAlert.acuity}</span>
                 </div>
               </div>
 
@@ -455,6 +500,7 @@ export default function Queue() {
                     >
                       {selectedAlert.original_triage}
                     </div>
+                    <div style={styles.triageBoxLevel}>{getTriageLabel(selectedAlert.original_triage)}</div>
                   </div>
                   <div style={styles.triageArrow}>→</div>
                   <div style={styles.triageBox}>
@@ -462,7 +508,10 @@ export default function Queue() {
                     <div 
                       style={{
                         ...styles.triageBoxValue,
-                        backgroundColor: getTriageColor(selectedAlert.new_triage)
+                        backgroundColor: getTriageColor(selectedAlert.new_triage),
+                        boxShadow: selectedAlert.new_triage < selectedAlert.original_triage 
+                          ? '0 0 20px rgba(255, 59, 59, 0.5)' 
+                          : '0 4px 12px rgba(0,0,0,0.15)'
                       }}
                     >
                       {selectedAlert.new_triage}
@@ -470,16 +519,37 @@ export default function Queue() {
                     <div style={styles.triageBoxLevel}>{selectedAlert.new_triage_level}</div>
                   </div>
                 </div>
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ff8c3b'
+                }}>
+                  {selectedAlert.new_triage < selectedAlert.original_triage 
+                    ? `↑ Urgency increased by ${selectedAlert.original_triage - selectedAlert.new_triage} level${selectedAlert.original_triage - selectedAlert.new_triage > 1 ? 's' : ''}`
+                    : `↓ Urgency decreased by ${selectedAlert.new_triage - selectedAlert.original_triage} level${selectedAlert.new_triage - selectedAlert.original_triage > 1 ? 's' : ''}`
+                  }
+                </div>
               </div>
 
               <div style={styles.detailSection}>
-                <h3 style={styles.sectionTitle}>Recent Symptoms</h3>
+                <h3 style={styles.sectionTitle}>Alert Summary</h3>
+                <div style={{
+                  backgroundColor: '#f9fafb',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  borderLeft: `4px solid ${selectedAlert.new_triage < selectedAlert.original_triage ? '#ff3b3b' : '#ff8c3b'}`,
+                  fontSize: '14px',
+                  lineHeight: '1.6'
+                }}>
+                  <strong>Primary Concern:</strong> {selectedAlert.reason || 'See symptoms below'}
+                </div>
+              </div>
+
+              <div style={styles.detailSection}>
+                <h3 style={styles.sectionTitle}>Recent Symptoms Reported</h3>
                 <p style={styles.detailText}>{selectedAlert.symptoms}</p>
-              </div>
-
-              <div style={styles.detailSection}>
-                <h3 style={styles.sectionTitle}>Assessment</h3>
-                <p style={styles.detailText}>{selectedAlert.reason}</p>
               </div>
 
               <div style={styles.alertActions}>
@@ -599,22 +669,13 @@ const styles = {
     cursor: 'pointer',
   },
   linkedList: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    display: 'grid',
+    gridTemplateColumns: '1fr 50px 1fr 50px 1fr 50px 1fr',  // Box Arrow Box Arrow Box Arrow Box
     gap: '0',
     paddingBottom: '20px',
-  },
-  nodeWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: '0',
-    marginBottom: '24px',
+    rowGap: '24px',
   },
   node: {
-    width: '240px',
-    minWidth: '240px',
     backgroundColor: '#fff',
     borderRadius: '16px',
     overflow: 'hidden',
@@ -624,6 +685,7 @@ const styles = {
     cursor: 'pointer',
     display: 'flex',
     flexDirection: 'column',
+    minHeight: '180px',
   },
   nodeHeader: {
     padding: '12px 16px',
@@ -899,5 +961,13 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
+  },
+  arrowConnector: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#3b9dff',
+    fontSize: '32px',
+    fontWeight: '300',
   },
 }

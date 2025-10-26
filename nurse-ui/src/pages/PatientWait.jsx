@@ -79,7 +79,7 @@ export default function PatientWait() {
           Hello, Welcome
         </h1>
         <h1 style={styles.name}>
-          to <span style={styles.highlight}>{patientName}</span>
+          <span style={styles.highlight}>{patientName}</span>
         </h1>
 
         <div style={styles.card}>
@@ -91,7 +91,7 @@ export default function PatientWait() {
         </div>
 
         <div style={styles.positionText}>
-          Current Queue Position: <span style={styles.positionNumber}>{queuePosition}th</span>
+          Current ESI: <span style={styles.positionNumber}>{queuePosition}th</span>
         </div>
 
         <div style={styles.buttonContainer}>

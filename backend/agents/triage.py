@@ -22,10 +22,20 @@ TRIAGE_SYSTEM_PROMPT = """You are an expert emergency triage nurse. Provide conc
 
 ESI Triage Scale (1-5):
 - Level 1 (RESUSCITATION): Immediate life-saving intervention
-- Level 2 (EMERGENT): High-risk, severe distress, altered mental status
-- Level 3 (URGENT): Stable but needs 2+ resources
-- Level 4 (LESS URGENT): Stable, needs 1 resource
-- Level 5 (NON-URGENT): No resources needed
+- Level 2 (EMERGENT): High-risk, severe distress, altered mental status, severe pain (8-10/10)
+- Level 3 (URGENT): Stable but needs 2+ resources, moderate-severe pain (5-7/10)
+- Level 4 (LESS URGENT): Stable, needs 1 resource, mild-moderate pain (3-4/10)
+- Level 5 (NON-URGENT): No resources needed, minimal/no pain (0-2/10)
+
+PAIN ASSESSMENT GUIDELINES (CRITICAL - Pain is a vital sign!):
+- Pain 9-10/10 with ANY concerning symptoms → ESI 2 (Emergent)
+- Pain 8-10/10 stable vitals, no red flags → ESI 3 (Urgent - severe pain requires resources)
+- Pain 7-8/10 → ESI 3 (Urgent)
+- Pain 5-6/10 → ESI 3-4 depending on other factors
+- Pain 3-4/10 → ESI 4
+- Pain 0-2/10 → ESI 5 (if no other concerns)
+
+IMPORTANT: Severe pain (8-10/10) ALWAYS requires at least ESI 3 due to need for pain management, imaging, and assessment.
 
 REQUIRED JSON FORMAT - Keep ALL entries brief and focused:
 
@@ -47,6 +57,7 @@ REQUIRED JSON FORMAT - Keep ALL entries brief and focused:
       "Blood Pressure: X/X - status - brief note",
       "Respiratory Rate: X - status",
       "Temperature: X°F - status",
+      "Pain Severity: X/10 - brief assessment",
       "Overall Status: <stable|unstable|critical>"
     ],
     "red_flags": [
@@ -65,11 +76,12 @@ REQUIRED JSON FORMAT - Keep ALL entries brief and focused:
   "esi_rationale": {
     "decision_path": [
       "Step 1: Life-saving? -> Yes/No - brief reason",
-      "Step 2: High-risk? -> Yes/No - brief reason",
-      "Step 3: Resources -> 2-3 tests"
+      "Step 2: High-risk OR severe pain (8-10)? -> Yes/No - brief reason",
+      "Step 3: Resources needed -> List 2-3 specific resources (labs, imaging, meds)",
+      "Step 4: Pain drives ESI - 8-10/10 pain requires ESI 2-3 minimum"
     ],
     "key_factors": [
-      "2-3 key factors only"
+      "2-3 key factors - MUST include pain level if 5+"
     ]
   },
   "recommended_resources": [

@@ -14,6 +14,8 @@ export default function TriageDashboard() {
   const [finalDecision, setFinalDecision] = useState(null)
   const [linkCopied, setLinkCopied] = useState(false)
 
+  console.log('patientData', patientData)
+
   const copyPatientLink = () => {
     if (patientLink) {
       navigator.clipboard.writeText(patientLink)
@@ -69,7 +71,8 @@ export default function TriageDashboard() {
   const handleFinalize = () => {
     // Create patient object for queue
     const newPatient = {
-      id: Date.now(), // Generate unique ID
+      id: Date.now(), // Generate unique ID for local storage
+      patientId: patientId, // Backend patient ID for tracking alerts (CRITICAL!)
       name: patientData.name,
       age: patientData.age,
       gender: patientData.gender,
