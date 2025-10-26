@@ -90,7 +90,7 @@ export default function NurseForm() {
         />
 
         <div style={styles.buttonContainer}>
-          <button onClick={() => navigate('/queue')} style={styles.backButton}>
+          <button onClick={() => navigate('/')} style={styles.backButton}>
             ← Back
           </button>
           <button onClick={handleSubmit} style={styles.submitButton}>
