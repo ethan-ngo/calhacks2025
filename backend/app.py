@@ -28,6 +28,15 @@ AGENTS = {
     "patient": "http://127.0.0.1:8001"
 }
 
+# Root endpoint for health checks
+@app.route('/')
+def home():
+    return jsonify({
+        "status": "ok",
+        "message": "TriageFlow API is running",
+        "version": "1.0.0"
+    })
+
 # In-memory storage
 patient_histories = {}  # For chat history
 patient_data_store = {}  # For patient information from nurse dashboard
