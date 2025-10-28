@@ -284,7 +284,7 @@ def nurse_submit():
             'created_at': datetime.now().isoformat()
         }
         # Generate patient wait link
-        patient_link = f"http://localhost:5173/patientwait/{patient_id}"
+        patient_link = f"https://calhacks2025-nine.vercel.app/patientwait/{patient_id}"
 
         print(f"✅ Patient {patient_name} registered with ID: {patient_id}")
 
