@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { API_BASE_URL } from '../config'
 
 // Backend API endpoint
-const API_ENDPOINT = 'http://127.0.0.1:5000/patient/chat'
+const API_ENDPOINT = `${API_BASE_URL}/patient/chat`
 
 export default function PatientChat() {
   const navigate = useNavigate()

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { API_BASE_URL } from '../config'
 
 export default function PatientWait() {
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ export default function PatientWait() {
 
   const fetchPatientData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/patient/data/${patientId}`)
+      const response = await fetch(`${API_BASE_URL}/patient/data/${patientId}`)
       const data = await response.json()
       
       if (data.success) {

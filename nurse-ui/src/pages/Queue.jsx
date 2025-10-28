@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE_URL } from '../config'
 
 export default function Queue() {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ export default function Queue() {
   const fetchAlerts = async () => {
     try {
       console.log('🔄 Fetching alerts from backend...')
-      const response = await fetch('http://127.0.0.1:5000/alerts')
+      const response = await fetch(`${API_BASE_URL}/alerts`)
       const data = await response.json()
       
       console.log('📊 Alert response:', data)
@@ -92,7 +93,7 @@ export default function Queue() {
     if (!selectedAlert) return
     
     try {
-      const response = await fetch(`http://127.0.0.1:5000/alerts/${selectedAlert.patient_id}`, {
+      const response = await fetch(`${API_BASE_URL}/alerts/${selectedAlert.patient_id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'accept' })
@@ -129,7 +130,7 @@ export default function Queue() {
     if (!selectedAlert) return
     
     try {
-      const response = await fetch(`http://127.0.0.1:5000/alerts/${selectedAlert.patient_id}`, {
+      const response = await fetch(`${API_BASE_URL}/alerts/${selectedAlert.patient_id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'reject' })

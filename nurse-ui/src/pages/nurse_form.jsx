@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_BASE_URL } from '../config'
 import PatientInfoCard from '../components/PatientInfoCard'
 import PainSeverityCard from '../components/PainSeverityCard'
 import KeyVitalsCard from '../components/KeyVitalsCard'
@@ -87,7 +88,7 @@ export default function NurseForm() {
 
     try {
       // Use Flask backend endpoint instead of calling agent directly
-      const response = await fetch('http://127.0.0.1:5000/nurse/triage', {
+      const response = await fetch(`${API_BASE_URL}/nurse/triage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -104,7 +105,7 @@ export default function NurseForm() {
         console.log('✅ Triage result:', result)
         
         // Save patient data and send link via SMS
-        const submitResponse = await fetch('http://127.0.0.1:5000/nurse/submit', {
+        const submitResponse = await fetch(`${API_BASE_URL}/nurse/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -176,7 +177,7 @@ export default function NurseForm() {
     console.log('🤖 Processing transcription with AI:', text)
     
     try {
-      const response = await fetch('http://127.0.0.1:5000/voice/process', {
+      const response = await fetch(`${API_BASE_URL}/voice/process`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ transcription: text })
